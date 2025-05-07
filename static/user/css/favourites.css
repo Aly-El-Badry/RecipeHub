@@ -1,0 +1,107 @@
+:oot{
+    --sidebar-width: 250px;
+}
+.main {
+    margin: auto; 
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.resipes {
+    background: white;
+    border-radius: 9px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 20px;
+    text-decoration: none;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    flex: 1 1 calc(50% - 30px); 
+    min-width: 250px; 
+    max-width: 100%; 
+}
+
+.resipes:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.foodimage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid goldenrod;
+    margin-right: 25px;
+    flex-shrink: 0;
+}
+
+.resipes h1 {
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    text-align: left;
+    color: #333;
+    flex-grow: 1;
+    word-break: break-word; 
+}
+
+.remove{
+    background-color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    
+}
+.removebutton{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+
+}
+.removebutton:hover {
+    transform: translateY(-5px);
+    
+}
+
+.no-favorites {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.removebutton i {
+    color: #dc3545;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.removebutton:hover i {
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .resipes {
+        width: 100%; 
+    }
+    
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+}

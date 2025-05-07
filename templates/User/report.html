@@ -1,0 +1,74 @@
+
+<!----------------------------- author : Rana Tarek Ahmed ------------------------------------->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Report - RecipeFinder</title>
+        <!--------------------------------------------- CSS  --------------------------------------------------------->
+        <link rel="stylesheet" href="../../static/admin/css/report.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+        <!--------------------------------------------- End CSS  --------------------------------------------------------->
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search recipes...">
+                    </div>
+                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                </div>
+            </div>
+        </nav>
+        <div class="Structure">
+            <div class="ReportBox">
+                <h3 class="ReportTitle">Report a problem</h3>
+                <form id="reportForm" class="report-form">
+                    <div class="form-group">
+                        <label for="reportType">Type of Report*</label>
+                        <select class="cust-input" id="reportType" required>
+                            <option value="" disabled selected>Select report type</option>
+                            <option value="incorrect-info">Incorrect Recipe Information</option>
+                            <option value="missing-recipe">Missing Recipe</option>
+                            <option value="technical-issue">Technical Issue</option>
+                            <option value="copyright">Copyright Concern</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description of the Problem*</label>
+                        <textarea class="cust-input" id="description" rows="5" required placeholder="Please describe the issue in detail..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="screenshot">Screenshot (optional)</label>
+                        <input type="file" id="screenshot" class="cust-input" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email (optional)</label>
+                        <input class="cust-input" type="email" id="email" placeholder="user@example.com">
+                        <small>If you'd like us to follow up with you</small>
+                    </div>
+
+                    <button type="submit" class="Button">Submit Report</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="../../static/user/js/report.js"></script>
+    </body>
+</html>

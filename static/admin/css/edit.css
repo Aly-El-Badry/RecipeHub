@@ -1,0 +1,169 @@
+ /* Root Variables */
+:root {
+    --primary-color: #a3a3fd;
+    --secondary-color: #f5f2f9;
+    --accent-color: #8f8fe0;
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --gradient-primary: linear-gradient(135deg, #a3a3fd 0%, #8f8fe0 100%);
+}
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--secondary-color);
+    min-height: 100vh;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.Form {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    background: var(--white);
+    padding: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tags {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.input, .inputLetters {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: var(--white);
+    transition: var(--transition-normal);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.input:focus, .inputLetters:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.text {
+    resize: none;
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: var(--white);
+    transition: var(--transition-normal);
+    margin-bottom: 1.5rem;
+    min-height: 150px;
+    font-size: 1rem;
+}
+
+.text:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.buttons {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--gradient-primary);
+    color: var(--white);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.buttons:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+#submission, #cancelBtn {
+    margin-top: 1.5rem;
+}
+
+.IngredientContainer_1 {
+    background: var(--secondary-color);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--secondary-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-col {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-actions .buttons {
+    flex: 1;
+}
+
+.full-width {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .Form {
+        padding: 1.5rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .form-col {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}

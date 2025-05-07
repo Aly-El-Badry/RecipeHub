@@ -1,0 +1,218 @@
+<!--
+@ File           :    signup.html
+@ Description    :    Contains the sign up form
+@ Author         :    Youssef Elebiary
+-->
+
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>RecipeHub - Sign up</title>
+        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="This is the sign up page for RecipeHub, a recipe finder" />
+        <!--    CSS File    -->
+        <link href="../../static/accounts/css/auth.css" rel="stylesheet" />
+        <style>
+            body {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                width: 100%;
+            }
+            .form-cont {
+                width: 50%;
+                height: fit-content;
+                padding: 0 0 0.75rem 0;
+                margin-top: 2rem;
+            }
+            .site-name-cont {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .site-name {
+                font-size: 5rem;
+                font-weight: bolder;
+            }
+            .slogan {
+                font-size: 1.5rem;
+                font-weight: normal;
+                color: #333;
+            }
+            .site-name-cont {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 5%;
+            }
+            .slogan {
+                margin-top: 1%;
+                font-size: 1.75rem;
+                font-weight: bold;
+                font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+            }
+
+            /* Responsive styles */
+            @media screen and (max-width: 1200px) {
+                .site-name {
+                    font-size: 4rem;
+                }
+                .slogan {
+                    font-size: 1.5rem;
+                }
+            }
+
+            @media screen and (max-width: 992px) {
+                body {
+                    flex-direction: column;
+                    height: auto;
+                    padding: 2rem 0;
+                }
+                .site-name-cont {
+                    width: 100%;
+                    height: auto;
+                    margin-bottom: 2rem;
+                }
+                .form-cont {
+                    width: 80%;
+                    height: auto;
+                }
+                .site-name {
+                    font-size: 3.5rem;
+                }
+                .slogan {
+                    font-size: 1.3rem;
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+
+                .slogan {
+                    font-size: 1.2rem;
+                }
+            }
+
+            @media screen and (max-width: 576px) {
+                
+                .site-name {
+                    font-size: 2.5rem;
+                }
+                .slogan {
+                    font-size: 1.1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="site-name-cont">
+            <h1 class="site-name" style="margin-bottom: 2.5%;">
+                RecipeHub
+            </h1>
+            <h2 class="slogan">
+                Every Dish Tells a Story 
+            </h2>
+            
+        </div>
+
+        <div class="form-cont">
+            <form method="post" id="form" style="width: fit-content;">
+                <!--    First & Last Name-->
+                <div class="form-row">
+                    <div class="form-item" id="firstNameCont">
+                        <label for="FirstName" class="text-label">First Name</label>
+                        <input name="FirstName" id="FirstName" class="text-field" type="text" maxlength="20" minlength="3" placeholder="First Name" />
+                    </div>
+                    <div class="form-item" id="lastNameCont">
+                        <label for="LastName" class="text-label" style="margin-left: 0rem;">Last Name</label>
+                        <input name="LastName" id="LastName" class="text-field" type="text" maxlength="20" minlength="3" placeholder="Last Name" />
+                    </div>
+                </div>
+                <!--    Username    -->
+                <div class="form-row">
+                    <div class="form-item" id="usernameCont">
+                        <label for="username" class="text-label">Username</label>
+                        <input name="username" id="username" class="text-field" type="text" placeholder="Username" minlength="4" maxlength="22"/>
+                    </div>
+                </div>
+                <!--    Email    -->
+                <div class="form-row">
+                    <div class="form-item" id="emailCont">
+                        <label for="email" class="text-label">Email</label>
+                        <input name="email" id="email" class="text-field" type="email" placeholder="Email"/>
+                    </div>
+                </div>
+                <!--    Password    -->
+                <div class="form-row">
+                    <div class="form-item" id="passwordCont">
+                        <label for="password" class="text-label">Password</label>
+                        <input name="password" id="password" class="text-field" type="password" placeholder="Password" minlength="8"/>
+                    </div>
+                </div>
+                <!--    Confirm Password    -->
+                <div class="form-row">
+                    <div class="form-item" id="confirmPassCont">
+                        <label for="confirmPassword" class="text-label">Confirm Password</label>
+                        <input name="confrimPassword" id="confirmPassword" class="text-field" type="password" placeholder="Password" minlength="8"/>
+                    </div>
+                </div>
+                <!--    Date of Birth    -->
+                <div class="form-row">
+                    <div class="form-item" id="birthDateCont">
+                        <label for="birthDate" class="text-label">Date of Birth</label>
+                        <input name="birthDate" id="birthDate" class="text-field" type="date"/>
+                    </div>
+                </div>
+                <!--    Type    -->
+                <div class="form-row">
+                    <div class="form-item" id="typeCont" style="margin-top: 0;">
+                        <div class="radio-cont">
+                            <label for="accType" class="text-label">Type</label>
+                            <label class="radio-item">
+                                <input name="accType" value="user" type="radio"/>
+                                User
+                            </label>
+                            <label class="radio-item">
+                                <input name="accType" value="admin" type="radio" />
+                                Admin
+                            </label>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--    Terms & Conditions    -->
+                <div class="form-row">
+                    <div class="form-item">
+                        <div style="display: flex;" id="termsCont">
+                            <label for="terms" class="checkbox-item">
+                                <input type="checkbox" id="terms" />
+                                <p id="termsText">I agree to the &nbsp;<a href="#" class="hyperlink">terms and conditions</a>.</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--    Submit    -->
+                <div class="form-row">
+                    <div class="form-item form-btn" style="margin-top: 0;">
+                        <button type="submit" class="submit-btn">Sign up</button>
+                    </div>                    
+                </div>
+                <!--    Login    -->
+                <div class="form-row">
+                    <div class="form-item" style="margin-top: 0;">
+                        <span class="footer-text">Already have an account? &nbsp;<a href="./login.html" class="hyperlink">Login</a></span>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        <!--    JavaScript    -->
+        <script type="module" src="../../static/accounts/js/signup.js"></script>
+    </body>
+</html>

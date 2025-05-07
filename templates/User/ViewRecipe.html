@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View the recipe</title>
+    <link rel="stylesheet" href="../../static/user/css/ViewRecipe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../static/components/css/navbar.css">
+    <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+            </a>
+            <button class="menu-toggle">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="nav-menu">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search recipes...">
+                </div>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="report.html" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+            </div>
+        </div>
+    </nav>
+    <div class="recipe-container">
+        <div class="recipe-image" id="recipeImage"></div>
+        <div class="recipe-content">
+            <div class="recipe-header">
+                <h1 id="recipeTitle"></h1>
+                <div class="recipe-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="Time"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-utensils"></i>
+                        <span id="crs"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span id="type"></span>
+                    </div>
+                    <div class="meta-item favorite-btn" id="favoriteBtn">
+                        <i class="far fa-heart"></i>
+                        <span>Add to Favorites</span>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-section">
+                <h2 class="section-title">Ingredients</h2>
+                <div class="ingredients-grid" id="ingredients">
+                    <ul id="List"></ul>
+                </div>
+            </div>
+
+            <div class="recipe-section">
+                <h2 class="section-title">Steps</h2>
+                <div class="steps-list" id="orderedSteps">
+                    <ol id="orderedList"></ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../static/user/js/ViewRecipe.js"></script>
+</body>
+</html>

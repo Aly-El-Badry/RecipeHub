@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecipeHub</title>
+    <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../static/user/css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-utensils"></i>RecipeHub
+            </a>
+            <button class="menu-toggle">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="nav-menu">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search recipes...">
+                    <div class="search-results-dropdown"></div>
+                </div>
+                
+                <a href="report.html" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                <a href="profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="../accounts/login.html" class="nav-link" onclick="localStorage.removeItem('currentUser');"><i class="fas fa-cog"></i> Log out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dash-board">
+        <div class="sidebar">
+            <h3 class="Filter-title"><div>Filters</div><i class="fas fa-arrow-down filter-arrow"></i></h3>
+            <div class="sidebar-section">
+                <h3 class="filter-sub-title">Food Types <i class="fas fa-arrow-down filter-arrow"></i></h3>
+                <ul class="sidebar-menu">
+                    <li><button class="filter-btn-sidebar all-recipes active" href="#"><i class="fas fa-utensils"></i> All Recipes</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-pizza-slice"></i> Italian</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-fish"></i> Seafood</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-drumstick-bite"></i> Meat</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-leaf"></i> Vegetarian</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-ice-cream"></i> Desserts</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-bread-slice"></i> Baking</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-glass-martini-alt"></i> Beverages</button></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="filter-sub-title">Common Ingredients <i class="fas fa-arrow-down filter-arrow"></i></h3>
+                <ul class="sidebar-menu gradient-list">
+                    <li><button class="filter-btn-sidebar all-recipes active" href="#"><i class="fas fa-utensils"></i> All Ingredients</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-egg"></i> Eggs</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-cheese"></i> Cheese</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-carrot"></i> Vegetables</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-apple-whole"></i> Fruits</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-fish"></i> Fish</button></li>
+                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-drumstick-bite"></i> Chicken</button></li>
+                </ul>
+            </div>
+        </div>
+        
+        <main class="main-content">
+            <div class="content-header">
+                <h2>Featured Recipes</h2>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active all-recipes">All</button>
+                    <button class="filter-btn">Popular</button>
+                    <button class="filter-btn">Recent</button>
+                    <button class="filter-btn">Quick & Easy</button>
+                    <button class="filter-btn">Vegetarian</button>
+                    <button class="filter-btn">Desserts</button>
+                    <button class="filter-btn">Breakfast</button>
+                    <button class="filter-btn">Dinner</button>
+                </div>
+            </div>
+
+            <div class="recipe-grid"></div>
+
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h5>About RecipeHub</h5>
+                <p>Youtimate destination for discovering and sharing delicious recipes from around the world.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="profile_page.html">Profile</a></li>
+                    <li><a href="report.html">Report</a></li>
+                    <li><a href="">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Newsletter</h5>
+                <p>Subscribe to our newsletter for new recipes and cooking tips!</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RecipeHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../../static/user/js/dashboard.js"></script>
+    <script type="module" src="../../static/components/js/recipe_manager.js"></script>
+</body>
+</html>

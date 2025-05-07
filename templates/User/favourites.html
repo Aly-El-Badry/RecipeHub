@@ -1,0 +1,118 @@
+<!----------------------------- author : Malak Mohamed Refaat ------------------------------------->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Favorites</title>
+        <link rel="stylesheet" href="../../static/user/css/profile_page.css">
+        <link rel="stylesheet" href="../../static/user/css/favourites.css">
+        <link rel="icon" type="image/x-icon" href="../../static/images/chef.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+    </head>
+    <body>
+        <!-- <div class="sidebar">
+            <div class="sidebar-header">
+                
+                <h2 id="fav">Favourites</h2>
+            
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="act"><a href="./profile_page.html"> Profile</a></li>
+                    <li class="act"><a href="#">Favourites</a></li>
+                    <li class="log-out"><a href="#"> Log out</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Recipes</p>
+                
+            </div>
+        </div> -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search recipes...">
+                    </div>
+                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                </div>
+            </div>
+        </nav>
+        <div class="main" id="favoritesContainer">
+            <!-- Favorites will be dynamically added here -->
+        </div>
+        <script type="module">
+            import * as man from "../../static/components/js/recipe_manager.js";
+            document.addEventListener('DOMContentLoaded', function() {
+                const favoritesContainer = document.getElementById('favoritesContainer');
+                const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
+                const favorites = currentUser?.favorites || [];
+
+                if (favorites.length === 0) {
+                    favoritesContainer.innerHTML = '<p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>';
+                    return;
+                }
+
+                favorites.forEach(recipe => {
+                    const recipeElement = document.createElement('a');
+                    recipeElement.className = 'resipes';
+                    recipeElement.href = 'ViewRecipe.html';
+                    recipeElement.target = '_blank';
+                    recipeElement.innerHTML = `
+                        <img class="foodimage" src="${recipe.image}" alt="${recipe.name}">
+                        <h1 class="resipename">${recipe.name}</h1>
+                        <button class="removebutton" onclick="removeRecipe(event, '${recipe.id}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+
+                    recipeElement.addEventListener('click', function(e) {
+                        if (!e.target.classList.contains('removebutton')) {
+                            localStorage.setItem('currentRecipe', JSON.stringify(recipe));
+                        }
+                    });
+
+                    favoritesContainer.appendChild(recipeElement);
+                });
+            });
+
+            function removeRecipe(event, recipeId) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                if (confirm("Are you sure you want to remove this recipe from favorites?")) {
+                    const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
+                    currentUser.favorites = currentUser.favorites.filter(recipe => recipe.id.toString() !== recipeId.toString());
+                    localStorage.setItem('RecipeHubUser', JSON.stringify(currentUser));
+                    
+                    // Remove the recipe element from the DOM
+                    const recipeElement = event.target.closest('.resipes');
+                    recipeElement.style.transition = "opacity 0.3s";
+                    recipeElement.style.opacity = "0";
+                    
+                    setTimeout(() => {
+                        recipeElement.remove();
+                        // If no favorites left, show message
+                        if (document.querySelectorAll('.resipes').length === 0) {
+                            document.getElementById('favoritesContainer').innerHTML = 
+                                '<p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>';
+                        }
+                    }, 300);
+                }
+            }
+            if (document.querySelector('.search-input')) {
+                console.log("FBHSJDF");
+                man.initializeSearch();
+            }
+        </script>
+    </body>
+</html>
