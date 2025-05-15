@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="You can edit your recipes from here"/>
+        <title>Edit Recipe</title>
+        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+        <link rel="stylesheet" href="../../static/admin/css/edit.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+        <style>
+            .search-container {
+                position: relative;
+                margin: 20px 0;
+            }
+            .search-results {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                max-height: 300px;
+                overflow-y: auto;
+                z-index: 1000;
+                display: none;
+            }
+            .search-result-item {
+                padding: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 1px solid #eee;
+            }
+            .search-result-item:hover {
+                background: #f5f5f5;
+            }
+            .search-result-item img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .recipe-info {
+                flex: 1;
+            }
+            .recipe-info h4 {
+                margin: 0;
+                color: #333;
+            }
+            .recipe-info p {
+                margin: 5px 0 0;
+                color: #666;
+                font-size: 0.9em;
+            }
+            .form-section {
+                display: none;
+            }
+            .form-section.active {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <!--NAV BAR PART -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search recipes...">
+                    </div>
+                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                </div>
+            </div>
+        </nav>
+
+        <!--SEARCH SECTION-->
+        <div class="Form">
+            <h2>Edit Recipe</h2>
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" id="recipeSearch" class="input" placeholder="Search for a recipe to edit..." style="width: 100%;">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </div>
+
+            <!--EDIT FORM SECTION-->
+            <div id="editForm" class="form-section">
+                <form class="FORM" method="post" action="">
+                    <input type="hidden" id="recipeId" name="recipeId">
+                    
+                    <label class="tags">Recipe Name:</label><br>
+                    <input class="inputLetters" type="text" id="recipeName" name="name" required><br><br>
+                    
+                    <label class="tags">Course name:</label><br>
+                    <select class="input" id="courseType" name="courseType" style="font-style: italic;">
+                        <option value="appetizers">Appetizers</option>
+                        <option value="main course">Main Course</option>
+                        <option value="dessert">Dessert</option>
+                    </select><br><br>
+
+                    <label class="tags">Time cooking (minutes):</label><br>
+                    <input class="input" type="number" id="cookingTime" name="time" required><br><br>
+
+                    <label class="tags">Food Type:</label><br>
+                    <input class="inputLetters" type="text" id="foodType" name="foodType" required><br><br>
+
+                    <!--INGREDIENTS SECTION-->
+                    <label class="tags">Ingredients:</label><br><br>
+                    <div id="ingredientsContainer">
+                        <!-- Ingredients will be dynamically added here -->
+                    </div>
+                    <input class="buttons" id="addIngredient" type="button" value="Add Another Ingredient"><br><br>
+                    
+                    <label class="tags">Description:</label><br>
+                    <textarea class="text" id="description" name="description" rows="10" cols="30" required></textarea><br><br>
+
+                    <label class="tags">Recipe Image:</label><br>
+                    <input class="buttons" type="file" id="recipeImage" name="image" accept="image/*"><br><br>
+                    
+                    <input id="submitBtn" class="buttons" type="button" value="Save Changes">
+                    <input id="cancelBtn" class="buttons" type="button" value="Cancel">
+                </form>
+            </div>
+        </div>
+        <script src="../../static/admin/js/EditRecipe.js"></script>
+    </body>
+</html>
