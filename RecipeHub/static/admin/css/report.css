@@ -1,0 +1,124 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f5f5fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #967bb6; /* Lavender shade */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+}
+
+.ReportTitle {
+    color: #967bb6; /* Lavender shade */
+    margin: 0 0 25px 0;
+    font-size: 1.8rem;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e6e6fa; /* Light lavender */
+}
+
+.ReportBox {
+    background: white;
+    padding: 30px;
+    padding-top: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(150, 123, 182, 0.1); /* Lavender tinted shadow */
+    border: 1px solid #e6e6fa; /* Light lavender */
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.cust-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d8bfd8; /* Light lavender border */
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s, box-shadow 0.3s;
+    margin-bottom: 5px;
+    background-color: #fafaff; /* Very light lavender */
+}
+
+.cust-input:focus {
+    border-color: #967bb6; /* Lavender */
+    box-shadow: 0 0 0 2px rgba(150, 123, 182, 0.2);
+    outline: none;
+}
+
+.Button {
+    background-color: #967bb6; /* Lavender */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.Button:hover {
+    background-color: #7d5a9e; /* Darker lavender */
+    transform: translateY(-1px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .Structure {
+        padding: 15px;
+    }
+
+    .ReportBox {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+        padding: 10px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Structure {
+        padding: 10px;
+    }
+
+    .ReportBox {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    small {
+        font-size: 0.7rem;
+    }
+}

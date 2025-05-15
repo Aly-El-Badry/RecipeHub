@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RecipeHub - All Recipes</title>
+    <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/admin/css/recipes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../static/components/css/navbar.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="../admin/dashboard.html">
+                <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+            </a>
+            <button class="menu-toggle">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="nav-menu">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search recipes...">
+                </div>
+                <a href="../admin/dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="Add-Recipe.html" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
+                <a href="Edit-Recipe.html" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
+                <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="../accounts/login.html" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="recipes-container">
+        <div class="filters-section">
+            <div class="filter-group">
+                <label for="category-filter">Category:</label>
+                <select id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="snacks">Snacks</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="difficulty-filter">Difficulty:</label>
+                <select id="difficulty-filter">
+                    <option value="all">All Levels</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="time-filter">Time:</label>
+                <select id="time-filter">
+                    <option value="all">Any Time</option>
+                    <option value="quick">Quick (under 30 min)</option>
+                    <option value="medium">Medium (30-60 min)</option>
+                    <option value="long">Long (over 60 min)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="recipes-grid" id="recipes-grid">
+            <!-- Recipe cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script src="../../static/admin/js/recipes.js"></script>
+</body>
+</html> 

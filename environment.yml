@@ -1,0 +1,30 @@
+name: recipe-env
+channels:
+  - defaults
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+  - https://repo.anaconda.com/pkgs/msys2
+dependencies:
+  - asgiref=3.8.1=py313haa95532_0
+  - bzip2=1.0.8=h2bbff1b_6
+  - ca-certificates=2025.2.25=haa95532_0
+  - django=5.2=py313haa95532_0
+  - expat=2.7.1=h8ddb27b_0
+  - libffi=3.4.4=hd77b12b_1
+  - libmpdec=4.0.0=h827c3e9_0
+  - openssl=3.0.16=h3f729d1_0
+  - pip=25.1=pyhc872135_2
+  - python=3.13.2=hadb2040_100_cp313
+  - python_abi=3.13=0_cp313
+  - setuptools=78.1.1=py313haa95532_0
+  - sqlite=3.45.3=h2bbff1b_0
+  - sqlparse=0.5.2=py313haa95532_0
+  - tk=8.6.14=h0416ee5_0
+  - typing_extensions=4.12.2=py313haa95532_0
+  - tzdata=2025b=h04d1e81_0
+  - vc=14.42=haa95532_5
+  - vs2015_runtime=14.42.34433=hbfb602d_5
+  - wheel=0.45.1=py313haa95532_0
+  - xz=5.6.4=h4754444_1
+  - zlib=1.2.13=h8cc25b3_1
+prefix: D:\miniconda3\envs\recipe-env

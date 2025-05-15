@@ -1,0 +1,252 @@
+body {
+    background: linear-gradient(135deg, #f5f2f9 0%, #a3a3fd 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 95vh;
+    margin: 0;
+}
+
+.site-name {
+    justify-content: center;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 300%;
+    font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+    color: rgb(135, 135, 183);
+    margin-bottom: 8%;  
+}
+
+.form-cont {
+    border: 2px solid lavenderblush;
+    background-color: rgba(255, 240, 245, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 0 5px 2px rgb(172, 172, 220);
+    padding: 2rem 1rem ;
+    backdrop-filter: blur(10rem);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 25rem;
+    height: 100%;
+}
+
+.form-row {
+    display: flex;
+    width: 25rem;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 1rem;
+    margin-top: 0.75rem;
+}
+
+.form-btn {
+    align-items: center;
+}
+
+.text-field {
+    border-radius: 5px;
+    border: 1px rgb(170, 170, 170) solid;
+    box-shadow: 0 0 10px 1px lightgray;
+    font-size: medium;
+    font-weight: normal;
+    height: 2rem;
+    margin-top: 0.2rem;
+    padding-left: 0.25rem;
+    width: 100%;
+    outline: none;
+}
+
+.text-field:focus {
+    border: 2px rgb(185, 185, 185) solid;
+    box-shadow: 0 0 10px 3px rgb(180, 180, 180);
+}
+
+.text-field::placeholder {
+    color: rgba(128, 128, 128, 0.4);
+    font-size: small;
+    padding-left: 0.25rem;
+}
+
+.text-label {
+    color: rgba(128, 128, 128, 0.625);
+    font-size: larger;
+    font-weight: bolder;
+    align-items: center;
+    margin-bottom: 0rem;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+    color: rgba(128, 128, 128, 0.9);
+    padding-left: 0.25rem;
+}
+
+.radio-cont {
+    display: inline-flex;
+    align-items: center;
+    gap: 6rem;
+}
+
+.radio-item {
+    color: rgb(100, 100, 100);
+    font-size: medium;
+    align-items: center;
+    margin: auto;
+    display: flex;
+}
+
+.checkbox-item {
+    display: inline-flex;
+    font-size: smaller;
+    align-items: center;
+    margin-top: 0rem;
+}
+
+.hyperlink {
+    text-decoration: none;
+    color: rgb(90, 90, 250);
+}
+
+.hyperlink:visited {
+    color: rgb(30, 30, 250);
+}
+
+.hyperlink:hover {
+    color: rgb(30, 30, 250);
+}
+
+.hyperlink:active {
+    color: rgb(30, 30, 250);
+}
+
+.hyperlink:focus {
+    outline: none;
+}
+
+.submit-btn {
+    width: 40%;
+    border-radius: 7px;
+    border: 2px rgb(210, 210, 210) solid;
+    background-color: rgb(135, 135, 183);
+    box-shadow: 0 0 7px 3px lavender;
+    font-size: larger;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: white;
+    height: 3rem;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    background-color: rgb(100, 100, 150);
+    box-shadow: 0 0 7px 3px rgb(100, 100, 150);
+}
+
+.footer-text {
+    font-size: smaller;
+    font-weight: normal;
+    color: rgb(128, 128, 128);
+}
+
+.email-btn-cont {
+    gap: 0rem;
+}
+
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .form-cont {
+        max-width: 30rem;
+    }
+}
+
+/* Medium devices (tablets, 992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .form-cont {
+        max-width: 28rem;
+    }
+}
+
+/* Small devices (tablets, 768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .form-cont {
+        max-width: 26rem;
+    }
+    
+    .site-name {
+        font-size: 2.8rem;
+    }
+}
+
+/* Extra small devices (phones, 576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .form-cont {
+        max-width: 24rem;
+        padding: 1.8rem 2.2rem;
+    }
+    
+    .site-name {
+        font-size: 2.5rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .form-item {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .radio-cont {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Extra extra small devices (phones, 575px and down) */
+@media (max-width: 575px) {
+    .form-cont {
+        max-width: 90%;
+        padding: 1.5rem 1.8rem;
+    }
+    
+    .site-name {
+        font-size: 2.2rem;
+        margin-bottom: 30%;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .form-item {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .radio-cont {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .submit-btn {
+        width: 100%;
+    }
+    
+    .text-field {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
