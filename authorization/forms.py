@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from django.core.validators import validate_email
 from django.contrib.auth import authenticate
-from .models import User
+from django.core.exceptions import ValidationError
+from .models import User, PasswordResetCode
 
 class SignupForm(forms.ModelForm):
     confirm_password = forms.CharField(
@@ -77,4 +77,55 @@ class LoginForm(forms.Form):
             if not self.user:
                 raise forms.ValidationError("Invalid Email or Password")
 
+        return cleaned_data
+    
+
+
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'text-field',
+            'placeholder': 'Email',
+            'id': 'email'
+        })
+    )
+    code = forms.CharField(
+        max_length=6,
+        widget=forms.TextInput(attrs={
+            'class': 'text-field',
+            'placeholder': '6-digit Code',
+            'id': 'code'
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'text-field',
+            'placeholder': 'New password',
+            'id': 'password'
+        }),
+        min_length=8
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+        code = cleaned_data.get('code')
+
+        if email and code:
+            try:
+                user = User.objects.get(email=email)
+                reset = PasswordResetCode.objects.get(user=user, code=code, used=False)
+
+                if not reset.isValid:
+                    raise ValidationError("Invalid or expired code")
+                
+                cleaned_data['user'] = user
+                cleaned_data['reset_code'] = reset
+            except User.DoesNotExist:
+                raise ValidationError("No user with this email exists")
+            except PasswordResetCode.DoesNotExist:
+                raise ValidationError("Invalid verification code")
+            
         return cleaned_data
