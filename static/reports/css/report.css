@@ -1,0 +1,103 @@
+.Structure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.ReportBox {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.ReportTitle {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #555;
+}
+
+.cust-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.cust-input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+textarea.cust-input {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.Button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Button:hover {
+    background-color: #357abd;
+}
+
+.Button:active {
+    transform: translateY(1px);
+}
+
+#confirmation {
+    text-align: center;
+    padding: 20px;
+}
+
+#confirmation h2 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.form-group small {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    font-size: 0.9em;
+} 
