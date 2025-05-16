@@ -1,6 +1,3 @@
-// Import Libraries
-import * as sec from "../../components/js/security.js";
-
 // Global Flags
 let invalidEmail = false;
 let invalidCode = false;
@@ -20,10 +17,6 @@ const passwordCont = document.getElementById("passwordCont");
 const code = document.getElementById("code");
 const codeCont = document.getElementById("codeCont");
 
-// TO BE REMOVED
-let generatedCode = 0;
-//////////////////////
-
 // Shake Text Field
 function shake(el) {
     let shakes = 0;
@@ -35,6 +28,11 @@ function shake(el) {
         el.style.transform = 'translateX(0)';
         }
     }, 50);
+}
+
+// Check for SQL Injection in Password
+function isSafePassword(text) {
+    return /^[a-zA-Z0-9!@#$%^&*()_+-=[\]{};':"\\|,.<>/?]*$/.test(text);
 }
 
 // Invalid Input Message
@@ -51,25 +49,10 @@ function addInvalidMessage(cont, msg, flag) {
     cont.appendChild(err);
 }
 
-if (localStorage.getItem("recipes") == null) {
-    fetch('../../static/user/js/Data.json').then(response => {
-        if (!response.ok) {
-            throw new Error("Failed to read Data.json");
-        }
-    return response.json();
-    }).then(recipes => {
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-    }).catch(error => {
-        console.error("Error Loading Data.json");
-    });
-}
-
 // Form Event Listener
 form.addEventListener('submit', async function(event) {
-    // Prevent Contacting the Server
-    event.preventDefault();
     // Handling Invalid Email Stucture
-    if (!(sec.isSafeEmail(email.value) && email.value)) {
+    if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
         // Adding Invalid Message
         addInvalidMessage(emailCont, 'Invalid Email', invalidEmail);
         // Styling the Text Field
@@ -80,7 +63,7 @@ form.addEventListener('submit', async function(event) {
         invalidEmail = true;
     }
     // Handling Invalid Code
-    if (!((/\d{6}/.test(code.value)) && code.value)) {
+    if (!codeInput.value || !/^[A-Za-z0-9]{6}$/.test(codeInput.value)) {
         // Adding Invalid Message
         addInvalidMessage(codeCont, 'Invalid Code', invalidCode);
         // Styling the Text Field
@@ -91,7 +74,7 @@ form.addEventListener('submit', async function(event) {
         invalidCode = true;
     }
     // Handling Invalid Password Structure
-    if (!(sec.isSafePassword(password.value) && password.value)) {
+    if (!(isSafePassword(password.value) && password.value)) {
         // Adding Invalid Message
         addInvalidMessage(passwordCont, 'Invalid Password', invalidPassword);
         // Styling the Text Field
@@ -101,35 +84,8 @@ form.addEventListener('submit', async function(event) {
         // Setting the Flag
         invalidPassword = true;
     }
-    // Checking if Generated Code and Given Code Match
-    if (code.value == generatedCode) {
-        if (email.value == 'user@example.com') {
-            const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
-            const salt = sec.generatePasswordSalt();
-            const hash = await sec.hashValue(password.value + salt);
-            currentUser.password = hash;
-            currentUser.salt = salt;
-            localStorage.removeItem('RecipeHubUser');
-            localStorage.setItem('RecipeHubUser', JSON.stringify(currentUser));
-        } else if (email.value == 'admin@example.com') {
-            const currentUser = JSON.parse(localStorage.getItem('RecipeHubAdmin'));
-            const salt = sec.generatePasswordSalt();
-            const hash = await sec.hashValue(password.value + salt);
-            currentUser.password = hash;
-            currentUser.salt = salt;
-            localStorage.removeItem('RecipeHubAdmin');
-            localStorage.setItem('RecipeHubAdmin', JSON.stringify(currentUser));
-        }
-        window.location.href = "../../../templates/accounts/login.html";
-    } else {
-        // Adding Invalid Message
-        addInvalidMessage(codeCont, 'Invalid Code', invalidCode);
-        // Styling the Text Field
-        code.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(code);
-        // Setting the Flag
-        invalidCode = true;
+    if (invalidCode || invalidEmail || invalidPassword) {
+        event.preventDefault();
     }
 });
 
@@ -173,7 +129,7 @@ password.addEventListener('input', function(event) {
 });
 
 // Send Code Button Event Listener
-codeBtn.addEventListener('click', function(event) {
+codeBtn.addEventListener('click', async function(event) {
     // Handle Empty Email
     if (!email.value || invalidEmail) {
         // Adding Invalid Message
@@ -186,27 +142,41 @@ codeBtn.addEventListener('click', function(event) {
         invalidEmail = true;
         return;
     }
-    // Generate Cryptographically Secure Random 6-digit Code
-    const arr = new Uint32Array(1);
-    window.crypto.getRandomValues(arr);
-    generatedCode = 100000 + (arr[0] % 900000);
-    // Display Code to Console
-    console.log(`Sent ${generatedCode} to ${email.value}`);
-    // Disable Button for 60 Seconds
-    codeBtn.disabled = true;
-    codeBtn.classList.add("no-hover");
-    setTimeout(() => {
-        codeBtn.disabled = false;
-    }, 60000);
-    let remain = 60;
-    codeBtn.textContent = `Wait ${remain}s...`;
-    const timer = setInterval(() => {
-        remain -= 1;
-        codeBtn.textContent = `Wait ${remain}s...`;
-        if (remain <= 0) {
-            clearInterval(timer);
-            codeBtn.textContent = "Send Code";
+
+    try {
+        const response = await fetch('/api/send-reset-code/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({email: email.value})
+        });
+        const data = await response.json();
+        if (response.ok) {
+            // Disable Button for 60 Seconds
+            codeBtn.disabled = true;
+            codeBtn.classList.add("no-hover");
+            setTimeout(() => {
+                codeBtn.disabled = false;
+            }, 60000);
+            let remain = 60;
+            codeBtn.textContent = `Wait ${remain}s...`;
+            const timer = setInterval(() => {
+                remain -= 1;
+                codeBtn.textContent = `Wait ${remain}s...`;
+                if (remain <= 0) {
+                    clearInterval(timer);
+                    codeBtn.textContent = "Send Code";
+                }
+            }, 1000);
+            codeBtn.classList.remove("no-hover");
+        }  else {
+            addInvalidMessage(emailCont, data.message || 'Failed to send code', invalidCode);
+            codeBtn.disabled = false;
         }
-    }, 1000);
-    codeBtn.classList.remove("no-hover");
+    } catch (error) {
+        console.error('Error:', error);
+        codeBtn.disabled = false;
+    }
 });
