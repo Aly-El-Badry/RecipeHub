@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Users - RecipeHub Admin{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'components/css/navbar.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="nav-container">
+        <a class="navbar-brand" href="{% url 'start:dashboard' %}">
+            <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+        </a>
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+        </button>
+        <div class="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search users...">
+            </div>
+            <a href="{% url 'start:dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="{% url 'start:add_recipe' %}" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
+            <a href="{% url 'start:edit_recipe' %}" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
+            <a href="#" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="#" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        </div>
+    </div>
+</nav>
+
+<div class="activityCard">
+    <h2>Registered Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date Joined</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                <td><span class="statusTABLE publishedTABLE">Active</span></td>
+                <td>
+                    <button class="editButton">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="deleteButton">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'admin/js/dashboard.js' %}"></script>
+{% endblock %} 

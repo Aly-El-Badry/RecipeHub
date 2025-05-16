@@ -24,9 +24,12 @@ urlpatterns = [
     # Admin URL
     path('admin/', admin.site.urls),
     
+    # Start URLs (Dashboard and Recipe Management)
+    path('', include('start.urls')),
+    
     # Report URLs
     path('', include('report.urls')),
     
-    # Root URL - redirect to report page for now
-    path('', RedirectView.as_view(url='report/', permanent=False)),
+    # Root URL - redirect to dashboard page
+    path('', RedirectView.as_view(url='dashboard/', permanent=False)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
