@@ -1,20 +1,20 @@
 // Check for SQL Injection in Email
-export function isSafeEmail(text) {
+function isSafeEmail(text) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text);
 }
 
 // Check for SQL Injection in Password
-export function isSafePassword(text) {
+function isSafePassword(text) {
     return /^[a-zA-Z0-9!@#$%^&*()_+-=[\]{};':"\\|,.<>/?]*$/.test(text);
 }
 
 // Check for SQL Injection in General
-export function isSafeText(text) {
+function isSafeText(text) {
     return /^[a-zA-Z0-9\s.,!?-]*$/.test(text);
 }
 
 // Generate Password Salt for SHA-256 Hashing
-export function generatePasswordSalt() {
+function generatePasswordSalt() {
     // Create a 16 Byte Integer Array
     const arr = new Uint8Array(16);
     // Fill with Cryptographically Secure Random Numbers
@@ -24,7 +24,7 @@ export function generatePasswordSalt() {
 }
 
 // SHA-256 Hashing Function
-export async function SHA256Hasher(data) {
+async function SHA256Hasher(data) {
     // Create Text Encoder
     const encoder = new TextEncoder();
     // Encoding the Data
@@ -38,7 +38,7 @@ export async function SHA256Hasher(data) {
 }
 
 // Hash Given Value Using SHA-256
-export async function hashValue(data, salt = "") {
+async function hashValue(data, salt = "") {
     // Generate Password Salt
     if (salt == "") {
         const salt = generatePasswordSalt();

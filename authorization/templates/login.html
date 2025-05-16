@@ -1,0 +1,73 @@
+<!--
+@ File           :    login.html
+@ Description    :    Contains the login form
+@ Author         :    Youssef Elebiary
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>RecipeHub - Login</title>
+        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="This is the login page for RecipeHub, a recipe finder" />
+        <!--    CSS File    -->
+        <link href="{% static '/css/auth.css' %}" rel="stylesheet" />
+        <style>
+            .error-message {
+                color: red;
+                font-size: smaller;
+                font-weight: bold;
+                padding: 0 0.5rem;
+                margin: 0.25rem 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="site-name">
+            RecipeHub
+        </h1>
+        <div class="form-cont">
+            <form method="POST" id="formElement">
+                {% csrf_token %}
+                <!--    Email    -->
+                <div class="form-row">
+                    <div class="form-item" id="emailContainer">
+                        <label for="email" class="text-label">Email</label>
+                        {{ form.email }}
+                        {{ from.email.errors }}
+                    </div>
+                </div>
+                <!--    Password    -->
+                <div class="form-row">
+                    <div class="form-item" id="passwordContainer">
+                        <label for="password" class="text-label">Password</label>
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+                </div>
+                <!--    Submit    -->
+                <div class="form-row">
+                    <div class="form-item form-btn" id="submitContainer">
+                        <button type="submit" class="submit-btn">Login</button>
+                    </div>                    
+                </div>
+                <!--    Forget Password    -->
+                <div class="form-row">
+                    <div class="form-item" style="margin-top: 0.75rem;">
+                        <span class="footer-text">Forgot Password? &nbsp;<a href="{% url 'reset_password' %}" class="hyperlink">Reset</a></span>
+                    </div>
+                </div>
+                <!--    Register    -->
+                <div class="form-row">
+                    <div class="form-item" style="margin-top: 0.25rem; margin-bottom: 0.3rem;">
+                        <span class="footer-text">Don't have an account? &nbsp;<a href="{% url 'signup' %}" class="hyperlink">Register</a></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--    JavaScript    -->
+        <script src="{% static '/js/login.js' %}"></script>
+    </body>
+</html>

@@ -21,15 +21,9 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    # Admin URL
-    path('admin/', admin.site.urls),
-    
-    # Start URLs (Dashboard and Recipe Management)
+    path('admin_panel/', admin.site.urls),
     path('', include('start.urls')),
-    
-    # Report URLs
     path('', include('report.urls')),
-    
-    # Root URL - redirect to dashboard page
+    path('', include('authorization.urls'), name="auth"),
     path('', RedirectView.as_view(url='dashboard/', permanent=False)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

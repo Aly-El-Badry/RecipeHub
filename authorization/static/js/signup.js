@@ -1,6 +1,3 @@
-// Import Libraries
-import * as sec from "../../components/js/security.js";
-
 // Global Flags
 let invalidFirstName = false;
 let invalidLastName = false;
@@ -64,39 +61,6 @@ function addInvalidMessage(cont, msg, flag) {
     cont.appendChild(err);
 }
 
-// Validate Credentials with Server
-async function sendCredentials() {
-    // Encoding the Password
-    const salt = sec.generatePasswordSalt();
-    const hash = await sec.hashValue(password.value + salt);
-    console.log("+===    Simulating Contacting the Server    ===+");
-    let userCredentials = {
-        'username': username.value,
-        'firstName': firstName.value,
-        'lastName': lastName.value,
-        'email': email.value,
-        'password': hash,
-        'birthDate': birthDate.value,
-        'type': getSelectedUserType(),
-        'salt': salt,
-    };
-    console.log(userCredentials);
-    
-    // Clear any existing user data
-    localStorage.removeItem('RecipeHubUser');
-    localStorage.removeItem('RecipeHubAdmin');
-    
-    if (getSelectedUserType() == 'user') {
-        localStorage.setItem('RecipeHubUser', JSON.stringify(userCredentials));
-        console.log('saved user');
-        return 1;
-    } else {
-        localStorage.setItem('RecipeHubAdmin', JSON.stringify(userCredentials));
-        console.log('saved admin');
-        return 2;
-    }
-}
-
 // Get Selected User Type
 function getSelectedUserType() {
     const selected = document.querySelector('input[name="accType"]:checked');
@@ -107,111 +71,16 @@ function getSelectedUserType() {
     return selected.value;
 }
 
-if (localStorage.getItem("recipes") == null) {
-    fetch('../../static/user/js/Data.json').then(response => {
-        if (!response.ok) {
-            throw new Error("Failed to read Data.json");
-        }
-    return response.json();
-    }).then(recipes => {
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-    }).catch(error => {
-        console.error("Error Loading Data.json");
-    });
-}
 // Form Event Listener
 form.addEventListener('submit', async function(event) {
-    // Prevent Contacting the Server
-    event.preventDefault();
-    // Handling Invalid First Name Stucture
-    if (!(sec.isSafeText(firstName.value) && firstName.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(firstNameCont, 'Invalid First Name', invalidFirstName);
-        // Styling the Text Field
-        firstName.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(firstName);
-        // Setting the Flag
-        invalidFirstName = true;
-    }
-    // Handling Invalid Last Name Stucture
-    if (!(sec.isSafeText(lastName.value) && lastName.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(lastNameCont, 'Invalid Last Name', invalidLastName);
-        // Styling the Text Field
-        lastName.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(lastName);
-        // Setting the Flag
-        invalidLastName = true;
-    }
-    // Handling Invalid Username Stucture
-    if (!(sec.isSafeText(username.value) && username.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(usernameCont, 'Invalid Username', invalidUsername);
-        // Styling the Text Field
-        username.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(username);
-        // Setting the Flag
-        invalidUsername = true;
-    }
-    // Handling Invalid Email Stucture
-    if (!(sec.isSafeEmail(email.value) && email.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(emailCont, 'Invalid Email', invalidEmail);
-        // Styling the Text Field
-        email.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(email);
-        // Setting the Flag
-        invalidEmail = true;
-    }
-    // Handling Invalid Password Structure
-    if (!(sec.isSafePassword(password.value) && password.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(passwordCont, 'Invalid Password', invalidPassword);
-        // Styling the Text Field
-        password.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(password);
-        // Setting the Flag
-        invalidPassword = true;
-    }
-    // Handling Invalid Confirm Password Structure
-    if (!(sec.isSafePassword(confirmPass.value) && confirmPass.value)) {
-        // Adding Invalid Message
-        addInvalidMessage(confirmPassCont, 'Invalid Password', invalidConfirmPassword);
-        // Styling the Text Field
-        confirmPass.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(confirmPass);
-        // Setting the Flag
-        invalidConfirmPassword = true;
-    }
-    // Handling Invalid Date of Birth Structure
-    if (!birthDate.value) {
-        // Adding Invalid Message
-        addInvalidMessage(birthDateCont, 'Invalid Date of Birth', invalidBirthDate);
-        // Styling the Text Field
-        birthDate.style = TEXT_FIELD_ERROR_STYLE;
-        // Shaking the Text Field
-        shake(birthDate);
-        // Setting the Flag
-        invalidBirthDate = true;
-    }
-    // Checking Type Selection
-    if (!getSelectedUserType()) {
-        // Styling The Text
-        typeCont.style = TEXT_FIELD_ERROR_STYLE;
-        invalidType = true;
-    }
+    let isValid = true;
     // Checking Checkbox Selection
     if (!terms.checked) {
         // Styling The Text
         termsCont.style = TEXT_FIELD_ERROR_STYLE;
         // Setting the Flag
         invalidTerms = true;
+        isValid = false;
     }
     // Checking if Password and Confirm Password Match
     if (password.value != confirmPass.value) {
@@ -223,23 +92,10 @@ form.addEventListener('submit', async function(event) {
         shake(confirmPass);
         // Setting the Flag
         invalidConfirmPassword = true;
+        isValid = false;
     }
-    if (invalidFirstName || invalidLastName || invalidUsername || invalidEmail || invalidPassword || invalidConfirmPassword || invalidBirthDate || invalidType || invalidTerms) {return;}
-    const responseCode = await sendCredentials();
-    if (responseCode == 1) {
-        // Set Current User in Session Storage
-        const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
-        delete currentUser.password;
-        delete currentUser.salt;
-        localStorage.setItem('RecipeHubUser', JSON.stringify(currentUser));
-        window.location.href = "../../../templates/user/dashboard.html";
-    } else if (responseCode == 2) {
-        // Set Current User in Session Storage
-        const currentUser = JSON.parse(localStorage.getItem('RecipeHubAdmin'));
-        delete currentUser.password;
-        delete currentUser.salt;
-        localStorage.setItem('RecipeHubAdmin', JSON.stringify(currentUser));
-        window.location.href = "../../../templates/admin/dashboard.html";
+    if (!isValid) {
+        event.preventDefault();
     }
 });
 
