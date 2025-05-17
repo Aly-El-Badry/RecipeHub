@@ -1,88 +1,80 @@
-<!----------------------------- author : Rana Tarek Ahmed ------------------------------------->
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-    <head>
-        <title>RecipeFinder Admin Dashboard</title>
-        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
-        <!--------------------------------------------- CSS  --------------------------------------------------------->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../static/admin/css/dashboard.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="../../static/components/css/navbar.css">
-        <!--------------------------------------------- End CSS  --------------------------------------------------------->
-    </head>
-<!-------- Shown to user  --------->
-    <body>
-        <nav class="navbar">
-            <div class="nav-container">
-                <a class="navbar-brand" href="#">
-                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
-                </a>
-                <button class="menu-toggle">
-                    <span class="menu-icon"></span>
-                </button>
-                <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
-                    <a href="Add-Recipe.html" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
-                    <a href="Edit-Recipe.html" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
-                    <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                   <!--lo-->
-                    <a href="../../templates/accounts/login.html" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
-                </div>
+<head>
+    <title>RecipeFinder Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin_dashboard/css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'components/css/navbar.css' %}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+            <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+        </a>
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+        </button>
+        <div class="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search recipes...">
             </div>
-        </nav>
-        <div class="stat">
-            <div class="statCard">
-                <div>
-                    <h3>2,154</h3>
-                    <p>Total Recipes</p>
-                    <button class="prim_greenButton">View</button>
-                </div>
-                <div class="statIcon"><i class="fas fa-book"></i></div>
-            </div>
-            <div class="statCard">
-                <div>
-                    <h3>0</h3>
-                    <p>Registered Users</p>
-                    <button class="prim_greenButton">View</button>
-                </div>
-                <div class="statIcon"><i class="fas fa-users"></i></div>
-            </div>
-            <div class="statCard">
-                <div>
-                    <h3>18</h3>
-                    <p>Categories</p>
-                    <button class="prim_greenButton">View</button>
-                </div>
-                <div class="statIcon"><i class="fas fa-tags"></i></div>
-            </div>
+            <a href="{% url 'admin_recipes' %}" class="nav-link"><i class="fas fa-book"></i> All Recipes</a>
+            <a href="{% url 'admin_add_recipe' %}" class="nav-link"><i class="fas fa-plus"></i> Add Recipe</a>
+            <a href="{% url 'admin_users' %}" class="nav-link"><i class="fas fa-users"></i> Users</a>
+            <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
         </div>
+    </div>
+</nav>
 
-        <div class="activityCard">
-            <h2>Recent Activity</h2>
-            <div class="activity-item">
-                <div class="activityIcon"><i class="fas fa-user-plus"></i></div>
-                <div>
-                    <h4>New user registered</h4>
-                    <p>user10 joined RecipeFinder</p>
-                </div>
-                <small>20 min ago</small>
-            </div>
-            <div class="activity-item">
-                <div class="activityIcon"><i class="fas fa-book"></i></div>
-                <div>
-                    <h4>New recipe added</h4>
-                    <p>"Spaghetti" by Chefxxxx</p>
-                </div>
-                <small>1 hour ago</small>
-            </div>
+<div class="stat">
+    <div class="statCard">
+        <div>
+            <h3>{{ total_recipes }}</h3>
+            <p>Total Recipes</p>
+            <a href="{% url 'admin_recipe_list' %}" class="prim_greenButton">View</a>
         </div>
+        <div class="statIcon"><i class="fas fa-book"></i></div>
+    </div>
+    <div class="statCard">
+        <div>
+            <h3>{{ total_users }}</h3>
+            <p>Registered Users</p>
+            <a href="{% url 'admin_users' %}" class="prim_greenButton">View</a>
+        </div>
+        <div class="statIcon"><i class="fas fa-users"></i></div>
+    </div>
+    <div class="statCard">
+        <div>
+            <h3>{{ total_categories }}</h3>
+            <p>Categories</p>
+            <a href="{% url 'admin_recipe_list' %}" class="prim_greenButton">View</a>
+        </div>
+        <div class="statIcon"><i class="fas fa-tags"></i></div>
+    </div>
+</div>
 
-    
+<div class="activityCard">
+    <h2>Recent Activity</h2>
+    {% for activity in recent_activities %}
+    <div class="activity-item">
+        <div class="activityIcon">
+            <i class="fas fa-{{ activity.icon }}"></i>
+        </div>
+        <div>
+            <h4>{{ activity.title }}</h4>
+            <p>{{ activity.description }}</p>
+        </div>
+        <small>{{ activity.time_ago }}</small>
+    </div>
+    {% endfor %}
+</div>
 
-        <script src="../../static/admin/js/dashboard.js"></script>
-    </body>
+<script src="{% static 'admin_dashboard/js/dashboard.js' %}"></script>
+</body>
 </html>
