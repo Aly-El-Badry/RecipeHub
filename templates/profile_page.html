@@ -24,7 +24,7 @@
                         <input type="text" class="search-input" placeholder="Search recipes...">
                     </div>
                     <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="Add-Recipe.html" class="nav-link"><i class="fas fa-add"></i> Add recipe</a>
+                    <a href="{% url "addRecipe" %}" class="nav-link"><i class="fas fa-add"></i> Add recipe</a>
                     <a href="Edit-Recipe.html" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
                     <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
                 </div>
@@ -99,22 +99,23 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Edit Personal Information</h2>
-                <form id="personalForm">
+                <form id="personalForm" method="POST" action="{% url 'edit_profile' %}">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="editFirstname">First Name</label>
-                        <input type="text" id="editFirstname" required>
+                        <input type="text" name="editFirstname" id="editFirstname" value="{{ user.first_name }}">
                     </div>
                     <div class="form-group">
                         <label for="editLastname">Last Name</label>
-                        <input type="text" id="editLastname" required>
+                        <input type="text" name="editLastname" id="editLastname" value="{{ user.last_name }}">
                     </div>
                     <div class="form-group">
                         <label for="editEmail">Email</label>
-                        <input type="email" id="editEmail" required>
+                        <input type="email" name="editEmail" id="editEmail" value="{{ user.email }}">
                     </div>
                     <div class="form-group">
                         <label for="editDatebirth">Date of Birth</label>
-                        <input type="text" id="editDatebirth">
+                        <input type="text" name="editDatebirth" id="editDatebirth"  value="{{ user.birthDate | date:'Y-m-d' }}">
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="save-btn">Save Changes</button>
@@ -123,31 +124,7 @@
                 </form>
             </div>
         </div>
-        <!--location-->
-        <div class="modal" id="locationModal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Edit Location Information</h2>
-                <form id="locationForm">
-                    <div class="form-group">
-                        <label for="editCountry">Country</label>
-                        <input type="text" id="editCountry">
-                    </div>
-                    <div class="form-group">
-                        <label for="editCity">City</label>
-                        <input type="text" id="editCity">
-                    </div>
-                    <div class="form-group">
-                        <label for="editAddress">Address</label>
-                        <input type="text" id="editAddress">
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="save-btn">Save Changes</button>
-                        <button type="button" class="cancel-btn">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
         <!--image-->
         <div class="imgmodel-overlay" id="imgmodel">
             <div class="imgmodel-content">

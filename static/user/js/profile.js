@@ -1,9 +1,4 @@
-import * as man from "../../components/js/recipe_manager.js";
-
 document.addEventListener('DOMContentLoaded', function() {
-
-    updateProfileDisplay();
-
     // Modal Functionality 
     const personalModal = document.getElementById('personalModal');
     const locationModal = document.getElementById('locationModal');
@@ -14,18 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Open Personal Modal
     editPersonalBtn.addEventListener('click', function() {
-        document.getElementById('editFirstname').value = profileData.personal.firstname || '';
-        document.getElementById('editLastname').value = profileData.personal.lastname || '';
-        document.getElementById('editEmail').value = profileData.personal.email || '';
-        document.getElementById('editDatebirth').value = profileData.personal.datebirth || '';
         personalModal.style.display = 'block';
     });
 
     // Open Location Modal
     editLocationBtn.addEventListener('click', function() {
-        document.getElementById('editCountry').value = profileData.location.country || '';
-        document.getElementById('editCity').value = profileData.location.city || '';
-        document.getElementById('editAddress').value = profileData.location.address || '';
         locationModal.style.display = 'block';
     });
 
@@ -51,34 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Save Personal Info
     document.getElementById('personalForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Update profile data
-        profileData.personal.firstname = document.getElementById('editFirstname').value;
-        profileData.personal.lastname = document.getElementById('editLastname').value;
-        profileData.personal.email = document.getElementById('editEmail').value;
-        profileData.personal.datebirth = document.getElementById('editDatebirth').value;
-        
-        // Update the stored user object
-        const updatedUser = {
-            ...storedUser,
-            firstName: profileData.personal.firstname,
-            lastName: profileData.personal.lastname,
-            email: profileData.personal.email,
-            birthDate: profileData.personal.datebirth
-        };
-        
-        // Save back to localStorage
-        localStorage.setItem(currentUserKey, JSON.stringify(updatedUser));
-        
-        updateProfileDisplay();
         personalModal.style.display = 'none';
     });
 
     // Save Location Info
     document.getElementById('locationForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         profileData.location.country = document.getElementById('editCountry').value;
         profileData.location.city = document.getElementById('editCity').value;
         profileData.location.address = document.getElementById('editAddress').value;
@@ -90,11 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             city: profileData.location.city,
             address: profileData.location.address
         };
-        
-        // Save back to localStorage
-        localStorage.setItem(currentUserKey, JSON.stringify(updatedUser));
-        
-        updateProfileDisplay();
+                
         locationModal.style.display = 'none';
     });
 
@@ -110,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Open modal when plus icon is clicked
     editBtn.addEventListener('click', function(e) {
-        e.preventDefault();
         e.stopPropagation();
         imgmodel.style.display = 'flex';
     });
@@ -163,11 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         imagePreview.style.display = 'none';
         fileInput.value = '';
         saveBtn.disabled = true;
-    }
-
-    // Load saved avatar if exists
-    if (storedUser?.profileImage) {
-        profileAvatar.src = storedUser.profileImage;
     }
 
     if (document.querySelector('.search-input')) {
