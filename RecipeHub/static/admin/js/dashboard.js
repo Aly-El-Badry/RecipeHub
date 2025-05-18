@@ -9,7 +9,10 @@ async function loadRecipes()
 {
     try
     {
-        const response = await fetch('../../static/user/js/Data.json');
+        const response = await fetch('/recipe/api/recipes/');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
         const data = await response.json();
         return data;
     }
@@ -51,7 +54,7 @@ function updateRecentActivity(recipes)
     if (!activityCard) return;
 
     // Sort recipes by ID (assuming higher ID means more recent)
-    const recentRecipes = [...recipes].sort((a, b) => b.id - a.id).slice(0, 2);
+    const recentRecipes = [...recipes].sort((a, b) => b.id - a.id).slice(0, 3);
 
     const activityHTML = recentRecipes.map(recipe => `
         <div class="activity-item">
