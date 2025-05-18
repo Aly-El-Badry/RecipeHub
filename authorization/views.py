@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .models import User, PasswordResetCode
 from .forms import SignupForm, LoginForm, PasswordResetForm
 
@@ -15,10 +15,10 @@ def signup(request):
             user.password = make_password(form.cleaned_data["password"])
             user.save()
 
-            if form.cleaned_data['account_type'] == 1:
-                return redirect('admin_dashboard')
-            elif form.cleaned_data['account_type'] == 0:
-                return redirect('user_dashboard')
+            if user.account_type == 1: # Admin
+                return redirect('admin-dashboard')
+            elif user.account_type == 0: # User
+                return redirect('dashboard')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -32,11 +32,13 @@ def login_view(request):
             user = form.user
             login(request, form.user)
             if user.account_type == 1: # Admin
-                return redirect('admin_dashboard')
+                return redirect('admin-dashboard')
             elif user.account_type == 0: # User
-                return redirect('user_dashboard')
+                return redirect('dashboard')
         else:
-            print(form.errors)
+            # Get the specific error message
+            error_message = 'Invalid email or password.'
+            return render(request, 'login.html', {'form': form, 'error_message': error_message})
     else:
         form = LoginForm()          
     return render(request, 'login.html', {'form': form})
@@ -82,16 +84,13 @@ def send_code(request):
         user = User.objects.get(email=email)
         code = PasswordResetCode.create_code(user)
 
-        print(f"\n=== PASSWORD RESET CODE ===")
-        print(f"User: {user.email}")
-        print(f"Code: {code.code}")
-        print(f"Created: {code.create_date}")
-        print(f"Expires: {code.create_date + datetime.timedelta(minutes=15)}")
-        print("===========================\n")
-
         return JsonResponse({'status': 'success', 'message': 'Code generated'}, status=200)
     
     except User.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+def logout_view(request):
+    logout(request)
+    return redirect('home')

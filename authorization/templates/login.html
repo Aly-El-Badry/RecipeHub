@@ -36,7 +36,7 @@
                     <div class="form-item" id="emailContainer">
                         <label for="email" class="text-label">Email</label>
                         {{ form.email }}
-                        {{ from.email.errors }}
+                        {{ form.email.errors }}
                     </div>
                 </div>
                 <!--    Password    -->
@@ -47,6 +47,13 @@
                         {{ form.password.errors }}
                     </div>
                 </div>
+                {% if error_message %}
+                <div class="form-row">
+                    <div class="form-item">
+                        <div class="error-message">{{ error_message }}</div>
+                    </div>
+                </div>
+                {% endif %}
                 <!--    Submit    -->
                 <div class="form-row">
                     <div class="form-item form-btn" id="submitContainer">

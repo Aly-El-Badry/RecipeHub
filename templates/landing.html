@@ -16,8 +16,8 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="cta-button primary-button">Browse Recipes</a>
             {% else %}
-                <a href="{% url 'login' %}" class="cta-button primary-button">Get Started</a>
-                <a href="{% url 'signup' %}" class="cta-button secondary-button">Sign In</a>
+                <a href="{% url 'signup' %}" class="cta-button primary-button">Get Started</a>
+                <a href="{% url 'login' %}" class="cta-button secondary-button">Sign In</a>
             {% endif %}
         </div>
     </div>

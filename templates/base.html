@@ -21,18 +21,20 @@
                 <span class="menu-icon"></span>
             </button>
             <div class="nav-menu">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search recipes...">
-                    <div class="search-results-dropdown"></div>
-                </div>
-                <a href="" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                 {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search recipes...">
+                        <div class="search-results-dropdown"></div>
+                    </div>
+                    {% if user.account_type == 1 %}
+                        <a href="{% url 'admin-dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                     {% endif %}
+
                     <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                    <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
                     <a href="{% url 'signup' %}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
@@ -60,7 +62,6 @@
             <div class="footer-section">
                 <h5>Quick Links</h5>
                 <ul class="footer-links">
-                    <li><a href="{% url 'home' %}">Home</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}">Profile</a></li>
                     {% else %}

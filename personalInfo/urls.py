@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('profile/', views.profile, name="Profile Page"),
-    path('favorites/', views.favoriteRecipes, name="Favorite recipes"),
+    path('profile/', views.profile, name="profile"),
+    path('favorites/', views.favoriteRecipes, name="Favorite"),
 ]
