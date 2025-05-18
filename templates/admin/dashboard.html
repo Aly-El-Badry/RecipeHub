@@ -20,10 +20,9 @@
         </button>
         <div class="nav-menu">
             <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> AddRecipe</a>
-            <a href="" class="nav-link"><i class="fas fa-users"></i> Users</a>
-            <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-            <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
-
+            <a href="{% url 'users' %}" class="nav-link"><i class="fas fa-users"></i> Users</a>
+            <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
         </div>
     </div>
 </nav>
@@ -31,7 +30,7 @@
 <div class="stat">
     <div class="statCard">
         <div>
-            <h3>{{ total_recipes }}</h3>
+            <h3>{{ recipes }}</h3>
             <p>Total Recipes</p>
             <a href="" class="prim_greenButton">View</a>
         </div>
@@ -39,34 +38,27 @@
     </div>
     <div class="statCard">
         <div>
-            <h3>{{ total_users }}</h3>
+            <h3>{{ users  }}</h3>
             <p>Registered Users</p>
-            <a href="" class="prim_greenButton">View</a>
-        </div>
+            <a href="{% url 'users' %}" class="prim_greenButton">View</a>
+            </div>
         <div class="statIcon"><i class="fas fa-users"></i></div>
     </div>
-    <div class="statCard">
-        <div>
-            <h3>{{ total_categories }}</h3>
-            <p>Categories</p>
-            <a href="" class="prim_greenButton">View</a>
-        </div>
-        <div class="statIcon"><i class="fas fa-tags"></i></div>
-    </div>
+    
 </div>
 
 <div class="activityCard">
     <h2>Recent Activity</h2>
-    {% for activity in recent_activities %}
+    {% for recipe in recent_recipes %}
     <div class="activity-item">
         <div class="activityIcon">
-            <i class="fas fa-{{ activity.icon }}"></i>
+            <i class="fas fa-book"></i>
         </div>
         <div>
-            <h4>{{ activity.title }}</h4>
-            <p>{{ activity.description }}</p>
+            <h4>New recipe added</h4>
+            <p>"{{ recipe.name }}" Type : {{ recipe.food_type }}</p>
         </div>
-        <small>{{ activity.time_ago }}</small>
+        <small>Recently added</small>
     </div>
     {% endfor %}
 </div>

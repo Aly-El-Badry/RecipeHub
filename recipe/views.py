@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
 from .forms import RecipeForm
+from .models import Recipe
 
 # Create your views here.
 def viewRecipe(request):
@@ -20,4 +22,3 @@ def addRecipe(request):
 
 def editRecipe(request):
     return render(request, "User/Edit-Recipe.html")
-
