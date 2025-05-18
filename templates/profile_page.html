@@ -24,8 +24,6 @@
                         <input type="text" class="search-input" placeholder="Search recipes...">
                     </div>
                     <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="{% url "addRecipe" %}" class="nav-link"><i class="fas fa-add"></i> Add recipe</a>
-                    <a href="Edit-Recipe.html" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
                     <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
                 </div>
             </div>
@@ -66,28 +64,6 @@
                         <div class="info-item">
                             <div class="info-label">Date of Birth</div>
                             <div class="info-value" id="datebirth">{{ birth_date }}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="profile-section">
-                    <div class="section-header">
-                        <h2 class="section-title">Location Information</h2>
-                        <button class="edit" id="editLocationInfo">Edit</button>
-                    </div>
-                    
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">Country</div>
-                            <div class="info-value" id="country">x</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">City</div>
-                            <div class="info-value" id="city">x</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Address</div>
-                            <div class="info-value" id="address">123 famcccily park</div>
                         </div>
                     </div>
                 </div>
