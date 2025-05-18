@@ -1,18 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View the recipe</title>
-    <link rel="stylesheet" href="../../static/user/css/ViewRecipe.css">
+    <link rel="stylesheet" href="{% static "user/css/ViewRecipe.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../static/components/css/navbar.css">
-    <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
+    <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
+    <link rel="icon" type="image/x-icon" href="{% static "images/recipe-book.png" %}">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url "home" %}">
                 <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
             </a>
             <button class="menu-toggle">
@@ -23,51 +24,57 @@
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" class="search-input" placeholder="Search recipes...">
                 </div>
-                <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="report.html" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Logout</a>
             </div>
         </div>
     </nav>
     <div class="recipe-container">
-        <div class="recipe-image" id="recipeImage"></div>
+        <div class="recipe-image" id="recipeImage" style="backgroundImage: url({{ recipe.image }})"></div>
         <div class="recipe-content">
             <div class="recipe-header">
-                <h1 id="recipeTitle"></h1>
+                <h1 id="recipeTitle">{{ recipe.name | title }}</h1>
                 <div class="recipe-meta">
                     <div class="meta-item">
                         <i class="fas fa-clock"></i>
-                        <span id="Time"></span>
+                        <span id="Time">{{ recipe.time }}</span>
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-utensils"></i>
-                        <span id="crs"></span>
+                        <span id="crs">{{ recipe.course_type | title }}</span>
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-tag"></i>
-                        <span id="type"></span>
+                        <span id="type">{{ recipe.food_type | title }}</span>
                     </div>
-                    <div class="meta-item favorite-btn" id="favoriteBtn">
-                        <i class="far fa-heart"></i>
-                        <span>Add to Favorites</span>
-                    </div>
+                    <form method='POST' action="{% url "addToFav" recipe.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="meta-item favorite-btn" id="favoriteBtn">
+                            <i class="{{ fav_status }} fa-heart"></i> <span>{{ fav_message }}</span>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="recipe-section">
                 <h2 class="section-title">Ingredients</h2>
                 <div class="ingredients-grid" id="ingredients">
-                    <ul id="List"></ul>
+                    {% for ing in recipe.ingredients %}
+                        <ul id="List">{{ ing }}</ul>
+                    {% endfor %}
                 </div>
             </div>
 
             <div class="recipe-section">
                 <h2 class="section-title">Steps</h2>
                 <div class="steps-list" id="orderedSteps">
-                    <ol id="orderedList"></ol>
+                    {% for step in recipe.steps %}
+                        <ol id="orderedList">{{ step }}</ol>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    <script src="../../static/user/js/ViewRecipe.js"></script>
+    <script src="{% static "user/js/ViewRecipe.js" %}"></script>
 </body>
 </html>
