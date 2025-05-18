@@ -15,10 +15,7 @@ def signup(request):
             user.password = make_password(form.cleaned_data["password"])
             user.save()
 
-            if user.account_type == 1: # Admin
-                return redirect('admin-dashboard')
-            elif user.account_type == 0: # User
-                return redirect('dashboard')
+            return redirect('dashboard')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -31,10 +28,8 @@ def login_view(request):
         if form.is_valid():
             user = form.user
             login(request, form.user)
-            if user.account_type == 1: # Admin
-                return redirect('admin-dashboard')
-            elif user.account_type == 0: # User
-                return redirect('dashboard')
+            
+            return redirect('dashboard')
         else:
             # Get the specific error message
             error_message = 'Invalid email or password.'
