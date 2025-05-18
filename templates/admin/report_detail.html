@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RecipeHub - Report Details</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'admin/css/report_list.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'components/css/navbar.css' %}">
+    </head>
+    <body style="margin: 0;">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="">
+                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="report-container">
+            <div class="report-header">
+                <a href="{% url 'view_reports' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Reports
+                </a>
+                <h2>Report Details</h2>
+            </div>
+
+            <div class="report-details">
+                <div class="detail-section">
+                    <h3>Report Information</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Report Type:</label>
+                            <span>{{ report.get_report_type_display }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date Submitted:</label>
+                            <span>{{ report.created_at|date:"d M Y, H:i" }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Reporter Email:</label>
+                            <span>{{ report.email|default:"Not provided" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Description</h3>
+                    <div class="description-box">
+                        {{ report.description }}
+                    </div>
+                </div>
+
+                {% if report.screenshot %}
+                <div class="detail-section">
+                    <h3>Screenshot</h3>
+                    <div class="screenshot-container">
+                        <img src="{{ report.screenshot.url }}" alt="Report Screenshot" class="report-screenshot">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html> 
