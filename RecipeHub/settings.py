@@ -38,13 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'authorization',
-    'info',
-    'recipe',
-    'report',
-    'start',
-    'categories',
+    "Interface",
+    "report",
+    "personalInfo",
 ]
 
 MIDDLEWARE = [
@@ -139,3 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
 AUTH_USER_MODEL = 'authorization.User'
+
+# Custom Error Handlers
+handler404 = 'Interface.views.handler404'

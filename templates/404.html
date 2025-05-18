@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 - Page Not Found | RecipeHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-container {
+        min-height: calc(100vh - 300px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: var(--gradient-secondary);
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 600px;
+        padding: 3rem;
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .error-icon {
+        font-size: 6rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .error-title {
+        font-size: 2.5rem;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+    }
+
+    .error-message {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .error-btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: var(--transition-normal);
+    }
+
+    .error-btn.primary {
+        background: var(--gradient-primary);
+        color: var(--white);
+        border: none;
+    }
+
+    .error-btn.secondary {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .error-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .error-content {
+            padding: 2rem;
+        }
+
+        .error-title {
+            font-size: 2rem;
+        }
+
+        .error-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-content">
+        <i class="fas fa-utensils error-icon"></i>
+        <h1 class="error-title">Oops! Page Not Found</h1>
+        <p class="error-message">The recipe you're looking for seems to have disappeared from our kitchen. Let's get you back to cooking!</p>
+        <div class="error-actions">
+            <a href="{% url 'home' %}" class="error-btn primary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+            <a href="{% url 'recipe_list' %}" class="error-btn secondary">
+                <i class="fas fa-book"></i> Browse Recipes
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

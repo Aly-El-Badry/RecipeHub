@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar">
     <div class="nav-container">
-        <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+        <a class="navbar-brand" href="">
             <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
         </a>
         <button class="menu-toggle">
@@ -23,11 +23,11 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="Search recipes...">
             </div>
-            <a href="{% url 'admin_recipes' %}" class="nav-link"><i class="fas fa-book"></i> All Recipes</a>
-            <a href="{% url 'admin_add_recipe' %}" class="nav-link"><i class="fas fa-plus"></i> Add Recipe</a>
-            <a href="{% url 'admin_users' %}" class="nav-link"><i class="fas fa-users"></i> Users</a>
-            <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-            <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+            <a href="" class="nav-link"><i class="fas fa-book"></i> All Recipes</a>
+            <a href="" class="nav-link"><i class="fas fa-plus"></i> Add Recipe</a>
+            <a href="" class="nav-link"><i class="fas fa-users"></i> Users</a>
+            <a href="" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
         </div>
     </div>
 </nav>
@@ -37,7 +37,7 @@
         <div>
             <h3>{{ total_recipes }}</h3>
             <p>Total Recipes</p>
-            <a href="{% url 'admin_recipe_list' %}" class="prim_greenButton">View</a>
+            <a href="" class="prim_greenButton">View</a>
         </div>
         <div class="statIcon"><i class="fas fa-book"></i></div>
     </div>
@@ -45,7 +45,7 @@
         <div>
             <h3>{{ total_users }}</h3>
             <p>Registered Users</p>
-            <a href="{% url 'admin_users' %}" class="prim_greenButton">View</a>
+            <a href="" class="prim_greenButton">View</a>
         </div>
         <div class="statIcon"><i class="fas fa-users"></i></div>
     </div>
@@ -53,7 +53,7 @@
         <div>
             <h3>{{ total_categories }}</h3>
             <p>Categories</p>
-            <a href="{% url 'admin_recipe_list' %}" class="prim_greenButton">View</a>
+            <a href="" class="prim_greenButton">View</a>
         </div>
         <div class="statIcon"><i class="fas fa-tags"></i></div>
     </div>

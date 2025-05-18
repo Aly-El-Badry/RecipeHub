@@ -24,18 +24,18 @@
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" class="search-input" placeholder="Search recipes...">
+                    <div class="search-results-dropdown"></div>
                 </div>
-                <a href="{% url 'recipe_list' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
+                <a href="" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
-                        <a href="{% url 'admin_dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
                     {% endif %}
-                    <a href="{% url 'add_recipe' %}" class="nav-link"><i class="fas fa-plus"></i> Add Recipe</a>
                     <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                    <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="{% url 'register' %}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
+                    <a href="{% url 'signup' %}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
                 {% endif %}
             </div>
         </div>
@@ -45,23 +45,36 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>About RecipeHub</h3>
-                <p>Share and discover amazing recipes from around the world.</p>
+                <h5>About RecipeHub</h5>
+                <p>Your ultimate destination for discovering and sharing delicious recipes from around the world.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
             </div>
             <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}">Profile</a></li>
                     {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
                     {% endif %}
                 </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Newsletter</h5>
+                <p>Subscribe to our newsletter for new recipes and cooking tips!</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">

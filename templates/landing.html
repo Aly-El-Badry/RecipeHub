@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to RecipeHub - Share and Discover Amazing Recipes{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Interface/css/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to RecipeHub</h1>
+        <p>Discover, share, and create amazing recipes from around the world. Join our community of food lovers today!</p>
+        <div class="cta-buttons">
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="cta-button primary-button">Browse Recipes</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="cta-button primary-button">Get Started</a>
+                <a href="{% url 'signup' %}" class="cta-button secondary-button">Sign In</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fas fa-utensils feature-icon"></i>
+            <h3>Discover Recipes</h3>
+            <p>Explore thousands of delicious recipes from our community of passionate cooks.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-share-alt feature-icon"></i>
+            <h3>Share Your Creations</h3>
+            <p>Share your favorite recipes and cooking tips with our growing community.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-users feature-icon"></i>
+            <h3>Join the Community</h3>
+            <p>Connect with fellow food enthusiasts and learn from experienced cooks.</p>
+        </div>
+    </div>
+</section>
+{% endblock %} 
