@@ -5,7 +5,7 @@ def home(request):
     return render(request, 'landing.html')
 
 def dashboard(request):
-    return render(request, "User/dashboard.html")
+    return render(request, "user/dashboard.html")
 
 def adminDashboard(request):
     return render(request, "admin/dashboard.html")
