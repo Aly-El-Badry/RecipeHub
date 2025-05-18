@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "Interface",
     "report",
     "personalInfo",
+    "recipe",
 ]
 
 MIDDLEWARE = [

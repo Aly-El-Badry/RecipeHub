@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,111 +8,108 @@
         <title>Add Recipe - RecipeHub</title>
         
         <!-----------------THE CSS PAGES----------------------->
-        <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
-        <link rel="stylesheet" href="../../static/admin/css/Add.css"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
+        <link rel="stylesheet" href="{% static 'admin/css/add-recipe.css' %}">
+        <link rel="stylesheet" href="{% static 'admin/css/Add.css' %}"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+        <link rel="stylesheet" href="{% static 'components/css/navbar.css' %}">
     </head>
     <body>
         <!--NAV BAR PART -->
         <nav class="navbar">
             <div class="nav-container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'dashboard' %}">
                     <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
                 </a>
                 <button class="menu-toggle">
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
-                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url 'dashboard' %}" class="nav-link active"><i class="fas fa-chart-line"></i> dashboard</a>
+                    <a href="{% url 'viewRecipe' %}" class="nav-link"><i class="fas fa-book"></i> View Recipes</a>
+                    <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </nav>
 
-        <!--THE FORM OF THE RECIPE-->
-        <div class="Form">
-            <h2 style="color: var(--primary-color); margin-bottom: 2rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem;">Add New Recipe</h2>
-            <form class="FORM" method="post" action="">
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label class="tags">Recipe Name</label>
-                            <input class="inputLetters" type="text" name="name" placeholder="Enter recipe name" required>
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label class="tags">Course Type</label>
-                            <select class="input" name="courseType" required>
-                                <option value="">Select course type</option>
-                                <option value="appetizer">Appetizer</option>
-                                <option value="main course">Main Course</option>
-                                <option value="dessert">Dessert</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label class="tags">Cooking Time (minutes)</label>
-                            <input class="input" type="number" name="time" placeholder="Enter cooking time in minutes" required>
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label class="tags">Food Type</label>
-                            <input class="inputLetters" type="text" name="foodType" placeholder="e.g., Vegetarian, Seafood, etc.">
-                        </div>
-                    </div>
-                </div>
-
-                <!--INGREDIENTS SECTION-->
+        <div class="container">
+            <h1>Add New Recipe</h1>
+            
+            <form method="POST" class="recipe-form">
+                {% csrf_token %}
+                
                 <div class="form-group">
-                    <label class="tags">Ingredients</label>
-                    <div id="Ingredients">
-                        <div id="container" class="IngredientContainer_1">
-                            <div class="form-row">
-                                <div class="form-col">
-                                    <div class="form-group">
-                                        <label class="tags">Ingredient Name</label>
-                                        <input type="text" class="inputLetters" name="ingredients[]" placeholder="Enter ingredient name" required>
-                                    </div>
-                                </div>
-                                <div class="form-col">
-                                    <div class="form-group">
-                                        <label class="tags">Quantity</label>
-                                        <input type="text" class="input" name="quantity[]" placeholder="e.g., 2 cups, 500g" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="buttons" id="add" style="background: var(--secondary-color); color: var(--text-dark);">Add Another Ingredient</button>
+                    <label for="{{ form.name.id_for_label }}">Recipe Name:</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <div class="error">{{ form.name.errors }}</div>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
-                    <label class="tags">Description</label>
-                    <textarea class="text" name="description" placeholder="Describe the recipe steps..." required></textarea>
+                    <label for="{{ form.image.id_for_label }}">Image URL:</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                    <div class="error">{{ form.image.errors }}</div>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
-                    <label class="tags">Recipe Image</label>
-                    <input type="file" class="input" name="image" accept="image/*" required>
+                    <label for="{{ form.course_type.id_for_label }}">Course Type:</label>
+                    {{ form.course_type }}
+                    {% if form.course_type.errors %}
+                    <div class="error">{{ form.course_type.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.time.id_for_label }}">Cooking Time (minutes):</label>
+                    {{ form.time }}
+                    {% if form.time.errors %}
+                    <div class="error">{{ form.time.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.food_type.id_for_label }}">Food Type:</label>
+                    {{ form.food_type }}
+                    {% if form.food_type.errors %}
+                    <div class="error">{{ form.food_type.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.ingredients.id_for_label }}">Ingredients (one per line):</label>
+                    {{ form.ingredients }}
+                    {% if form.ingredients.errors %}
+                    <div class="error">{{ form.ingredients.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.quantity.id_for_label }}">Quantities (one per line):</label>
+                    {{ form.quantity }}
+                    {% if form.quantity.errors %}
+                    <div class="error">{{ form.quantity.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.steps.id_for_label }}">Steps (one per line):</label>
+                    {{ form.steps }}
+                    {% if form.steps.errors %}
+                    <div class="error">{{ form.steps.errors }}</div>
+                    {% endif %}
                 </div>
 
                 <div class="form-actions">
-                    <input type="button" id="cancelBtn" class="buttons" value="Cancel" style="background: var(--text-light);">
-                    <input type="submit" id="submission" class="buttons" value="Submit Recipe">
+                    <button type="submit" class="submit-btn">Add Recipe</button>
+                    <a href="{% url 'dashboard' %}" class="cancel-btn">Cancel</a>
                 </div>
             </form>
         </div>
-        <script src="../../static/admin/js/AddRecipe.js"></script>
+
+        <script src="{% static 'admin/js/add-recipe.js' %}"></script>
     </body>
 </html>

@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include("authorization.urls")),
     path('', include("report.urls")),
     path('', include("personalInfo.urls")),
+    path('', include("recipe.urls")),
 ] 

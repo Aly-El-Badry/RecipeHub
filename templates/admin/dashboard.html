@@ -19,15 +19,11 @@
             <span class="menu-icon"></span>
         </button>
         <div class="nav-menu">
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search recipes...">
-            </div>
-            <a href="" class="nav-link"><i class="fas fa-book"></i> All Recipes</a>
-            <a href="" class="nav-link"><i class="fas fa-plus"></i> Add Recipe</a>
+            <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> AddRecipe</a>
             <a href="" class="nav-link"><i class="fas fa-users"></i> Users</a>
             <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
             <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+
         </div>
     </div>
 </nav>
