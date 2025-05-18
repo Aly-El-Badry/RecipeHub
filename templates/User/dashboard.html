@@ -26,8 +26,8 @@
                 </div>
                 
                 {% comment %} <a href="{% url 'report_form' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a> {% endcomment %}
-                <a href="" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="{% url 'logout' %}" class="nav-link" onclick="localStorage.removeItem('currentUser');"><i class="fas fa-cog"></i> Log out</a>
+                <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
             </div>
         </div>
     </nav>

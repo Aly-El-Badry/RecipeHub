@@ -5,6 +5,15 @@ body {
     margin: 0;
 }
 
+.errorlist {
+    list-style: none;
+    color: red;
+    font-size: smaller;
+    font-weight: bold;
+    padding: 0 0.5rem;
+    margin: 0.25rem 0;
+}
+
 .site-name {
     justify-content: center;
     text-align: center;
