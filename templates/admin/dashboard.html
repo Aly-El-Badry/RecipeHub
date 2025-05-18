@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-    <title>RecipeFinder Admin Dashboard</title>
+    <title>RecipeHub - Admin Dashboard</title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'admin_dashboard/css/dashboard.css' %}">
@@ -20,7 +20,7 @@
         </button>
         <div class="nav-menu">
             <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> AddRecipe</a>
-            <a href="" class="nav-link"><i class="fas fa-users"></i> Users</a>
+            <a href="{% url "view_reports" %}" class="nav-link"><i class="fas fa-users"></i> Reports</a>
             <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
             <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
 

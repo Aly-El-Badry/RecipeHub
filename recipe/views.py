@@ -3,7 +3,7 @@ from django.contrib import messages
 from .forms import RecipeForm
 
 # Create your views here.
-def viewRecipe(request):
+def viewRecipe(request, id):
     return render(request, "User/ViewRecipe.html")
 
 def addRecipe(request):
@@ -19,5 +19,5 @@ def addRecipe(request):
     return render(request, "admin/Add-Recipe.html", {'form': form})
 
 def editRecipe(request):
-    return render(request, "User/Edit-Recipe.html")
+    return render(request, "admin/Edit-Recipe.html")
 

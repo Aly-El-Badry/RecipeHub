@@ -11,7 +11,7 @@ def dashboard(request):
         else:
             return render(request, "user/dashboard.html")
     else:
-        redirect('login')
+        return redirect('login')
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)
