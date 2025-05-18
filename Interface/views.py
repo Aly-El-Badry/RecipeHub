@@ -24,6 +24,7 @@ def dashboard(request):
         return redirect('login')
 
 
+
 def users(request):
     if request.user.is_authenticated:
         if request.user.account_type == 1:
@@ -34,6 +35,7 @@ def users(request):
     else:
         return redirect('login')
     
+
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)
