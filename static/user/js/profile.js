@@ -1,20 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Modal Functionality 
     const personalModal = document.getElementById('personalModal');
-    const locationModal = document.getElementById('locationModal');
     const editPersonalBtn = document.getElementById('editPersonal');
-    const editLocationBtn = document.getElementById('editLocationInfo');
     const closeButtons = document.getElementsByClassName('close');
     const cancelButtons = document.getElementsByClassName('cancel-btn');
 
     // Open Personal Modal
     editPersonalBtn.addEventListener('click', function() {
         personalModal.style.display = 'block';
-    });
-
-    // Open Location Modal
-    editLocationBtn.addEventListener('click', function() {
-        locationModal.style.display = 'block';
     });
 
     // Close modals
@@ -40,23 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Save Personal Info
     document.getElementById('personalForm').addEventListener('submit', function(e) {
         personalModal.style.display = 'none';
-    });
-
-    // Save Location Info
-    document.getElementById('locationForm').addEventListener('submit', function(e) {
-        profileData.location.country = document.getElementById('editCountry').value;
-        profileData.location.city = document.getElementById('editCity').value;
-        profileData.location.address = document.getElementById('editAddress').value;
-        
-        // Update the stored user object
-        const updatedUser = {
-            ...storedUser,
-            country: profileData.location.country,
-            city: profileData.location.city,
-            address: profileData.location.address
-        };
-                
-        locationModal.style.display = 'none';
     });
 
     // Image Upload Functionality
@@ -123,10 +99,5 @@ document.addEventListener('DOMContentLoaded', function() {
         imagePreview.style.display = 'none';
         fileInput.value = '';
         saveBtn.disabled = true;
-    }
-
-    if (document.querySelector('.search-input')) {
-        console.log(document.querySelector('.search-input'));
-        man.initializeSearch(document.querySelector('.search-input'));
     }
 });
