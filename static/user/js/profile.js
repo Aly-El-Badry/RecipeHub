@@ -1,51 +1,6 @@
-
 import * as man from "../../components/js/recipe_manager.js";
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Get User Data
-    const storedUser = JSON.parse(localStorage.getItem('RecipeHubUser')) || 
-                      JSON.parse(localStorage.getItem('RecipeHubAdmin'));
-    const currentUserKey = localStorage.getItem('RecipeHubUser') ? 'RecipeHubUser' : 'RecipeHubAdmin';
-
-    const profileData = {
-        personal: {
-            username: storedUser?.username || '',
-            firstname: storedUser?.firstName || '',
-            lastname: storedUser?.lastName || '',
-            email: storedUser?.email || '',
-            datebirth: storedUser?.birthDate || ''
-        },
-        location: {
-            country: storedUser?.country || 'Ex: Egypt',
-            city: storedUser?.city || 'Ex: cairo',
-            address: storedUser?.address || 'Ex: 123 family park'
-        }
-    };
-
-    // Update Profile Display
-    function updateProfileDisplay() {
-        // Update display name
-        const displayName = `${profileData.personal.firstname} ${profileData.personal.lastname}`;
-        document.getElementById('display-name').textContent = displayName;
-
-        // Update username
-        document.getElementById('userName').textContent = profileData.personal.username;
-
-        // Update all profile fields
-        for (const field in profileData.personal) {
-            const element = document.getElementById(field);
-            if (element) {
-                element.textContent = profileData.personal[field] || '';
-            }
-        }
-
-        for (const field in profileData.location) {
-            const element = document.getElementById(field);
-            if (element) {
-                element.textContent = profileData.location[field] || '';
-            }
-        }
-    }
 
     updateProfileDisplay();
 
@@ -220,11 +175,3 @@ document.addEventListener('DOMContentLoaded', function() {
         man.initializeSearch(document.querySelector('.search-input'));
     }
 });
-    
-
-       
-    
-    ///
-    
-
-
