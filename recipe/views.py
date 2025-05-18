@@ -18,7 +18,8 @@ def addRecipe(request):
     else:
         form = RecipeForm()
     
-    return render(request, "admin/Add-Recipe.html", {'form': form})
+    recipes = Recipe.objects.all()
+    return render(request, "admin/Add-Recipe.html", {'form': form, "count" : recipes.count()+1})
 
 def editRecipe(request):
     return render(request, "admin/Edit-Recipe.html")
