@@ -1,14 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 def home(request):
     return render(request, 'landing.html')
 
 def dashboard(request):
-    return render(request, "user/dashboard.html")
-
-def adminDashboard(request):
-    return render(request, "admin/dashboard.html")
+    if request.user.is_authenticated:
+        if request.user.account_type == 1:
+            return render(request, "admin/dashboard.html")
+        else:
+            return render(request, "user/dashboard.html")
+    else:
+        redirect('login')
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)

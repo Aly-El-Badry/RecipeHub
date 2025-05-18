@@ -28,7 +28,7 @@
                         <div class="search-results-dropdown"></div>
                     </div>
                     {% if user.account_type == 1 %}
-                        <a href="{% url 'admin-dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
                     {% else %}
                         <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                     {% endif %}

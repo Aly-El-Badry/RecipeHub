@@ -25,7 +25,7 @@
                     <div class="search-results-dropdown"></div>
                 </div>
                 
-                <a href="{% url 'report_form' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                {% comment %} <a href="{% url 'report_form' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a> {% endcomment %}
                 <a href="" class="nav-link"><i class="fas fa-user"></i> Profile</a>
                 <a href="{% url 'logout' %}" class="nav-link" onclick="localStorage.removeItem('currentUser');"><i class="fas fa-cog"></i> Log out</a>
             </div>
@@ -120,6 +120,6 @@
     </footer>
 
     <script src="{% static "/static/user/js/dashboard.js" %}"></script>
-    <script src="{% static static/user/js/recipe_manager.js %}"></script>
+    <script src="{% static 'static/user/js/recipe_manager.js' %}"></script>
 </body>
 </html>
