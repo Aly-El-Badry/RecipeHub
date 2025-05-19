@@ -12,14 +12,13 @@
 <body>
 <nav class="navbar">
     <div class="nav-container">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand" href="{% url "home" %}">
             <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
         </a>
         <button class="menu-toggle">
             <span class="menu-icon"></span>
         </button>
         <div class="nav-menu">
-            <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i>Home</a>
             <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> AddRecipe</a>
             <a href="{% url "view_reports" %}" class="nav-link"><i class="fas fa-users"></i> Reports</a>
             <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
