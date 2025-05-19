@@ -24,7 +24,7 @@ def profile(request):
     return redirect('login')
 
 
-
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         user = request.user        

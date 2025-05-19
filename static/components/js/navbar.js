@@ -1,56 +1,48 @@
-class Navbar {
-    constructor() {
-        this.menuToggle = document.querySelector('.menu-toggle');
-        this.navMenu = document.querySelector('.nav-menu');
-        this.searchInput = document.querySelector('.search-input');
-        this.init();
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
+
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    body.appendChild(overlay);
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', function() {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+        });
+
+        // Close menu when clicking a nav link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
     }
-
-    init() {
-        // Mobile menu toggle
-        if (this.menuToggle) {
-            this.menuToggle.addEventListener('click', () => this.toggleMenu());
-        }
-
-        // Search functionality
-        if (this.searchInput) {
-            this.searchInput.addEventListener('input', (e) => this.handleSearch(e));
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => this.handleOutsideClick(e));
-
-        // Handle window resize
-        window.addEventListener('resize', () => this.handleResize());
-    }
-
-    toggleMenu() {
-        this.menuToggle.classList.toggle('active');
-        this.navMenu.classList.toggle('active');
-    }
-
-    handleSearch(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        // You can implement your search logic here
-        console.log('Searching for:', searchTerm);
-    }
-
-    handleOutsideClick(e) {
-        if (!this.navMenu?.contains(e.target) && !this.menuToggle?.contains(e.target)) {
-            this.menuToggle?.classList.remove('active');
-            this.navMenu?.classList.remove('active');
-        }
-    }
-
-    handleResize() {
-        if (window.innerWidth > 768) {
-            this.menuToggle?.classList.remove('active');
-            this.navMenu?.classList.remove('active');
-        }
-    }
-}
-
-// Initialize navbar when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    const navbar = new Navbar();
 }); 
