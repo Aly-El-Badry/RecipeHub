@@ -18,8 +18,10 @@ def dashboard(request):
                 "recent_recipes": recent_recipes,
             }
             return render(request, "admin/dashboard.html", data)
-        else:
+        elif request.user.account_type == 0:
             return render(request, "user/dashboard.html")
+        else: 
+            return render(request, "pending.html")
     else:
         return redirect('login')
 

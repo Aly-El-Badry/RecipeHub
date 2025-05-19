@@ -26,12 +26,12 @@
                     {% if user.account_type == 1 %}
                         <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
                     {% else %}
-                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                         <div class="search-container">
                             <i class="fas fa-search search-icon"></i>
                             <input type="text" class="search-input" placeholder="Search recipes...">
                             <div class="search-results-dropdown"></div>
                         </div>
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                     {% endif %}
 
                     <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
