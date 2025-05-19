@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from recipe.models import Recipe
 from authorization.models import  User
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     return render(request, 'landing.html')
@@ -41,4 +43,35 @@ def users(request):
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)
+
+@login_required
+def delete_user(request, user_id):
+    if request.user.is_authenticated and request.user.account_type == 1:
+        if request.method == 'POST':
+            user_to_delete = get_object_or_404(User, id=user_id)
+            user_to_delete.delete()
+            messages.success(request, 'User deleted successfully!')
+        return redirect('users')
+    return redirect('login')
+
+@login_required
+def approve_user(request, user_id):
+    if request.user.is_authenticated and request.user.account_type == 1:
+        if request.method == 'POST':
+            user_to_approve = get_object_or_404(User, id=user_id)
+            user_to_approve.account_type = 1
+            user_to_approve.save()
+            messages.success(request, 'User approved successfully!')
+        return redirect('users')
+    return redirect('login')
+
+@login_required
+def refuse_user(request, user_id):
+    if request.user.is_authenticated and request.user.account_type == 1:
+        if request.method == 'POST':
+            user_to_refuse = get_object_or_404(User, id=user_id)
+            user_to_refuse.delete()
+            messages.success(request, 'User refused and deleted successfully!')
+        return redirect('users')
+    return redirect('login')
 

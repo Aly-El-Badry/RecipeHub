@@ -46,6 +46,7 @@
     border-bottom: 1px solid #e9ecef;
     color: #495057;
     transition: background-color 0.2s ease;
+    vertical-align: middle;
 }
 
 .users-table tr:hover td {
@@ -57,13 +58,10 @@
 }
 
 .status-badge {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 15px;
     font-size: 0.85em;
     font-weight: 500;
-    text-align: center;
-    min-width: 80px;
 }
 
 .status-active {
@@ -71,9 +69,32 @@
     color: white;
 }
 
-.status-inactive {
-    background-color: #6c757d;
+.status-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 0 2px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
     color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
 }
 
 .deleteButton {
@@ -152,4 +173,8 @@
 
 .users-table::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.users-table form {
+    margin: 0;
 } 
