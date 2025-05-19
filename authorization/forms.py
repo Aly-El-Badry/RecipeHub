@@ -94,7 +94,7 @@ class PasswordResetForm(forms.Form):
         max_length=6,
         widget=forms.TextInput(attrs={
             'class': 'text-field',
-            'placeholder': '6-digit Code',
+            'placeholder': '6-character Code',
             'id': 'code'
         })
     )
@@ -123,6 +123,7 @@ class PasswordResetForm(forms.Form):
                 
                 cleaned_data['user'] = user
                 cleaned_data['reset_code'] = reset
+                cleaned_data['password'] = password
             except User.DoesNotExist:
                 raise ValidationError("No user with this email exists")
             except PasswordResetCode.DoesNotExist:

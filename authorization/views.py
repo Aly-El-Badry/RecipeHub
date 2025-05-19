@@ -40,6 +40,7 @@ def login_view(request):
 
 def reset_view(request):
     if request.method == 'POST':
+        print("HERE")
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             user = form.cleaned_data['user']
@@ -75,6 +76,11 @@ def send_code(request):
     try:
         user = User.objects.get(email=email)
         code = PasswordResetCode.create_code(user)
+
+        print("+---------- RESET CODE ----------+")
+        print(f"|     {email}     |")
+        print(f"|             {code.code}             |")
+        print("+--------------------------------+")
 
         return JsonResponse({'status': 'success', 'message': 'Code generated'}, status=200)
     
