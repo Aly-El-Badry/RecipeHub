@@ -43,7 +43,7 @@ def edit_profile(request):
 def favoriteRecipes(request):
     if request.user.is_authenticated:
         if request.user.account_type == 1:
-            return redirect('dashobard')
+            return redirect('dashboard')
         else:
             favs = FavoriteRecipes.objects.filter(user=request.user).select_related('recipe')
             return render(request, "user/favourites.html", {'favs': favs})

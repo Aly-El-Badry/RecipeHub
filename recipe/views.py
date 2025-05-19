@@ -15,7 +15,8 @@ def viewRecipe(request, id):
             'recipe': recipe,
             'ings': zip(recipe.quantity, recipe.ingredients),
             'fav_status': "fas active" if status else "far",
-            'fav_message': "Added to favorites" if status else "Add to favorites"
+            'fav_message': "Added to favorites" if status else "Add to favorites",
+            'acc_type': request.user.account_type
         }
         return render(request, "user/ViewRecipe.html", context=context)
     else:
