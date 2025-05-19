@@ -50,7 +50,10 @@
                     </div>
                     <form method='POST' action="{% url "addToFav" recipe.id %}" style="display: inline;">
                         {% csrf_token %}
-                        <button type="submit" class="meta-item favorite-btn" id="favoriteBtn">
+                        <button type="submit" class="meta-item favorite-btn"
+                        id="favoriteBtn"
+                        {% if acc_type == 1 %}disabled{% else %}enabled{% endif %}
+                        onclick="{% if acc_type == 1 %}return false;{% endif %}">
                             <i class="{{ fav_status }} fa-heart"></i> <span>{{ fav_message }}</span>
                         </button>
                     </form>
@@ -79,6 +82,13 @@
             </div>
         </div>
     </div>
-    <script src="{% static "user/js/ViewRecipe.js" %}"></script>
+    <script>
+        document.getElementById('favoriteBtn').addEventListener('click', function(e) {
+            if ({{ acc_type }} === 1) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 </body>
 </html>

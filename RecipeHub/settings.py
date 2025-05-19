@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,6 +92,20 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'authorization.User'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dz0lgmr6t',
+    'API_KEY': '452379711857279',
+    'API_SECRET': 'CFrQSDdxvJfnYdYERIuS8mAjRME'
+}
+
+cloudinary.config(
+    cloud_name='dz0lgmr6t',
+    api_key='452379711857279',
+    api_secret='CFrQSDdxvJfnYdYERIuS8mAjRME'
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
