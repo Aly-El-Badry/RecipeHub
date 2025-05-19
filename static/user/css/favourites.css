@@ -1,6 +1,11 @@
-:oot{
+:root{
     --sidebar-width: 250px;
 }
+
+body {
+    margin: 0;
+}
+
 .main {
     margin: auto; 
     padding: 20px;
@@ -88,11 +93,11 @@
 .removebutton i {
     color: #dc3545;
     font-size: 1.2em;
-    transition: transform 0.3s ease;
+    transform: all 0.3s ease;
 }
 
 .removebutton:hover i {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {

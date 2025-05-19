@@ -31,7 +31,7 @@
         </div>
     </nav>
     <div class="recipe-container">
-        <div class="recipe-image" id="recipeImage" style="backgroundImage: url({{ recipe.image }})"></div>
+        <div class="recipe-image" id="recipeImage" style="background-image: url('{{ recipe.image }}');"></div>
         <div class="recipe-content">
             <div class="recipe-header">
                 <h1 id="recipeTitle">{{ recipe.name | title }}</h1>
@@ -59,18 +59,22 @@
             <div class="recipe-section">
                 <h2 class="section-title">Ingredients</h2>
                 <div class="ingredients-grid" id="ingredients">
-                    {% for ing in recipe.ingredients %}
-                        <ul id="List">{{ ing }}</ul>
-                    {% endfor %}
+                    <ul id="List">
+                        {% for quan, ing in ings %}
+                            <li>{{ quan|title }} {{ ing }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
 
             <div class="recipe-section">
                 <h2 class="section-title">Steps</h2>
                 <div class="steps-list" id="orderedSteps">
-                    {% for step in recipe.steps %}
-                        <ol id="orderedList">{{ step }}</ol>
-                    {% endfor %}
+                    <ol id="orderedList">
+                        {% for step in recipe.steps %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
                 </div>
             </div>
         </div>

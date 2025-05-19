@@ -14,7 +14,7 @@ def signup(request):
             user = form.save(commit=True)
             user.password = make_password(form.cleaned_data["password"])
             user.save()
-
+            login(request, user)
             return redirect('dashboard')
     else:
         form = SignupForm()
