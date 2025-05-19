@@ -20,9 +20,11 @@
             </button>
             <div class="nav-menu">
                 <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search recipes...">
-                    <div class="search-results-dropdown"></div>
+                    <form method="GET" action="{% url "dashboard" %}">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" name="search" class="search-input" 
+                            placeholder="Search recipes..." value="{{ search_query }}">
+                        </form>
                 </div>
                 
                 <a href="{% url 'favorites' %}" class="nav-link"><i class="fas fa-star"></i> Favorites</a>
@@ -84,7 +86,7 @@
 
             <div class="recipe-grid" style="padding-top: 0.2rem;">
                 {% if recipes|length == 0 %}
-                    <p class="no-recipes">No recipes match your filters. Try adjusting your search criteria.</p>
+                    <p class="no-recipes" style="width: 100%;">No recipes found.</p>
                 {% else %}
                     {% for recipe in recipes %}
                         <div class="recipe-card">
@@ -136,7 +138,7 @@
             <p>&copy; 2024 RecipeHub. All rights reserved.</p>
         </div>
     </footer>
-    <script src="{% static "/user/js/dashboard.js" %}"></script>
-    <script src="{% static '/user/js/recipe_manager.js' %}"></script>
+    {% comment %} <script src="{% static "/user/js/dashboard.js" %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static '/user/js/recipe_manager.js' %}"></script> {% endcomment %}
 </body>
 </html>

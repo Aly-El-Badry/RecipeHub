@@ -138,7 +138,7 @@ body {
     color: var(--text-light);
 }
 
-.search-results-dropdown {
+#search-results-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -153,7 +153,7 @@ body {
     z-index: 1000;
 }
 
-.search-results-dropdown.active {
+#search-results-dropdown.active {
     display: block;
 }
 

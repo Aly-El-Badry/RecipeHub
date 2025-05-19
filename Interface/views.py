@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from recipe.models import Recipe
 from authorization.models import  User
 # Create your views here.
@@ -21,8 +22,13 @@ def dashboard(request):
             }
             return render(request, "admin/dashboard.html", data)
         elif request.user.account_type == 0:
-            recipes = Recipe.objects.all()
-            return render(request, "user/dashboard.html", {'recipes': recipes})
+            recipes = Recipe.objects.all().order_by('id')
+            search_query = request.GET.get('search', '')
+            if search_query:
+                recipes = Recipe.objects.filter(
+                    Q(name__icontains=search_query)
+                )
+            return render(request, "user/dashboard.html", {'recipes': recipes, 'search_query': search_query})
         else: 
             return render(request, "pending.html")
     else:

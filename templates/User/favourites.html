@@ -10,27 +10,21 @@
         <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
     </head>
     <body>
-        <nav class="navbar">
-        <div class="nav-container">
-            <a class="navbar-brand" href="{% url "home" %}">
-                <i class="fas fa-utensils"></i>RecipeHub
-            </a>
-            <button class="menu-toggle">
-                <span class="menu-icon"></span>
-            </button>
-            <div class="nav-menu">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search recipes...">
-                    <div class="search-results-dropdown"></div>
+            <nav class="navbar" style="width: 100%;">
+                <div class="nav-container">
+                    <a class="navbar-brand" href="{% url "home" %}">
+                        <i class="fas fa-utensils"></i>RecipeHub
+                    </a>
+                    <button class="menu-toggle">
+                        <span class="menu-icon"></span>
+                    </button>
+                    <div class="nav-menu">
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                        <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                        <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                    </div>
                 </div>
-                
-                <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
-            </div>
-        </div>
-    </nav>
+            </nav>
         <div class="main" id="favoritesContainer">
             {% if favs|length == 0 %}
                 <p class="no-favorites">You haven't added any recipes to your favorites yet.</p>
