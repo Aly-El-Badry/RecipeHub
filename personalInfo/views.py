@@ -72,7 +72,7 @@ def favoriteRecipes(request):
     if request.user.is_authenticated:
         if request.user.account_type == 1:
             return redirect('dashboard')
-        else:
+        elif request.user.account_type == 0:
             favs = FavoriteRecipes.objects.filter(user=request.user).select_related('recipe')
             return render(request, "user/favourites.html", {'favs': favs})
     else:

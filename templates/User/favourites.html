@@ -3,43 +3,57 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Favorites</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Favorites - RecipeHub</title>
+        <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
         <link rel="stylesheet" href="{% static "user/css/favourites.css" %}">
         <link rel="icon" type="image/x-icon" href="{% static "images/chef.png" %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
     </head>
     <body>
-            <nav class="navbar" style="width: 100%;">
-                <div class="nav-container">
-                    <a class="navbar-brand" href="{% url "home" %}">
-                        <i class="fas fa-utensils"></i>RecipeHub
-                    </a>
-                    <button class="menu-toggle">
-                        <span class="menu-icon"></span>
-                    </button>
-                    <div class="nav-menu">
-                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
-                        <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                        <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
-                    </div>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="{% url "home" %}">
+                    <i class="fas fa-utensils"></i>RecipeHub
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                    <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
                 </div>
-            </nav>
+            </div>
+        </nav>
+
         <div class="main" id="favoritesContainer">
             {% if favs|length == 0 %}
-                <p class="no-favorites">You haven't added any recipes to your favorites yet.</p>
+                <div class="no-favorites">
+                    <i class="fas fa-heart-broken" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p>You haven't added any recipes to your favorites yet.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                        Browse our recipes and add your favorites to keep them handy!
+                    </p>
+                </div>
             {% else %}
                 {% for fav in favs %}
-                    <img class="foodimage" src="{{ fav.recipe.image }}" alt="{{ fav.recipe.name }}">
-                    <h1 class="resipename">{{ fav.recipe.name }}</h1>
-                    <form method='POST' action="{% url "addToFav" fav.recipe.id %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button class="removebutton" type="submit">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </form>
+                    <div class="resipes">
+                        <a href="{% url 'viewRecipe' fav.recipe.id %}" class="recipe-link">
+                            <img class="foodimage" src="{{ fav.recipe.image }}" alt="{{ fav.recipe.name }}">
+                            <h1 class="resipename">{{ fav.recipe.name }}</h1>
+                        </a>
+                        <form method='POST' action="{% url "addToFav" fav.recipe.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button class="removebutton" type="submit" title="Remove from favorites">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </form>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
+
+        <script src="{% static 'components/js/navbar.js' %}"></script>
     </body>
 </html>

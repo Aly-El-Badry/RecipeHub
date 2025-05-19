@@ -11,7 +11,7 @@ from django.db.models import Q
 # Create your views here.
 @login_required
 def viewRecipe(request, id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.account_type == 0:
         recipe = get_object_or_404(Recipe, id=id)
         status = FavoriteRecipes.objects.filter(user=request.user, recipe=recipe).exists()
         context = {
@@ -23,11 +23,11 @@ def viewRecipe(request, id):
         }
         return render(request, "user/ViewRecipe.html", context=context)
     else:
-        return redirect('login')
+        return redirect('dashboard')
 
 @login_required
 def addRecipe(request):
-    if request.user.account_type == 1 :
+    if request.user.is_authenticated and request.user.account_type == 1 :
         if request.method == 'POST':
             form = RecipeForm(request.POST)
             if form.is_valid():
@@ -44,7 +44,7 @@ def addRecipe(request):
 
 @login_required
 def manageRecipe(request):
-    if request.user.account_type == 1:
+    if request.user.is_authenticated and request.user.account_type == 1:
         recipes = Recipe.objects.all().order_by('id')
         search_query = request.GET.get('search', '')
         if search_query:
@@ -57,7 +57,7 @@ def manageRecipe(request):
 
 @login_required
 def editRecipe(request, id):
-    if request.user.account_type == 1:
+    if request.user.is_authenticated and request.user.account_type == 1:
         recipe = get_object_or_404(Recipe, id=id)
         
         if request.method == 'POST':
@@ -102,7 +102,7 @@ def editRecipe(request, id):
 
 @login_required
 def deleteRecipe(request, id):
-    if request.user.account_type == 1:
+    if request.user.is_authenticated and request.user.account_type == 1:
         if request.method == 'POST':
             recipe = get_object_or_404(Recipe, id=id)
             recipe.delete()
@@ -114,7 +114,7 @@ def deleteRecipe(request, id):
 
 @login_required
 def favoriteRecipe(request, id):
-    if request.user.account_type == 0:
+    if request.user.is_authenticated and request.user.account_type == 0:
         user = request.user
         recipe = Recipe.objects.get(id=id)
         filter = FavoriteRecipes.objects.filter(user=user, recipe=recipe)
