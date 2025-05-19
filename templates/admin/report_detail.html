@@ -19,7 +19,8 @@
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i>Dashboard</a>
                     <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
                     <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
                 </div>
@@ -70,5 +71,7 @@
                 {% endif %}
             </div>
         </div>
+
+        <script src="{% static 'components/js/navbar.js' %}"></script>
     </body>
 </html> 

@@ -5,8 +5,10 @@ from .forms import RecipeForm
 from .models import Recipe
 from authorization.models import User
 from personalInfo.models import FavoriteRecipes
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def viewRecipe(request, id):
     if request.user.is_authenticated:
         recipe = get_object_or_404(Recipe, id=id)
@@ -22,75 +24,91 @@ def viewRecipe(request, id):
     else:
         return redirect('login')
 
+@login_required
 def addRecipe(request):
-    if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Recipe added successfully!')
-            return redirect('dashboard')
+    if request.user.account_type == 1 :
+        if request.method == 'POST':
+            form = RecipeForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Recipe added successfully!')
+                return redirect('dashboard')
+        else:
+            form = RecipeForm()
+        
+        recipes = Recipe.objects.all()
+        return render(request, "admin/Add-Recipe.html", {'form': form, "count" : recipes.count()+1})
     else:
-        form = RecipeForm()
-    
-    recipes = Recipe.objects.all()
-    return render(request, "admin/Add-Recipe.html", {'form': form, "count" : recipes.count()+1})
+        return redirect('dashboard')
 
+@login_required
 def manageRecipe(request):
-    recipes = Recipe.objects.all()
-    return render(request, "admin/recipes.html", {"recipes": recipes})
+    if request.user.account_type == 1:
+        recipes = Recipe.objects.all()
+        return render(request, "admin/recipes.html", {"recipes": recipes})
+    else:
+        return redirect('dashboard')
 
+@login_required
 def editRecipe(request, id):
-    recipe = get_object_or_404(Recipe, id=id)
-    
-    if request.method == 'POST':
-        if 'add_ingredient' in request.POST:
-            # Add a new empty ingredient
-            recipe.ingredients.append("")
-            recipe.save()
-            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
-            
-        elif 'add_quantity' in request.POST:
-            # Add a new empty quantity
-            recipe.quantity.append("")
-            recipe.save()
-            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
-            
-        elif 'add_step' in request.POST:
-            # Add a new empty step
-            recipe.steps.append("")
-            recipe.save()
-            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
-            
-        elif 'save' in request.POST:
-            # Update recipe data
-            recipe.name = request.POST.get('name')
-            recipe.course_type = request.POST.get('course_type')
-            recipe.time = request.POST.get('time')
-            recipe.food_type = request.POST.get('food_type')
-            recipe.image = request.POST.get('image')
-            
-            # Handle ingredients, quantities, and steps as line-separated text
-            recipe.ingredients = [ing.strip() for ing in request.POST.get('ingredients').split('\n') if ing.strip()]
-            recipe.quantity = [qty.strip() for qty in request.POST.get('quantity').split('\n') if qty.strip()]
-            recipe.steps = [step.strip() for step in request.POST.get('steps').split('\n') if step.strip()]
-            
-            recipe.save()
-            messages.success(request, 'Recipe updated successfully!')
-            return redirect('manageRecipe')
-    
-    return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
-
-    
-def deleteRecipe(request, id):
-    if request.method == 'POST':
+    if request.user.account_type == 1:
         recipe = get_object_or_404(Recipe, id=id)
-        recipe.delete()
-        messages.success(request, 'Recipe deleted successfully!')
-        return redirect('manageRecipe')
-    return redirect('manageRecipe')
+        
+        if request.method == 'POST':
+            if 'add_ingredient' in request.POST:
+                # Add a new empty ingredient
+                recipe.ingredients.append("")
+                recipe.save()
+                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                
+            elif 'add_quantity' in request.POST:
+                # Add a new empty quantity
+                recipe.quantity.append("")
+                recipe.save()
+                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                
+            elif 'add_step' in request.POST:
+                # Add a new empty step
+                recipe.steps.append("")
+                recipe.save()
+                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                
+            elif 'save' in request.POST:
+                # Update recipe data
+                recipe.name = request.POST.get('name')
+                recipe.course_type = request.POST.get('course_type')
+                recipe.time = request.POST.get('time')
+                recipe.food_type = request.POST.get('food_type')
+                recipe.image = request.POST.get('image')
+                
+                # Handle ingredients, quantities, and steps as line-separated text
+                recipe.ingredients = [ing.strip() for ing in request.POST.get('ingredients').split('\n') if ing.strip()]
+                recipe.quantity = [qty.strip() for qty in request.POST.get('quantity').split('\n') if qty.strip()]
+                recipe.steps = [step.strip() for step in request.POST.get('steps').split('\n') if step.strip()]
+                
+                recipe.save()
+                messages.success(request, 'Recipe updated successfully!')
+                return redirect('manageRecipe')
+        
+        return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+    else:
+        return redirect('dashboard')
 
+@login_required
+def deleteRecipe(request, id):
+    if request.user.account_type == 1:
+        if request.method == 'POST':
+            recipe = get_object_or_404(Recipe, id=id)
+            recipe.delete()
+            messages.success(request, 'Recipe deleted successfully!')
+            return redirect('manageRecipe')
+        return redirect('manageRecipe')
+    else:
+        return redirect('dashboard')
+
+@login_required
 def favoriteRecipe(request, id):
-    if request.user.is_authenticated:
+    if request.user.account_type == 0:
         user = request.user
         recipe = Recipe.objects.get(id=id)
         filter = FavoriteRecipes.objects.filter(user=user, recipe=recipe)
@@ -102,4 +120,4 @@ def favoriteRecipe(request, id):
                 FavoriteRecipes.objects.create(user=user, recipe=recipe)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
-        return redirect('login')
+        return redirect('dashboard')
