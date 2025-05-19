@@ -31,8 +31,10 @@ def dashboard(request):
                     Q(name__icontains=search_query)
                 )
             return render(request, "user/dashboard.html", {'recipes': recipes, 'search_query': search_query})
-        else: 
+        elif request.user.account_type == -1: 
             return render(request, "pending.html")
+        elif request.user.account_type == -2:
+            return render(request, "refused.html")
     else:
         return redirect('login')
 
@@ -84,8 +86,9 @@ def refuse_user(request, user_id):
     if request.user.is_authenticated and request.user.account_type == 1:
         if request.method == 'POST':
             user_to_refuse = get_object_or_404(User, id=user_id)
-            user_to_refuse.delete()
-            messages.success(request, 'User refused and deleted successfully!')
+            user_to_refuse.account_type = -2
+            user_to_refuse.save()
+            messages.success(request, 'User refused successfully!')
         return redirect('users')
     return redirect('login')
 

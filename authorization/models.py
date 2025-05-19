@@ -11,6 +11,7 @@ class User(AbstractUser):
         (0, 'User'),
         (-1, 'Admin'),
         (1, 'Admin'),
+        (-2, 'Refused')
     ]
 
     first_name = models.CharField(max_length=20, blank=False)

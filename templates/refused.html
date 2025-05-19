@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .refused-container {
+        min-height: calc(100vh - 200px);
+        background: var(--secondary-color);
+        padding: 4rem 0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .refused-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .refused-icon {
+        font-size: 5rem;
+        color: #dc3545;
+        margin-bottom: 2rem;
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    .refused-title {
+        color: #dc3545;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+    }
+
+    .refused-message {
+        background: rgba(220, 53, 69, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid #dc3545;
+        position: relative;
+    }
+
+    .refused-message p {
+        color: var(--accent-color);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .logout-btn {
+        background: #dc3545;
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .logout-btn:hover {
+        background: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    .cooking-icon {
+        position: absolute;
+        opacity: 0.1;
+        font-size: 15rem;
+        color: #dc3545;
+        z-index: 0;
+    }
+
+    .cooking-icon-1 {
+        top: -50px;
+        right: -50px;
+        transform: rotate(15deg);
+    }
+
+    .cooking-icon-2 {
+        bottom: -50px;
+        left: -50px;
+        transform: rotate(-15deg);
+    }
+</style>
+
+<div class="refused-container">
+    <div class="refused-content">
+        <i class="fas fa-utensils cooking-icon cooking-icon-1"></i>
+        <i class="fas fa-mortar-pestle cooking-icon cooking-icon-2"></i>
+        
+        <div class="refused-icon">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        <h2 class="refused-title">Application Not Accepted</h2>
+        <div class="refused-message">
+            <p>We regret to inform you that your application has not been accepted at this time.</p>
+            <p class="mt-3">If you believe this is an error or would like to reapply, please contact our support team for assistance.</p>
+        </div>
+        <a href="{% url 'logout' %}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %} 
