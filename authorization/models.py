@@ -19,6 +19,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=128, blank=False)
     birthDate = models.DateField(blank=False)
     account_type = models.IntegerField(choices=ACCOUNT_TYPE_CHOICES, blank=False, default=0)
+    profile_image_url = models.URLField(max_length=500, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

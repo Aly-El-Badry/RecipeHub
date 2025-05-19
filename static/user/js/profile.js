@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveBtn = document.getElementById('saveImageBtn');
     const cancelBtn = document.getElementById('cancelUpload');
     const profileAvatar = document.getElementById('profileAvatar');
+    const imageUploadForm = document.getElementById('imageUploadForm');
 
     // Open modal when plus icon is clicked
     editBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
         imgmodel.style.display = 'flex';
     });
@@ -69,19 +71,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Save image
-    saveBtn.addEventListener('click', function() {
-        profileAvatar.src = imagePreview.src;
+    // Handle form submission
+    imageUploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        // Update the stored user object with the image
-        const updatedUser = {
-            ...storedUser,
-            profileImage: imagePreview.src
-        };
+        const formData = new FormData(this);
         
-        localStorage.setItem(currentUserKey, JSON.stringify(updatedUser));
-        
-        closeImageModal();
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update profile avatar with the new Cloudinary URL
+                profileAvatar.src = data.image_url;
+                
+                // Update the stored user object with the new image URL
+                const updatedUser = {
+                    ...storedUser,
+                    profileImage: data.image_url
+                };
+                
+                localStorage.setItem(currentUserKey, JSON.stringify(updatedUser));
+                
+                closeImageModal();
+            } else {
+                alert(data.error || 'Failed to upload image. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while uploading the image. Please try again.');
+        });
     });
 
     // Close modal
@@ -99,5 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
         imagePreview.style.display = 'none';
         fileInput.value = '';
         saveBtn.disabled = true;
+    }
+
+    // Load saved avatar if exists
+    if (storedUser?.profileImage) {
+        profileAvatar.src = storedUser.profileImage;
     }
 });
