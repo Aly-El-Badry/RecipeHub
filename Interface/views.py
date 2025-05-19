@@ -24,12 +24,50 @@ def dashboard(request):
             return render(request, "admin/dashboard.html", data)
         elif request.user.account_type == 0:
             recipes = Recipe.objects.all().order_by('id')
+
             search_query = request.GET.get('search', '')
             if search_query:
-                recipes = Recipe.objects.filter(
+                recipes = recipes.filter(
                     Q(name__icontains=search_query)
                 )
-            return render(request, "user/dashboard.html", {'recipes': recipes, 'search_query': search_query})
+
+            food_type = request.GET.get('food_type', '')
+            if food_type:
+                recipes = recipes.filter(Q(food_type=food_type))
+
+            ingredient = request.GET.get('ingredient', '')
+            if ingredient:
+                recipes = recipes.extra(
+                    where=["""EXISTS (
+                        SELECT 1 FROM json_each(ingredients) 
+                        WHERE json_each.value LIKE %s
+                    )"""],
+                    params=[f'%{ingredient}%']
+                )
+
+            filter_by = request.GET.get('filter_by', '')
+            if filter_by == 'recent':
+                recipes = recipes.order_by('-id')
+            elif filter_by == 'quick_and_easy':
+                recipes = recipes.filter(time__lte=30)
+            elif filter_by == 'vegetarian':
+                recipes = recipes.filter(food_type='Vegetarian')
+            elif filter_by == 'dessert':
+                recipes = recipes.filter(food_type='Desserts')
+            elif filter_by == 'appetizer':
+                recipes = recipes.filter(course_type='appetizer')
+            elif filter_by == 'main_dish':
+                recipes = recipes.filter(course_type='main course')
+
+            context = {
+                'recipes': recipes,
+                'search_query': search_query,
+                'food_type': food_type,
+                'ingredient': ingredient,
+                'filter_by': filter_by
+            }
+
+            return render(request, "user/dashboard.html", context)
         elif request.user.account_type == -1: 
             return render(request, "pending.html")
         elif request.user.account_type == -2:

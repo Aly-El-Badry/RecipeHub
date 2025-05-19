@@ -41,27 +41,25 @@
             <div class="sidebar-section">
                 <h3 class="filter-sub-title">Food Types <i class="fas fa-arrow-down filter-arrow"></i></h3>
                 <ul class="sidebar-menu">
-                    <li><button class="filter-btn-sidebar all-recipes active" href="#"><i class="fas fa-utensils"></i> All Recipes</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-pizza-slice"></i> Italian</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-fish"></i> Seafood</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-drumstick-bite"></i> Meat</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-leaf"></i> Vegetarian</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-ice-cream"></i> Desserts</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-bread-slice"></i> Baking</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-glass-martini-alt"></i> Beverages</button></li>
+                    <li><a class="filter-btn-sidebar all-recipes {% if not food_type%}active{% endif %}" href="?ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-utensils"></i> All Recipes</a></li>
+                    <li><a class="filter-btn-sidebar {% if food_type == 'Italian' %}active{% endif %}" href="?food_type=Italian&ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-pizza-slice"></i> Italian</a></li>
+                    <li><a class="filter-btn-sidebar {% if food_type == 'SeaFood' %}active{% endif %}" href="?food_type=SeaFood&ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-fish"></i> Seafood</a></li>
+                    <li><a class="filter-btn-sidebar {% if food_type == 'Meat' %}active{% endif %}" href="?food_type=Meat&ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-drumstick-bite"></i> Meat</a></li>
+                    <li><a class="filter-btn-sidebar {% if food_type == 'Vegetarian' %}active{% endif %}" href="?food_type=Vegetarian&ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-leaf"></i> Vegetarian</a></li>
+                    <li><a class="filter-btn-sidebar {% if food_type == 'Desserts' %}active{% endif %}" href="?food_type=Desserts&ingredient={{ ingredient }}&filter_by={{ filter_by }}"><i class="fas fa-ice-cream"></i> Desserts</a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h3 class="filter-sub-title">Common Ingredients <i class="fas fa-arrow-down filter-arrow"></i></h3>
                 <ul class="sidebar-menu gradient-list">
-                    <li><button class="filter-btn-sidebar all-recipes active" href="#"><i class="fas fa-utensils"></i> All Ingredients</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-egg"></i> Eggs</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-cheese"></i> Cheese</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-carrot"></i> Vegetables</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-apple-whole"></i> Fruits</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-fish"></i> Fish</button></li>
-                    <li><button class="filter-btn-sidebar" href="#"><i class="fas fa-drumstick-bite"></i> Chicken</button></li>
+                    <li><a class="filter-btn-sidebar all-recipes {% if not ingredient%}active{% endif %}" href="?food_type={{ food_type }}&filter_by={{ filter_by }}"><i class="fas fa-utensils"></i> All Ingredients</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Eggs' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Eggs&filter_by={{ filter_by }}"><i class="fas fa-egg"></i> Eggs</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Cheese' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Cheese&filter_by={{ filter_by }}"><i class="fas fa-cheese"></i> Cheese</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Vegetables' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Vegetables&filter_by={{ filter_by }}"><i class="fas fa-carrot"></i> Vegetables</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Fruits' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Fruits&filter_by={{ filter_by }}"><i class="fas fa-apple-whole"></i> Fruits</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Fish' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Fish&filter_by={{ filter_by }}"><i class="fas fa-fish"></i> Fish</a></li>
+                    <li><a class="filter-btn-sidebar {% if ingredient == 'Chicken' %}active{% endif %}" href="?food_type={{ food_type }}&ingredient=Chicken&filter_by={{ filter_by }}"><i class="fas fa-drumstick-bite"></i> Chicken</a></li>
                 </ul>
             </div>
         </div>
@@ -73,14 +71,27 @@
             
             <div class="filter-container">
                 <div class="filter-buttons">
-                    <button class="filter-btn active all-recipes">All</button>
-                    <button class="filter-btn">Popular</button>
-                    <button class="filter-btn">Recent</button>
-                    <button class="filter-btn">Quick &amp; Easy</button>
-                    <button class="filter-btn">Vegetarian</button>
-                    <button class="filter-btn">Desserts</button>
-                    <button class="filter-btn">Breakfast</button>
-                    <button class="filter-btn">Dinner</button>
+                    <button class="filter-btn {% if not filter_by %}active{% endif %}" onclick="applyFilter('', '{{ food_type }}', '{{ ingredient }}')">
+                        All
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'recent' %}active{% endif %}" onclick="applyFilter('recent', '{{ food_type }}', '{{ ingredient }}')">
+                        Recent
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'quick_and_easy' %}active{% endif %}" onclick="applyFilter('quick_and_easy', '{{ food_type }}', '{{ ingredient }}')">
+                        Quick &amp; Easy
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'vegetarian' %}active{% endif %}" onclick="applyFilter('vegetarian', '{{ food_type }}', '{{ ingredient }}')">
+                        Vegetarian
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'dessert' %}active{% endif %}" onclick="applyFilter('dessert', '{{ food_type }}', '{{ ingredient }}')">
+                        Dessert
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'appetizer' %}active{% endif %}" onclick="applyFilter('appetizer', '{{ food_type }}', '{{ ingredient }}')">
+                        Appetizer
+                    </button>
+                    <button class="filter-btn {% if filter_by == 'main_dish' %}active{% endif %}" onclick="applyFilter('main_dish', '{{ food_type }}', '{{ ingredient }}')">
+                        Main Dish
+                    </button>
                 </div>
             </div>
 
@@ -138,7 +149,25 @@
             <p>&copy; 2024 RecipeHub. All rights reserved.</p>
         </div>
     </footer>
-    {% comment %} <script src="{% static "/user/js/dashboard.js" %}"></script> {% endcomment %}
-    {% comment %} <script src="{% static '/user/js/recipe_manager.js' %}"></script> {% endcomment %}
+    <script>
+        function applyFilter(filterBy, foodType, ingredient) {
+            let url = "?";
+
+            if (foodType) {
+                url += `food_type=${encodeURIComponent(foodType)}&`;
+            }
+
+            if (ingredient) {
+                url += `ingredient=${encodeURIComponent(ingredient)}&`;
+            }
+
+            if (filterBy) {
+                url += `filter_by=${encodeURIComponent(filterBy)}&`;
+            }
+
+            url = url.slice(0, -1);
+            window.location.href = url;
+        }
+    </script>
 </body>
 </html>
