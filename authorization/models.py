@@ -9,7 +9,8 @@ import datetime
 class User(AbstractUser):
     ACCOUNT_TYPE_CHOICES = [
         (0, 'User'),
-        (1, 'Admin')
+        (-1, 'Admin'),
+        (1, 'Admin'),
     ]
 
     first_name = models.CharField(max_length=20, blank=False)

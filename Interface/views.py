@@ -20,9 +20,11 @@ def dashboard(request):
                 "recent_recipes": recent_recipes,
             }
             return render(request, "admin/dashboard.html", data)
-        else:
+        elif request.user.account_type == 0:
             recipes = Recipe.objects.all()
             return render(request, "user/dashboard.html", {'recipes': recipes})
+        else: 
+            return render(request, "pending.html")
     else:
         return redirect('login')
 

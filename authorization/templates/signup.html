@@ -183,7 +183,7 @@
                     <div class="form-item" id="typeCont" style="margin-top: 0;">
                         <div class="radio-cont">
                             <label for="accType" class="text-label">Type</label>
-                            {% for radio in form.account_type %}
+                            {% for radio in form.account_type|slice:":2" %}
                             <label class="radio-item" for="{{ radio.id_for_label }}">
                                 {{ radio.tag }}
                                 {{ radio.choice_label }}

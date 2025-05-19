@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .pending-container {
+        min-height: calc(100vh - 200px);
+        background: var(--secondary-color);
+        padding: 4rem 0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pending-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .pending-icon {
+        font-size: 5rem;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .pending-title {
+        color: var(--accent-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+    }
+
+    .pending-message {
+        background: rgba(163, 163, 253, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--primary-color);
+        position: relative;
+    }
+
+    .pending-message p {
+        color: var(--accent-color);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .logout-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 15px rgba(163, 163, 253, 0.3);
+    }
+
+    .logout-btn:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(163, 163, 253, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    .loading-dots {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 8px;
+    }
+
+    .loading-dots span {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        margin: 0 3px;
+        animation: dots 1.4s infinite ease-in-out both;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes dots {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
+
+    .cooking-icon {
+        position: absolute;
+        opacity: 0.1;
+        font-size: 15rem;
+        color: var(--primary-color);
+        z-index: 0;
+    }
+
+    .cooking-icon-1 {
+        top: -50px;
+        right: -50px;
+        transform: rotate(15deg);
+    }
+
+    .cooking-icon-2 {
+        bottom: -50px;
+        left: -50px;
+        transform: rotate(-15deg);
+    }
+</style>
+
+<div class="pending-container">
+    <div class="pending-content">
+        <i class="fas fa-utensils cooking-icon cooking-icon-1"></i>
+        <i class="fas fa-mortar-pestle cooking-icon cooking-icon-2"></i>
+        
+        <div class="pending-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <h2 class="pending-title">Your Recipe Journey Begins Soon!</h2>
+        <div class="pending-message">
+            <p>We're preparing your culinary adventure<span class="loading-dots"><span></span><span></span><span></span></span></p>
+            <p class="mt-3">Our team is carefully reviewing your application to ensure you have the best experience in our recipe community.</p>
+        </div>
+        <a href="{% url 'logout' %}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %} 
