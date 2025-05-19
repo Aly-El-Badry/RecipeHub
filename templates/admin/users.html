@@ -23,6 +23,7 @@
                     <th>Email</th>
                     <th>Date Joined</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +37,36 @@
                     </td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.date_joined|date:"M d, Y" }}</td>
-                    <td><span class="status-badge status-active">Active</span></td>
+                    <td>
+                        {% if user.account_type == 1 or user.account_type == 0 %}
+                            <span class="status-badge status-active">Active</span>
+                        {% else %}
+                            <span class="status-badge status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.account_type == 1 or user.account_type == 0 %}
+                            <form method="POST" action="{% url 'delete_user' user.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{% url 'approve_user' user.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-check"></i> Approve
+                                </button>
+                            </form>
+                            <form method="POST" action="{% url 'refuse_user' user.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to refuse this user?')">
+                                    <i class="fas fa-times"></i> Refuse
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
