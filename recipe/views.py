@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .forms import RecipeForm
 from .models import Recipe
+from authorization.models import User
 from personalInfo.models import FavoriteRecipes
 
 # Create your views here.
@@ -33,8 +34,59 @@ def addRecipe(request):
     recipes = Recipe.objects.all()
     return render(request, "admin/Add-Recipe.html", {'form': form, "count" : recipes.count()+1})
 
-def editRecipe(request):
-    return render(request, "admin/Edit-Recipe.html")
+def manageRecipe(request):
+    recipes = Recipe.objects.all()
+    return render(request, "admin/recipes.html", {"recipes": recipes})
+
+def editRecipe(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    
+    if request.method == 'POST':
+        if 'add_ingredient' in request.POST:
+            # Add a new empty ingredient
+            recipe.ingredients.append("")
+            recipe.save()
+            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+            
+        elif 'add_quantity' in request.POST:
+            # Add a new empty quantity
+            recipe.quantity.append("")
+            recipe.save()
+            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+            
+        elif 'add_step' in request.POST:
+            # Add a new empty step
+            recipe.steps.append("")
+            recipe.save()
+            return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+            
+        elif 'save' in request.POST:
+            # Update recipe data
+            recipe.name = request.POST.get('name')
+            recipe.course_type = request.POST.get('course_type')
+            recipe.time = request.POST.get('time')
+            recipe.food_type = request.POST.get('food_type')
+            recipe.image = request.POST.get('image')
+            
+            # Handle ingredients, quantities, and steps as line-separated text
+            recipe.ingredients = [ing.strip() for ing in request.POST.get('ingredients').split('\n') if ing.strip()]
+            recipe.quantity = [qty.strip() for qty in request.POST.get('quantity').split('\n') if qty.strip()]
+            recipe.steps = [step.strip() for step in request.POST.get('steps').split('\n') if step.strip()]
+            
+            recipe.save()
+            messages.success(request, 'Recipe updated successfully!')
+            return redirect('manageRecipe')
+    
+    return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+
+    
+def deleteRecipe(request, id):
+    if request.method == 'POST':
+        recipe = get_object_or_404(Recipe, id=id)
+        recipe.delete()
+        messages.success(request, 'Recipe deleted successfully!')
+        return redirect('manageRecipe')
+    return redirect('manageRecipe')
 
 def favoriteRecipe(request, id):
     if request.user.is_authenticated:

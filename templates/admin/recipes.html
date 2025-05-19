@@ -11,61 +11,49 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a class="navbar-brand" href="../admin/dashboard.html">
+            <a class="navbar-brand" href="{% url 'home' %}">
                 <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
             </a>
             <button class="menu-toggle">
                 <span class="menu-icon"></span>
             </button>
             <div class="nav-menu">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search recipes...">
-                </div>
-                <a href="../admin/dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                <a href="Add-Recipe.html" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
-                <a href="Edit-Recipe.html" class="nav-link"><i class="fas fa-edit"></i> Edit Recipe</a>
-                <a href="./profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="../accounts/login.html" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                
+                <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
+                <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url 'logout'%}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
             </div>
         </div>
     </nav>
 
     <div class="recipes-container">
-        <div class="filters-section">
-            <div class="filter-group">
-                <label for="category-filter">Category:</label>
-                <select id="category-filter">
-                    <option value="all">All Categories</option>
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="dinner">Dinner</option>
-                    <option value="dessert">Dessert</option>
-                    <option value="snacks">Snacks</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="difficulty-filter">Difficulty:</label>
-                <select id="difficulty-filter">
-                    <option value="all">All Levels</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="time-filter">Time:</label>
-                <select id="time-filter">
-                    <option value="all">Any Time</option>
-                    <option value="quick">Quick (under 30 min)</option>
-                    <option value="medium">Medium (30-60 min)</option>
-                    <option value="long">Long (over 60 min)</option>
-                </select>
-            </div>
-        </div>
-
         <div class="recipes-grid" id="recipes-grid">
-            <!-- Recipe cards will be dynamically inserted here -->
+            {% for recipe in recipes %}
+            <div class="recipe-card">
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="recipe-image">
+                <div class="recipe-content">
+                    <h3 class="recipe-title">{{ recipe.name }}</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> {{ recipe.time }} min</span>
+                        <span><i class="fas fa-utensils"></i> {{ recipe.course_type }}</span>
+                        <span class="difficulty-badge difficulty-{{ recipe.food_type|lower }}">{{ recipe.food_type }}</span>
+                    </div>
+                    <p class="recipe-description">{{ recipe.steps.0 }}</p>
+                    <div class="recipe-actions">
+                        <a href="{% url 'editRecipe' recipe.id %}" class="edit-button">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form method="POST" action="{% url 'deleteRecipe' recipe.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this recipe?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 
