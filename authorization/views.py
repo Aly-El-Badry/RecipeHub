@@ -40,7 +40,6 @@ def login_view(request):
 
 def reset_view(request):
     if request.method == 'POST':
-        print("HERE")
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             user = form.cleaned_data['user']

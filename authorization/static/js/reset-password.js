@@ -84,6 +84,9 @@ form.addEventListener('submit', async function(event) {
         // Setting the Flag
         invalidPassword = true;
     }
+    if (invalidCode || invalidEmail || invalidPassword) {
+        event.preventDefault();
+    }
 });
 
 // Email Event Listener
