@@ -1,37 +1,18 @@
-<!----------------------------- author : Malak Mohamed Refaat ------------------------------------->
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <title>Favorites</title>
-        <link rel="stylesheet" href="../../static/user/css/profile_page.css">
-        <link rel="stylesheet" href="../../static/user/css/favourites.css">
-        <link rel="icon" type="image/x-icon" href="../../static/images/chef.png">
+        <link rel="stylesheet" href="{% static "user/css/favourites.css" %}">
+        <link rel="icon" type="image/x-icon" href="{% static "images/chef.png" %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+        <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
     </head>
     <body>
-        <!-- <div class="sidebar">
-            <div class="sidebar-header">
-                
-                <h2 id="fav">Favourites</h2>
-            
-            </div>
-            <nav class="sidebar-menu">
-                <ul>
-                    <li class="act"><a href="./profile_page.html"> Profile</a></li>
-                    <li class="act"><a href="#">Favourites</a></li>
-                    <li class="log-out"><a href="#"> Log out</a></li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <p>Recipes</p>
-                
-            </div>
-        </div> -->
         <nav class="navbar">
             <div class="nav-container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url "home" %}">
                     <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
                 </a>
                 <button class="menu-toggle">
@@ -42,23 +23,36 @@
                         <i class="fas fa-search search-icon"></i>
                         <input type="text" class="search-input" placeholder="Search recipes...">
                     </div>
-                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="profile_page.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
                 </div>
             </div>
         </nav>
         <div class="main" id="favoritesContainer">
-            <!-- Favorites will be dynamically added here -->
+            {% if favs|length == 0 %}
+                <p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>
+            {% else %}
+                {% for fav in favs %}
+                    <img class="foodimage" src="{{ fav.recipe.image }}" alt="{{ fav.recipe.name }}">
+                    <h1 class="resipename">{{ fav.recipe.name }}</h1>
+                    <form method='POST' action="{% url "addToFav" fav.recipe.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="removebutton" type="submit">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </form>
+                {% endfor %}
+            {% endif %}
         </div>
         <script type="module">
-            import * as man from "../../static/components/js/recipe_manager.js";
+            {% comment %} import * as man from "../../static/components/js/recipe_manager.js";
             document.addEventListener('DOMContentLoaded', function() {
                 const favoritesContainer = document.getElementById('favoritesContainer');
                 const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
                 const favorites = currentUser?.favorites || [];
 
                 if (favorites.length === 0) {
-                    favoritesContainer.innerHTML = '<p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>';
+                    favoritesContainer.innerHTML = '';
                     return;
                 }
 
@@ -68,11 +62,7 @@
                     recipeElement.href = 'ViewRecipe.html';
                     recipeElement.target = '_blank';
                     recipeElement.innerHTML = `
-                        <img class="foodimage" src="${recipe.image}" alt="${recipe.name}">
-                        <h1 class="resipename">${recipe.name}</h1>
-                        <button class="removebutton" onclick="removeRecipe(event, '${recipe.id}')">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        
                     `;
 
                     recipeElement.addEventListener('click', function(e) {
@@ -110,9 +100,8 @@
                 }
             }
             if (document.querySelector('.search-input')) {
-                console.log("FBHSJDF");
                 man.initializeSearch();
-            }
+            } {% endcomment %}
         </script>
     </body>
 </html>

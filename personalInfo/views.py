@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from .models import FavoriteRecipes
 from datetime import datetime
 
 # Create your views here.
@@ -40,4 +41,8 @@ def edit_profile(request):
 
 
 def favoriteRecipes(request):
-    return render(request, "User/favourites.html")
+    if request.user.is_authenticated:
+        favs = FavoriteRecipes.objects.filter(user=request.user).select_related('recipe')
+        return render(request, "user/favourites.html", {'favs': favs})
+    else:
+        return redirect('login')

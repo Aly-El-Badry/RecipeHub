@@ -12,6 +12,7 @@ def viewRecipe(request, id):
         status = FavoriteRecipes.objects.filter(user=request.user, recipe=recipe).exists()
         context = {
             'recipe': recipe,
+            'ings': zip(recipe.quantity, recipe.ingredients),
             'fav_status': "fas active" if status else "far",
             'fav_message': "Added to favorites" if status else "Add to favorites"
         }
@@ -36,7 +37,6 @@ def editRecipe(request):
     return render(request, "admin/Edit-Recipe.html")
 
 def favoriteRecipe(request, id):
-    print("\n\n YAY \n\n")
     if request.user.is_authenticated:
         user = request.user
         recipe = Recipe.objects.get(id=id)
