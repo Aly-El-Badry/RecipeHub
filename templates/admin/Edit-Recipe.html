@@ -7,61 +7,182 @@
         <meta name="description" content="You can edit your recipes from here"/>
         <title>Edit Recipe</title>
         <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
-        <link rel="stylesheet" href="{% static admin/css/edit.css"" %}"/>
+        <link rel="stylesheet" href="{% static 'admin/css/edit.css' %}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
         <style>
-            .search-container {
-                position: relative;
-                margin: 20px 0;
+            body {
+                background-color: #f5f5f5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
-            .search-results {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
+
+            .form-section {
+                display: block;
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 2rem;
                 background: white;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                max-height: 300px;
-                overflow-y: auto;
-                z-index: 1000;
-                display: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
-            .search-result-item {
-                padding: 10px;
-                cursor: pointer;
+
+            .FORM {
                 display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .tags {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .inputLetters, .input, .text {
+                width: 100%;
+                padding: 0.8rem;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+            .inputLetters:focus, .input:focus, .text:focus {
+                border-color: #3498db;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            }
+
+            .text {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+            .ingredient-item {
+                display: flex;
+                gap: 1rem;
                 align-items: center;
-                gap: 10px;
-                border-bottom: 1px solid #eee;
+                margin-bottom: 1rem;
             }
-            .search-result-item:hover {
-                background: #f5f5f5;
-            }
-            .search-result-item img {
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-            .recipe-info {
+
+            .ingredient-item input {
                 flex: 1;
             }
-            .recipe-info h4 {
-                margin: 0;
-                color: #333;
+
+            .buttons {
+                padding: 0.8rem 1.5rem;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-align: center;
             }
-            .recipe-info p {
-                margin: 5px 0 0;
-                color: #666;
-                font-size: 0.9em;
+
+            input[type="submit"].buttons {
+                background-color: #3498db;
+                color: white;
             }
-            .form-section {
-                display: none;
+
+            input[type="submit"].buttons:hover {
+                background-color: #2980b9;
+                transform: translateY(-2px);
             }
-            .form-section.active {
-                display: block;
+
+            input[type="button"].buttons {
+                background-color: #2ecc71;
+                color: white;
+            }
+
+            input[type="button"].buttons:hover {
+                background-color: #27ae60;
+                transform: translateY(-2px);
+            }
+
+            a.buttons {
+                background-color: #e74c3c;
+                color: white;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            a.buttons:hover {
+                background-color: #c0392b;
+                transform: translateY(-2px);
+            }
+
+            .button-group {
+                display: flex;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .current-image {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .current-image img {
+                max-width: 300px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            input[type="file"] {
+                padding: 0.8rem;
+                border: 2px dashed #e0e0e0;
+                border-radius: 8px;
+                width: 100%;
+                cursor: pointer;
+            }
+
+            input[type="file"]:hover {
+                border-color: #3498db;
+            }
+
+            select.input {
+                appearance: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right 1rem center;
+                background-size: 1em;
+            }
+
+            .ingredient-row {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                align-items: center;
+            }
+            .ingredient-row input {
+                flex: 1;
+            }
+            .ingredient-row input[type="number"] {
+                width: 100px;
+            }
+            .step-item {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                align-items: flex-start;
+            }
+            .step-number {
+                background: #3498db;
+                color: white;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                flex-shrink: 0;
+            }
+            .step-content {
+                flex: 1;
             }
         </style>
     </head>
@@ -86,55 +207,73 @@
             </div>
         </nav>
 
-        <!--SEARCH SECTION-->
-        <div class="Form">
-            <h2>Edit Recipe</h2>
-            <div class="search-section">
-                <div class="search-container">
-                    <input type="text" id="recipeSearch" class="input" placeholder="Search for a recipe to edit..." style="width: 100%;">
-                    <div id="searchResults" class="search-results"></div>
+        <!--EDIT FORM SECTION-->
+        <div id="editForm" class="form-section">
+            <form class="FORM" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div>
+                    <label class="tags">Recipe Name:</label>
+                    <input class="inputLetters" type="text" name="name" value="{{ recipe.name }}" required>
                 </div>
-            </div>
+                
+                <div>
+                    <label class="tags">Course Type:</label>
+                    <select class="input" name="course_type" required>
+                        <option value="appetizer" {% if recipe.course_type == 'appetizer' %}selected{% endif %}>Appetizer</option>
+                        <option value="main course" {% if recipe.course_type == 'main course' %}selected{% endif %}>Main Course</option>
+                        <option value="dessert" {% if recipe.course_type == 'dessert' %}selected{% endif %}>Dessert</option>
+                        <option value="snack" {% if recipe.course_type == 'snack' %}selected{% endif %}>Snack</option>
+                    </select>
+                </div>
 
-            <!--EDIT FORM SECTION-->
-            <div id="editForm" class="form-section">
-                <form class="FORM" method="post" action="">
-                    <input type="hidden" id="recipeId" name="recipeId">
-                    
-                    <label class="tags">Recipe Name:</label><br>
-                    <input class="inputLetters" type="text" id="recipeName" name="name" required><br><br>
-                    
-                    <label class="tags">Course name:</label><br>
-                    <select class="input" id="courseType" name="courseType" style="font-style: italic;">
-                        <option value="appetizers">Appetizers</option>
-                        <option value="main course">Main Course</option>
-                        <option value="dessert">Dessert</option>
-                    </select><br><br>
+                <div>
+                    <label class="tags">Time cooking (minutes):</label>
+                    <input class="input" type="number" name="time" value="{{ recipe.time }}" required>
+                </div>
 
-                    <label class="tags">Time cooking (minutes):</label><br>
-                    <input class="input" type="number" id="cookingTime" name="time" required><br><br>
+                <div>
+                    <label class="tags">Food Type:</label>
+                    <select class="input" name="food_type" required>
+                        <option value="Italian" {% if recipe.food_type == 'Italian' %}selected{% endif %}>Italian</option>
+                        <option value="SeaFood" {% if recipe.food_type == 'SeaFood' %}selected{% endif %}>SeaFood</option>
+                        <option value="Meat" {% if recipe.food_type == 'Meat' %}selected{% endif %}>Meat</option>
+                        <option value="Vegetarian" {% if recipe.food_type == 'Vegetarian' %}selected{% endif %}>Vegetarian</option>
+                        <option value="Desserts" {% if recipe.food_type == 'Desserts' %}selected{% endif %}>Desserts</option>
+                    </select>
+                </div>
 
-                    <label class="tags">Food Type:</label><br>
-                    <input class="inputLetters" type="text" id="foodType" name="foodType" required><br><br>
+                <!--INGREDIENTS SECTION-->
+                <div>
+                    <label class="tags">Ingredients (one per line):</label>
+                    <textarea class="text" name="ingredients" required>{% for ingredient in recipe.ingredients %}{{ ingredient }}
+{% endfor %}</textarea>
+                </div>
 
-                    <!--INGREDIENTS SECTION-->
-                    <label class="tags">Ingredients:</label><br><br>
-                    <div id="ingredientsContainer">
-                        <!-- Ingredients will be dynamically added here -->
-                    </div>
-                    <input class="buttons" id="addIngredient" type="button" value="Add Another Ingredient"><br><br>
-                    
-                    <label class="tags">Description:</label><br>
-                    <textarea class="text" id="description" name="description" rows="10" cols="30" required></textarea><br><br>
+                <!--QUANTITIES SECTION-->
+                <div>
+                    <label class="tags">Quantities (one per line):</label>
+                    <textarea class="text" name="quantity" required>{% for quantity in recipe.quantity %}{{ quantity }}
+{% endfor %}</textarea>
+                </div>
 
-                    <label class="tags">Recipe Image:</label><br>
-                    <input class="buttons" type="file" id="recipeImage" name="image" accept="image/*"><br><br>
-                    
-                    <input id="submitBtn" class="buttons" type="button" value="Save Changes">
-                    <input id="cancelBtn" class="buttons" type="button" value="Cancel">
-                </form>
-            </div>
+                <!--STEPS SECTION-->
+                <div>
+                    <label class="tags">Cooking Steps (one per line):</label>
+                    <textarea class="text" name="steps" required>{% for step in recipe.steps %}{{ step }}
+{% endfor %}</textarea>
+                </div>
+                
+                <div>
+                    <label class="tags">Recipe Image URL:</label>
+                    <input class="inputLetters" type="url" name="image" value="{{ recipe.image }}" required>
+                </div>
+                
+                <div class="button-group">
+                    <input class="buttons" type="submit" name="save" value="Save Changes">
+                    <a href="{% url 'dashboard' %}" class="buttons">Cancel</a>
+                </div>
+            </form>
         </div>
-        <script src="{% static "admin/js/EditRecipe.js" %}"></script>
     </body>
 </html>

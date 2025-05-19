@@ -19,13 +19,11 @@
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
                     <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="{% url "favorites" %}" class="nav-link"><i class="fas fa-star"></i> Favorites</a>
-                    <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
+                    {% if user.account_type == 0 %}
+                        <a href="{% url "favorites" %}" class="nav-link"><i class="fas fa-star"></i> Favorites</a>
+                    {% endif %}
+                        <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
                 </div>
             </div>
         </nav>

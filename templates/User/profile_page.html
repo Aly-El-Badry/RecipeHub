@@ -19,13 +19,10 @@
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
+                    
                     <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="report.html" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
-                    <a href="favourites.html" class="nav-link" target="_blank"><i class="fas fa-star"></i> Favourites</a>
+                        <a href="{% url 'report' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                        <a href="favourites.html" class="nav-link" target="_blank"><i class="fas fa-star"></i> Favourites</a>
                     <a href="../../templates/accounts/login.html" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
                     
                     </a>

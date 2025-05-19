@@ -10,7 +10,7 @@ def dashboard(request):
         if request.user.account_type == 1:
             recipes = Recipe.objects.all()
             Users = User.objects.all()
-            recent_recipes = Recipe.objects.all().order_by('-id')[:3]  # Get the 3 most recent recipes
+            recent_recipes = Recipe.objects.all().order_by('-id')[:3]  
             
             data = {
                 "recipes": recipes.count(),
