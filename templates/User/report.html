@@ -18,13 +18,14 @@
                 <button class="menu-toggle">
                     <span class="menu-icon"></span>
                 </button>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search recipes...">
+                </div>
                 <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
                     <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
                     <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </nav>

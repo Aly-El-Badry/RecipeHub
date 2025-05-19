@@ -5,6 +5,8 @@ from authorization.models import  User
 def home(request):
     return render(request, 'landing.html')
 
+
+
 def dashboard(request):
     if request.user.is_authenticated:
         if request.user.account_type == 1:
@@ -19,7 +21,8 @@ def dashboard(request):
             }
             return render(request, "admin/dashboard.html", data)
         else:
-            return render(request, "user/dashboard.html")
+            recipes = Recipe.objects.all()
+            return render(request, "user/dashboard.html", {'recipes': recipes})
     else:
         return redirect('login')
 

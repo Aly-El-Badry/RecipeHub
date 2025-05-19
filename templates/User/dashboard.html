@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url "home" %}">
                 <i class="fas fa-utensils"></i>RecipeHub
             </a>
             <button class="menu-toggle">
@@ -25,9 +25,10 @@
                     <div class="search-results-dropdown"></div>
                 </div>
                 
-                <a href="{% url 'add_report' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                <a href="{% url 'favorites' %}" class="nav-link"><i class="fas fa-star"></i> Favorites</a>
+                <a href="{% url 'add_report' %}" class="nav-link"><i class="fa-solid fa-file-lines"></i> Report</a>
                 <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
+                <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
             </div>
         </div>
     </nav>
@@ -73,7 +74,7 @@
                     <button class="filter-btn active all-recipes">All</button>
                     <button class="filter-btn">Popular</button>
                     <button class="filter-btn">Recent</button>
-                    <button class="filter-btn">Quick & Easy</button>
+                    <button class="filter-btn">Quick &amp; Easy</button>
                     <button class="filter-btn">Vegetarian</button>
                     <button class="filter-btn">Desserts</button>
                     <button class="filter-btn">Breakfast</button>
@@ -81,7 +82,24 @@
                 </div>
             </div>
 
-            <div class="recipe-grid"></div>
+            <div class="recipe-grid" style="padding-top: 0.2rem;">
+                {% if recipes|length == 0 %}
+                    <p class="no-recipes">No recipes match your filters. Try adjusting your search criteria.</p>
+                {% else %}
+                    {% for recipe in recipes %}
+                        <div class="recipe-card">
+                            <img src="{{ recipe.image }}" alt="{{ recipe.name }}">
+                            <div class="recipe-card-content">
+                                <div class="recipe-meta">
+                                    <span><i class="fas fa-clock"></i> {{ recipe.time }} min</span>
+                                </div>
+                                <h4>{{recipe.name }}</h4>
+                                <a href="{% url "viewRecipe" recipe.id %}"><button class="btn-primary">View Recipe</button></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
 
     </div>
     <!-- Footer -->
@@ -118,7 +136,7 @@
             <p>&copy; 2024 RecipeHub. All rights reserved.</p>
         </div>
     </footer>
-    <script src="{% static "/static/user/js/dashboard.js" %}"></script>
-    <script src="{% static 'static/user/js/recipe_manager.js' %}"></script>
+    <script src="{% static "/user/js/dashboard.js" %}"></script>
+    <script src="{% static '/user/js/recipe_manager.js' %}"></script>
 </body>
 </html>

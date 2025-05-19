@@ -11,26 +11,29 @@
     </head>
     <body>
         <nav class="navbar">
-            <div class="nav-container">
-                <a class="navbar-brand" href="{% url "home" %}">
-                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
-                </a>
-                <button class="menu-toggle">
-                    <span class="menu-icon"></span>
-                </button>
-                <div class="nav-menu">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search recipes...">
-                    </div>
-                    <a href="{% url "dashboard" %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+        <div class="nav-container">
+            <a class="navbar-brand" href="{% url "home" %}">
+                <i class="fas fa-utensils"></i>RecipeHub
+            </a>
+            <button class="menu-toggle">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="nav-menu">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search recipes...">
+                    <div class="search-results-dropdown"></div>
                 </div>
+                
+                <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{% url "profile" %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
             </div>
-        </nav>
+        </div>
+    </nav>
         <div class="main" id="favoritesContainer">
             {% if favs|length == 0 %}
-                <p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>
+                <p class="no-favorites">You haven't added any recipes to your favorites yet.</p>
             {% else %}
                 {% for fav in favs %}
                     <img class="foodimage" src="{{ fav.recipe.image }}" alt="{{ fav.recipe.name }}">
@@ -44,64 +47,5 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <script type="module">
-            {% comment %} import * as man from "../../static/components/js/recipe_manager.js";
-            document.addEventListener('DOMContentLoaded', function() {
-                const favoritesContainer = document.getElementById('favoritesContainer');
-                const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
-                const favorites = currentUser?.favorites || [];
-
-                if (favorites.length === 0) {
-                    favoritesContainer.innerHTML = '';
-                    return;
-                }
-
-                favorites.forEach(recipe => {
-                    const recipeElement = document.createElement('a');
-                    recipeElement.className = 'resipes';
-                    recipeElement.href = 'ViewRecipe.html';
-                    recipeElement.target = '_blank';
-                    recipeElement.innerHTML = `
-                        
-                    `;
-
-                    recipeElement.addEventListener('click', function(e) {
-                        if (!e.target.classList.contains('removebutton')) {
-                            localStorage.setItem('currentRecipe', JSON.stringify(recipe));
-                        }
-                    });
-
-                    favoritesContainer.appendChild(recipeElement);
-                });
-            });
-
-            function removeRecipe(event, recipeId) {
-                event.preventDefault();
-                event.stopPropagation();
-                
-                if (confirm("Are you sure you want to remove this recipe from favorites?")) {
-                    const currentUser = JSON.parse(localStorage.getItem('RecipeHubUser'));
-                    currentUser.favorites = currentUser.favorites.filter(recipe => recipe.id.toString() !== recipeId.toString());
-                    localStorage.setItem('RecipeHubUser', JSON.stringify(currentUser));
-                    
-                    // Remove the recipe element from the DOM
-                    const recipeElement = event.target.closest('.resipes');
-                    recipeElement.style.transition = "opacity 0.3s";
-                    recipeElement.style.opacity = "0";
-                    
-                    setTimeout(() => {
-                        recipeElement.remove();
-                        // If no favorites left, show message
-                        if (document.querySelectorAll('.resipes').length === 0) {
-                            document.getElementById('favoritesContainer').innerHTML = 
-                                '<p class="no-favorites">You haven\'t added any recipes to your favorites yet.</p>';
-                        }
-                    }, 300);
-                }
-            }
-            if (document.querySelector('.search-input')) {
-                man.initializeSearch();
-            } {% endcomment %}
-        </script>
     </body>
 </html>

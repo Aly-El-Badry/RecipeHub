@@ -19,12 +19,11 @@
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
                     {% if user.account_type == 0 %}
                         <a href="{% url "favorites" %}" class="nav-link"><i class="fas fa-star"></i> Favorites</a>
                     {% endif %}
-                        <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-cog"></i> Logout</a>
+                        <a href="{% url "logout" %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </nav>
