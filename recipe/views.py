@@ -6,6 +6,7 @@ from .models import Recipe
 from authorization.models import User
 from personalInfo.models import FavoriteRecipes
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -44,8 +45,13 @@ def addRecipe(request):
 @login_required
 def manageRecipe(request):
     if request.user.account_type == 1:
-        recipes = Recipe.objects.all()
-        return render(request, "admin/recipes.html", {"recipes": recipes})
+        recipes = Recipe.objects.all().order_by('id')
+        search_query = request.GET.get('search', '')
+        if search_query:
+            recipes = Recipe.objects.filter(
+                Q(name__icontains=search_query)
+            )
+        return render(request, "admin/recipes.html", {"recipes": recipes, "search_query": search_query})
     else:
         return redirect('dashboard')
 

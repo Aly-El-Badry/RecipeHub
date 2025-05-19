@@ -14,7 +14,13 @@
     <div class="users-header">
         <h2><i class="fas fa-users"></i> Registered Users</h2>
     </div>
-    
+    <div class="search-container" style="min-width: 92.5%; justify-content: center;">
+        <form method="GET" action="{% url "users" %}">
+            <i class="fas fa-search search-icon"></i>
+            <input style="padding-left: 3rem;" type="text" name="search" class="search-input" 
+                placeholder="Search users..." value="{{ search_query }}">
+            </form>
+    </div>
     <div class="activityCard">
         <table class="users-table">
             <thead>

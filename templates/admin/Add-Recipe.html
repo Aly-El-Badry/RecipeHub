@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -7,7 +7,6 @@
         <meta name="description" content="Add your special recipe to RecipeHub"/>
         <title>Add Recipe - RecipeHub</title>
         
-        <!-----------------THE CSS PAGES----------------------->
         <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
         <link rel="stylesheet" href="{% static 'admin/css/add-recipe.css' %}">
         <link rel="stylesheet" href="{% static 'admin/css/Add.css' %}"> 
@@ -18,15 +17,14 @@
         <!--NAV BAR PART -->
         <nav class="navbar">
             <div class="nav-container">
-                <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
                 </a>
                 <button class="menu-toggle">
                     <span class="menu-icon"></span>
                 </button>
                 <div class="nav-menu">
-                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="{% url 'dashboard' %}" class="nav-link active"><i class="fas fa-chart-line"></i> dashboard</a>
+                    <a href="{% url 'dashboard' %}" class="nav-link active"><i class="fas fa-home"></i> dashboard</a>
                     <a href="{% url 'manageRecipe' %}" class="nav-link"><i class="fas fa-book"></i> View Recipes</a>
                     <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>

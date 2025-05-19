@@ -41,8 +41,13 @@ def dashboard(request):
 def users(request):
     if request.user.is_authenticated:
         if request.user.account_type == 1:
-            users = User.objects.all()
-            return render(request, "admin/users.html",{"users" : users} )
+            users = User.objects.all().order_by('id')
+            search_query = request.GET.get('search', '')
+            if search_query:
+                users = User.objects.filter(
+                    Q(username__icontains=search_query)
+                )
+            return render(request, "admin/users.html",{"users" : users, 'search_query': search_query} )
         else:
             return render(request, "user/dashboard.html")
     else:

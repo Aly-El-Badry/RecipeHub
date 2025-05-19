@@ -5,9 +5,9 @@
     <title>RecipeHub - All Recipes</title>
     <link rel="icon" type="image/x-icon" href="../../static/images/recipe-book.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/admin/css/recipes.css">
+    <link rel="stylesheet" href="{% static "admin/css/recipes.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../static/components/css/navbar.css">
+    <link rel="stylesheet" href="{% static "/components/css/navbar.css" %}">
 </head>
 <body>
     <nav class="navbar">
@@ -19,9 +19,15 @@
                 <span class="menu-icon"></span>
             </button>
             <div class="nav-menu">
-                
-                <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <div class="search-container">
+                    <form method="GET" action="{% url "manageRecipe" %}">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" name="search" class="search-input" 
+                            placeholder="Search recipes..." value="{{ search_query }}">
+                        </form>
+                </div>
+
+                <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
                 <a href="{% url 'addRecipes' %}" class="nav-link"><i class="fas fa-plus"></i> Add recipe</a>
                 <a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
                 <a href="{% url 'logout'%}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
@@ -38,10 +44,9 @@
                     <h3 class="recipe-title">{{ recipe.name }}</h3>
                     <div class="recipe-meta">
                         <span><i class="fas fa-clock"></i> {{ recipe.time }} min</span>
-                        <span><i class="fas fa-utensils"></i> {{ recipe.course_type }}</span>
-                        <span class="difficulty-badge difficulty-{{ recipe.food_type|lower }}">{{ recipe.food_type }}</span>
+                        <span><i class="fas fa-utensils"></i> {{ recipe.course_type|title }}</span>
+                        <span class="difficulty-badge difficulty-{{ recipe.food_type|title }}">{{ recipe.food_type }}</span>
                     </div>
-                    <p class="recipe-description">{{ recipe.steps.0 }}</p>
                     <div class="recipe-actions">
                         <a href="{% url 'editRecipe' recipe.id %}" class="edit-button">
                             <i class="fas fa-edit"></i> Edit
