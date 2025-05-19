@@ -1,19 +1,27 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .models import FavoriteRecipes
+from .forms import UserImageForm
+import cloudinary.uploader
 from datetime import datetime
 
 # Create your views here.
 def profile(request):
     if request.user.is_authenticated:
+        form = UserImageForm()
         context = {
             'username': request.user.username,
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
             'email': request.user.email,
-            'birth_date': request.user.birthDate
+            'birth_date': request.user.birthDate,
+            'image_url': request.user.profile_image_url,
+            'form': form,
         }
-    return render(request, "profile_page.html", context=context)
+        return render(request, "profile_page.html", context=context)
+    return redirect('login')
 
 
 
@@ -38,6 +46,26 @@ def edit_profile(request):
 
         return redirect('profile')
 
+@login_required
+def upload_user_image(request):
+    if request.method == 'POST':
+        form = UserImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                image = form.cleaned_data['profile_image']
+                result = cloudinary.uploader.upload(image)
+
+                request.user.profile_image_url = result['secure_url']
+                request.user.save()
+                messages.success(request, 'Profile image updated successfully!')
+            except Exception as e:
+                messages.error(request, f'Error uploading image: {str(e)}')
+        else:
+            messages.error(request, 'Please select a valid image file.')
+    else:
+        form = UserImageForm()
+    
+    return redirect('profile')
 
 
 def favoriteRecipes(request):

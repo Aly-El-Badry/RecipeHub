@@ -25,16 +25,16 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
 }
 
-
 .nav-container {
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 3rem;
+    padding: 0 1rem;
 }
 
 .navbar-brand {
@@ -46,7 +46,6 @@
     align-items: center;
     gap: 0.5rem;
     transition: var(--transition-fast);
-    flex: 3;
 }
 
 .navbar-brand:hover {
@@ -57,7 +56,9 @@
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    flex: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .nav-link {
@@ -78,7 +79,8 @@
 
 .search-container {
     position: relative;
-    flex: 2;
+    flex: 1;
+    max-width: 400px;
     margin: 0 2rem;
 }
 
@@ -100,15 +102,13 @@
 }
 
 .search-icon {
-    font-size: 1.2rem;
-    
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-light);
+    pointer-events: none;
 }
-
 
 .menu-toggle {
     display: none;
@@ -116,6 +116,7 @@
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    z-index: 1001;
 }
 
 .menu-icon {
@@ -157,4 +158,57 @@
 .menu-toggle.active .menu-icon::after {
     transform: rotate(-45deg);
     bottom: 0;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--gradient-primary);
+        flex-direction: column;
+        padding: 80px 2rem 2rem;
+        transition: var(--transition-normal);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .search-container {
+        margin: 1rem 0;
+        max-width: 100%;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-container {
+        padding: 0 0.5rem;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .nav-menu {
+        width: 100%;
+        max-width: none;
+    }
 }
