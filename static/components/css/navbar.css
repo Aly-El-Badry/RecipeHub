@@ -44,6 +44,8 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    outline: none;
+    align-items: left;
     gap: 0.5rem;
     transition: var(--transition-fast);
 }

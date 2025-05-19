@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth import login, logout
 from .models import User, PasswordResetCode
@@ -26,7 +25,6 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = form.user
             login(request, form.user)
             
             return redirect('dashboard')
@@ -60,7 +58,6 @@ def reset_view(request):
 
 
 import datetime, json
-@csrf_exempt
 def send_code(request):
     if request.method != 'POST':
         return JsonResponse({'status': 'error', 'message': 'Only POST requests are allowed'}, status=405)

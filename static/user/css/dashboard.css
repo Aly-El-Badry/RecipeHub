@@ -138,7 +138,7 @@ body {
     color: var(--text-light);
 }
 
-.search-results-dropdown {
+#search-results-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -153,7 +153,7 @@ body {
     z-index: 1000;
 }
 
-.search-results-dropdown.active {
+#search-results-dropdown.active {
     display: block;
 }
 
@@ -475,7 +475,7 @@ main.main-content {
 
 @keyframes cardFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-5px); }
 }
 
 .recipe-card:hover {
@@ -505,10 +505,6 @@ main.main-content {
     height: 160px;
     object-fit: cover;
     transition: var(--transition-normal);
-}
-
-.recipe-card:hover img {
-    transform: scale(1.05);
 }
 
 .recipe-card-content {
