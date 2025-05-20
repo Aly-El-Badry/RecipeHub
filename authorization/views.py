@@ -76,6 +76,11 @@ def send_code(request):
         user = User.objects.get(email=email)
         code = PasswordResetCode.create_code(user)
 
+        print("+---------- RESET CODE ----------+")
+        print(f"|     {email}     |")
+        print(f"|             {code.code}             |")
+        print("+--------------------------------+")
+
         return JsonResponse({'status': 'success', 'message': 'Code generated'}, status=200)
     
     except User.DoesNotExist:

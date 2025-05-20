@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError
 from .models import User, PasswordResetCode
 
@@ -82,6 +82,8 @@ class LoginForm(forms.Form):
 
 
 
+User = get_user_model()
+
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
@@ -94,7 +96,7 @@ class PasswordResetForm(forms.Form):
         max_length=6,
         widget=forms.TextInput(attrs={
             'class': 'text-field',
-            'placeholder': '6-digit Code',
+            'placeholder': '6-character Code',
             'id': 'code'
         })
     )
@@ -110,22 +112,23 @@ class PasswordResetForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
-        password = cleaned_data.get('password')
         code = cleaned_data.get('code')
+        password = cleaned_data.get('password')
 
-        if email and code:
+        if email:
             try:
                 user = User.objects.get(email=email)
-                reset = PasswordResetCode.objects.get(user=user, code=code, used=False)
-
-                if not reset.isValid:
+                reset_code = PasswordResetCode.objects.get(user=user, code=code, used=False)
+                
+                if not reset_code.isValid:
                     raise ValidationError("Invalid or expired code")
                 
                 cleaned_data['user'] = user
-                cleaned_data['reset_code'] = reset
+                cleaned_data['reset_code'] = reset_code
+                
             except User.DoesNotExist:
                 raise ValidationError("No user with this email exists")
             except PasswordResetCode.DoesNotExist:
                 raise ValidationError("Invalid verification code")
-            
+        
         return cleaned_data
