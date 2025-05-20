@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}RecipeHub{% endblock %}</title> 
-    <link rel="icon" type="image/x-icon" href="{% media 'recipe-book.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/recipe-book.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <script type="application/javascript">
@@ -28,7 +28,7 @@
                 {% if user.is_authenticated %}
                     
                     {% if user.account_type == 1 %}
-                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
                     {% elif user.account_type == 0 %}
                         <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-book"></i> Recipes</a>
                     {% endif %}
@@ -67,6 +67,7 @@
                     {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
                     {% endif %}
+                    <li><a href="{% url "terms" %}">Terms and Conditions</a></li>
                 </ul>
             </div>
             <div class="footer-section">

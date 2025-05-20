@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Terms and Conditions - RecipeHub{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/terms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="terms-container">
+    <h1 class="terms-title">Terms and Conditions</h1>
+    <p class="terms-update">Last updated: {% now "F j, Y" %}</p>
+
+    <section class="terms-section">
+        <h2>1. License Notice</h2>
+        <p>RecipeHub is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License 2.0</a>:</p>
+        <div class="license-notice">
+            <p>Copyright {% now "Y" %} RecipeHub Contributors</p>
+            <p>Licensed under the Apache License, Version 2.0 (the "License");
+            you may not use this software except in compliance with the License.
+            You may obtain a copy of the License at</p>
+            <p><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+            <p>Unless required by applicable law or agreed to in writing, software
+            distributed under the License is distributed on an "AS IS" BASIS,
+            WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            See the License for the specific language governing permissions and
+            limitations under the License.</p>
+        </div>
+    </section>
+
+    <section class="terms-section">
+        <h2>2. Third-Party Components</h2>
+        <p>This application uses the following third-party components:</p>
+        <ul class="components-list">
+            <li>Django web framework (<a href="https://github.com/django/django/blob/main/LICENSE" target="_blank">BSD License</a>)</li>
+            <li>Font Awesome icons (<a href="https://fontawesome.com/license" target="_blank">CC BY 4.0 License</a>)</li>
+        </ul>
+    </section>
+
+    <section class="terms-section">
+        <h2>3. User Responsibilities</h2>
+        <p>When contributing to RecipeHub, you agree to:</p>
+        <ul>
+            <li>License your contributions under the Apache 2.0 License</li>
+            <li>Not submit copyrighted material without permission</li>
+            <li>Clearly indicate if your submission includes third-party content with compatible licenses</li>
+        </ul>
+    </section>
+
+    <section class="terms-section">
+        <h2>4. Modifications and Redistribution</h2>
+        <p>Users may modify and redistribute RecipeHub in accordance with the Apache 2.0 License requirements, including:</p>
+        <ul>
+            <li>Preserving all original copyright notices</li>
+            <li>Providing a copy of the License</li>
+            <li>Clearly stating any significant changes made to the original files</li>
+        </ul>
+    </section>
+
+    <section class="terms-section">
+        <h2>5. Disclaimer of Warranty</h2>
+        <p>As required by the Apache 2.0 License, RecipeHub is provided "AS IS", WITHOUT WARRANTY OF ANY KIND, express or implied.</p>
+    </section>
+
+    <section class="terms-section">
+        <h2>6. Limitation of Liability</h2>
+        <p>In no event shall the RecipeHub team be liable for any damages arising from the use of this software.</p>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/terms.js' %}"></script>
+{% endblock %}
