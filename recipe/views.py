@@ -11,7 +11,7 @@ from django.db.models import Q
 # Create your views here.
 @login_required
 def viewRecipe(request, id):
-    if request.user.is_authenticated and request.user.account_type == 0:
+    if request.user.is_authenticated and (request.user.account_type == 0 or request.user.account_type == 1):
         recipe = get_object_or_404(Recipe, id=id)
         status = FavoriteRecipes.objects.filter(user=request.user, recipe=recipe).exists()
         context = {
@@ -21,7 +21,7 @@ def viewRecipe(request, id):
             'fav_message': "Added to favorites" if status else "Add to favorites",
             'acc_type': request.user.account_type
         }
-        return render(request, "user/ViewRecipe.html", context=context)
+        return render(request, "recipe/view_recipe.html", context=context)
     else:
         return redirect('dashboard')
 
@@ -38,7 +38,7 @@ def addRecipe(request):
             form = RecipeForm()
         
         recipes = Recipe.objects.all()
-        return render(request, "admin/Add-Recipe.html", {'form': form, "count" : recipes.count()+1})
+        return render(request, "recipe/add_recipe.html", {'form': form, "count" : recipes.count()+1})
     else:
         return redirect('dashboard')
 
@@ -51,7 +51,7 @@ def manageRecipe(request):
             recipes = Recipe.objects.filter(
                 Q(name__icontains=search_query)
             )
-        return render(request, "admin/recipes.html", {"recipes": recipes, "search_query": search_query})
+        return render(request, "recipe/recipes.html", {"recipes": recipes, "search_query": search_query})
     else:
         return redirect('dashboard')
 
@@ -65,19 +65,19 @@ def editRecipe(request, id):
                 # Add a new empty ingredient
                 recipe.ingredients.append("")
                 recipe.save()
-                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
                 
             elif 'add_quantity' in request.POST:
                 # Add a new empty quantity
                 recipe.quantity.append("")
                 recipe.save()
-                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
                 
             elif 'add_step' in request.POST:
                 # Add a new empty step
                 recipe.steps.append("")
                 recipe.save()
-                return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+                return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
                 
             elif 'save' in request.POST:
                 # Update recipe data
@@ -96,7 +96,7 @@ def editRecipe(request, id):
                 messages.success(request, 'Recipe updated successfully!')
                 return redirect('manageRecipe')
         
-        return render(request, "admin/Edit-Recipe.html", {"recipe": recipe})
+        return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
     else:
         return redirect('dashboard')
 

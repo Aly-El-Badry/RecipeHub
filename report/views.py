@@ -12,14 +12,14 @@ def add_report(request):
             if form.is_valid():
                 report = form.save()
                 messages.success(request, 'Your report has been submitted successfully.')
-                return render(request, 'user/report.html', {
+                return render(request, 'report/report.html', {
                     'form': ReportForm(),
                     'success': True
                 })
         else:
             form = ReportForm()
         
-        return render(request, 'User/report.html', {
+        return render(request, 'report/report.html', {
             'form': form,
             'success': False
         })
@@ -30,7 +30,7 @@ def add_report(request):
 def view_reports_list(request):
     if request.user.is_authenticated and request.user.account_type == 1:
         reports = Report.objects.all()
-        return render(request, 'admin/reports_list.html', {'reports': reports})
+        return render(request, 'report/reports_list.html', {'reports': reports})
     else:
         return redirect('dashboard')
 
@@ -38,6 +38,6 @@ def view_reports_list(request):
 def view_report_detail(request, report_id):
     if request.user.is_authenticated and request.user.account_type == 1:
         report = get_object_or_404(Report, id=report_id)
-        return render(request, 'admin/report_detail.html', {'report': report})
+        return render(request, 'report/report_detail.html', {'report': report})
     else:
         return redirect('dashboard')
