@@ -33,7 +33,7 @@
                 <div class="profile-header">
                     <div class="profile-avatar-container">
                         {% if image_url == NULL %}
-                            <img src="{% static "images/woman.png" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
+                            <img src="{% static "images/default.jpg" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
                         {% else %}
                             <img src="{{ image_url }}" alt="Profile", class="profile-avatar" id="profileAvatar" >
                         {% endif %}

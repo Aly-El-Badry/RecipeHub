@@ -129,3 +129,5 @@ def refuse_user(request, user_id):
         return redirect('users')
     return redirect('dashboard')
 
+def terms(request):
+    return render(request, 'terms.html')
