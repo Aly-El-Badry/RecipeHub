@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
-    return render(request, 'landing.html')
+    return render(request, 'Interface/landing.html')
 
 def dashboard(request):
     if request.user.is_authenticated:

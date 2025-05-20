@@ -1,0 +1,186 @@
+<!----------------------------- author : Malak Mohamed Refaat ------------------------------------->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Profile Page</title>
+        <link rel="icon" type="image/x-icon" href="../../static/images/chef.png">
+        <link rel="stylesheet" href="../../static/user/css/profile_page.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="../../static/components/css/navbar.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-utensils"></i><p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive;">RecipeHub</p>
+                </a>
+                <button class="menu-toggle">
+                    <span class="menu-icon"></span>
+                </button>
+                <div class="nav-menu">
+                    
+                    <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                        <a href="{% url 'report' %}" class="nav-link" target="_blank"><i class="fas fa-bookmark"></i> Report</a>
+                        <a href="favourites.html" class="nav-link" target="_blank"><i class="fas fa-star"></i> Favourites</a>
+                    <a href="../../templates/accounts/login.html" class="nav-link"><i class="fas fa-cog"></i> Log out</a>
+                    
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-avatar-container">
+                        <img src="../../static/images/woman.png" alt="Profile" class="profile-avatar" id="profileAvatar">
+                        <img src="../../static/images/plus.png" alt="Edit" class="profile-edit" id="editProfileBtn">
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="display-name">Full Name</h1>
+                        <p id="userName">User Name</p>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Personal Information</h2>
+                        <button class="edit" id="editPersonal">Edit</button>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">First Name</div>
+                            <div class="info-value" id="firstname">User Name</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Last Name</div>
+                            <div class="info-value" id="lastname">Mohamed</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email</div>
+                            <div class="info-value" id="email">x.r@example.com</div>
+                        </div>
+                        <!--<div class="info-item">
+                            <div class="info-label">Phone</div>
+                            <div class="info-value" id="phone">01154......</div>
+                        </div>-->
+                        <div class="info-item">
+                            <div class="info-label">Date of Birth</div>
+                            <div class="info-value" id="datebirth">May 1, 2005</div>
+                        </div>
+                       <!--<div class="info-item">
+                            <div class="info-label">Gender</div>
+                            <div class="info-value" id="gender">Female</div>
+                        </div>-->
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Location Information</h2>
+                        <button class="edit" id="editLocationInfo">Edit</button>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Country</div>
+                            <div class="info-value" id="country">x</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">City</div>
+                            <div class="info-value" id="city">x</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Address</div>
+                            <div class="info-value" id="address">123 famcccily park</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Info -->
+        <div class="modal" id="personalModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Personal Information</h2>
+                <form id="personalForm">
+                    <div class="form-group">
+                        <label for="editFirstname">First Name</label>
+                        <input type="text" id="editFirstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastname">Last Name</label>
+                        <input type="text" id="editLastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" required>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="editPhone">Phone</label>
+                        <input type="tel" id="editPhone">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="editDatebirth">Date of Birth</label>
+                        <input type="text" id="editDatebirth">
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="editGender">Gender</label>
+                        <select id="editGender">
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>-->
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--location-->
+        <div class="modal" id="locationModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Location Information</h2>
+                <form id="locationForm">
+                    <div class="form-group">
+                        <label for="editCountry">Country</label>
+                        <input type="text" id="editCountry">
+                    </div>
+                    <div class="form-group">
+                        <label for="editCity">City</label>
+                        <input type="text" id="editCity">
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Address</label>
+                        <input type="text" id="editAddress">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--image-->
+        <div class="imgmodel-overlay" id="imgmodel">
+            <div class="imgmodel-content">
+              <h2 class="imgmodel-title">Change Profile Image</h2>
+              <img id="imagePreview" class="image-preview" alt="Preview">
+              <input type="file" id="fileInput" accept="image/*" style="display:none">
+              <div>
+                <button class="upload-btn" id="chooseImageBtn">Choose Image</button>
+                <button class="upload-btn cancel-btn" id="cancelUpload">Cancel</button>
+                <button class="upload-btn" id="saveImageBtn" disabled>Save</button>
+              </div>
+            </div>
+          </div>
+          
+        <script type="module" src="../../static/user/js/profile.js"></script>
+    </body>
+</html>
