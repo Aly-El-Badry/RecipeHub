@@ -21,7 +21,7 @@ def dashboard(request):
                 "users": Users.count(),
                 "recent_recipes": recent_recipes,
             }
-            return render(request, "admin/dashboard.html", data)
+            return render(request, "Interface/admin_dashboard.html", data)
         elif request.user.account_type == 0:
             recipes = Recipe.objects.all().order_by('id')
 
@@ -67,11 +67,11 @@ def dashboard(request):
                 'filter_by': filter_by
             }
 
-            return render(request, "user/dashboard.html", context)
+            return render(request, "Interface/user_dashboard.html", context)
         elif request.user.account_type == -1: 
-            return render(request, "pending.html")
+            return render(request, "Interface/pending.html")
         elif request.user.account_type == -2:
-            return render(request, "refused.html")
+            return render(request, "Interface/refused.html")
     else:
         return redirect('login')
 
@@ -86,7 +86,7 @@ def users(request):
                 users = User.objects.filter(
                     Q(username__icontains=search_query)
                 )
-            return render(request, "admin/users.html",{"users" : users, 'search_query': search_query} )
+            return render(request, "Interface/users_list.html",{"users" : users, 'search_query': search_query} )
         else:
             return redirect("dashboard")
     else:
@@ -95,7 +95,7 @@ def users(request):
 
 
 def handler404(request, exception):
-    return render(request, '404.html', status=404)
+    return render(request, 'Interface/404.html', status=404)
 
 @login_required
 def delete_user(request, user_id):
