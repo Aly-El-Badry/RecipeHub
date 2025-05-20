@@ -5,9 +5,9 @@
     <meta charset="utf-8"/> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View the recipe</title>
-    <link rel="stylesheet" href="{% static "user/css/ViewRecipe.css" %}">
+    <link rel="stylesheet" href="{% static "recipe/css/view_recipe.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static "components/css/navbar.css" %}">
+    <link rel="stylesheet" href="{% static "css/navbar.css" %}">
     <link rel="icon" type="image/x-icon" href="{% static "images/recipe-book.png" %}">
 </head>
 <body>
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <script src="{% static 'components/js/navbar.js'%}"></script>
+    <script src="{% static 'js/navbar.js'%}"></script>
     <script>
         document.getElementById('favoriteBtn').addEventListener('click', function(e) {
             if ({{ acc_type }} === 1) {
