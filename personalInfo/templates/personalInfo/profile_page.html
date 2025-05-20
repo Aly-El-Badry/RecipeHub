@@ -37,11 +37,11 @@
                 <div class="profile-header">
                     <div class="profile-avatar-container">
                         {% if image_url == NULL %}
-                            <img src="{% media "default.png" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
+                            <img src="{% static "images/default.png" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
                         {% else %}
                             <img src="{{ image_url }}" alt="Profile", class="profile-avatar" id="profileAvatar" >
                         {% endif %}
-                            <img src="{% media "plus.png" %}" alt="Edit" class="profile-edit" id="editProfileBtn">
+                            <img src="{% static "images/plus.png" %}" alt="Edit" class="profile-edit" id="editProfileBtn">
                     </div>
                     <div class="profile-info">
                         <h1 id="display-name">{{ first_name }} {{ last_name }}</h1>
