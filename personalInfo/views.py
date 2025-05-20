@@ -20,7 +20,7 @@ def profile(request):
             'image_url': request.user.profile_image_url,
             'form': form,
         }
-        return render(request, "profile_page.html", context=context)
+        return render(request, "personalInfo/profile_page.html", context=context)
     return redirect('login')
 
 
@@ -74,6 +74,6 @@ def favoriteRecipes(request):
             return redirect('dashboard')
         elif request.user.account_type == 0:
             favs = FavoriteRecipes.objects.filter(user=request.user).select_related('recipe')
-            return render(request, "user/favourites.html", {'favs': favs})
+            return render(request, "personalInfo/favourites.html", {'favs': favs})
     else:
         return redirect('login')
