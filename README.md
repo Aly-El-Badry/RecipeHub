@@ -1,13 +1,14 @@
-# RecipeHub
+<p style="font-family: 'Brush Script MT', 'Brush Script Std', cursive; font-size: 60px;"> <i class="fa-solid fa-utensils fa-sm" style="color: #d1d1d1;"></i> RecipeHub </p>
+
 ___
 
 <div style="display: flex;">
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg) ![Django](https://img.shields.io/badge/Django-5.2-green.svg) ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg) ![Django](https://img.shields.io/badge/Django-5.2-blue.svg) ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 
 </div>
 
-![screenshot](media/screenshot.png)
+![screenshot](static/images/screenshot.png)
 
 ## Table of Contents
 - [Description](#description)
