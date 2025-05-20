@@ -8,6 +8,10 @@
         <link rel="stylesheet" href="{% static "personalInfo/css/profile_page.css" %}">
         <link rel="stylesheet" href="{% static "css/navbar.css" %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script type="application/javascript">
+            (function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments);};(js=d.createElement(s)),(fjs=d.getElementsByTagName(s)[0]);js.id=o;js.src=f;js.async=1;js.referrerPolicy = "origin";fjs.parentNode.insertBefore(js,fjs);})(window,document,"script","copilot","https://script.copilot.live/v1/copilot.min.js?tkn=cat-bmib7sbh");
+            copilot("init",{});
+        </script>
     </head>
     <body>
         <nav class="navbar">
@@ -33,11 +37,11 @@
                 <div class="profile-header">
                     <div class="profile-avatar-container">
                         {% if image_url == NULL %}
-                            <img src="{% static "images/default.jpg" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
+                            <img src="{% media "default.png" %}" alt="Profile" class="profile-avatar" id="profileAvatar">
                         {% else %}
                             <img src="{{ image_url }}" alt="Profile", class="profile-avatar" id="profileAvatar" >
                         {% endif %}
-                            <img src="{% static "images/plus.png" %}" alt="Edit" class="profile-edit" id="editProfileBtn">
+                            <img src="{% media "plus.png" %}" alt="Edit" class="profile-edit" id="editProfileBtn">
                     </div>
                     <div class="profile-info">
                         <h1 id="display-name">{{ first_name }} {{ last_name }}</h1>

@@ -7,7 +7,7 @@ ___
 
 </div>
 
-![screenshot](static/images/screenshot.png)
+![screenshot](media/screenshot.png)
 
 ## Table of Contents
 - [Description](#description)
