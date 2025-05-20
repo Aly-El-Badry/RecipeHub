@@ -53,7 +53,13 @@
 
                     <div class="form-group">
                         <label for="{{ form.screenshot.id_for_label }}">Screenshot (optional)</label>
-                        {{ form.screenshot }}
+                        <div class="file-upload-container">
+                            {{ form.screenshot }}
+                            <small class="file-help-text">You can upload a screenshot to help us understand the issue better</small>
+                            <div class="file-upload-preview">
+                                <img id="imagePreview" src="#" alt="Preview" style="display: none; max-width: 100%; margin-top: 10px;">
+                            </div>
+                        </div>
                         {{ form.screenshot.errors }}
                     </div>
 
@@ -77,5 +83,23 @@
         </div>
 
         <script src="{% static 'report/js/report.js' %}"></script>
+        <script>
+            // Image preview functionality
+            document.getElementById('id_screenshot').addEventListener('change', function(e) {
+                const preview = document.getElementById('imagePreview');
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.style.display = 'none';
+                }
+            });
+        </script>
     </body>
 </html>
