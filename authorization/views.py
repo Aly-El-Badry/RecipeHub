@@ -17,7 +17,7 @@ def signup(request):
             return redirect('dashboard')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'authorization/signup.html', {'form': form})
 
 
 
@@ -31,10 +31,10 @@ def login_view(request):
         else:
             # Get the specific error message
             error_message = 'Invalid email or password.'
-            return render(request, 'login.html', {'form': form, 'error_message': error_message})
+            return render(request, 'authorization/login.html', {'form': form, 'error_message': error_message})
     else:
         form = LoginForm()          
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'authorization/login.html', {'form': form})
 
 
 
@@ -54,7 +54,7 @@ def reset_view(request):
             return redirect('login')
     else:
         form = PasswordResetForm()
-    return render(request, 'reset-password.html', {'form': form})
+    return render(request, 'authorization/reset_password.html', {'form': form})
 
 
 import datetime, json
