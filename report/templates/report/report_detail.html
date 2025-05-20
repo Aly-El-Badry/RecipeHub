@@ -64,11 +64,11 @@
                     </div>
                 </div>
 
-                {% if report.screenshot %}
+                {% if report.image_url %}
                 <div class="detail-section">
                     <h3>Screenshot</h3>
                     <div class="screenshot-container">
-                        <img src="{{ report.screenshot.url }}" alt="Report Screenshot" class="report-screenshot">
+                        <img src="{{ report.image_url }}" alt="Report Screenshot" class="report-screenshot">
                     </div>
                 </div>
                 {% endif %}

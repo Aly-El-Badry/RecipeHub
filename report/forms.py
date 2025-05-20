@@ -33,13 +33,7 @@ class ReportForm(forms.ModelForm):
         validators=[safe_text_validator]
     )
     
-    screenshot = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(attrs={
-            'class': 'cust-input',
-            'accept': 'image/*'
-        })
-    )
+    screenshot = forms.ImageField()
     
     email = forms.EmailField(
         required=False,
@@ -52,14 +46,3 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ['report_type', 'description', 'screenshot', 'email']
-        widgets = {
-            'report_type': forms.Select(attrs={'class': 'cust-input'}),
-            'screenshot': forms.FileInput(attrs={
-                'class': 'cust-input',
-                'accept': 'image/*'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'cust-input',
-                'placeholder': 'user@example.com'
-            })
-        }

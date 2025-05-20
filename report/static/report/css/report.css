@@ -216,4 +216,56 @@ body {
     .form-group textarea {
         padding: 0.7rem;
     }
+}
+
+.file-upload-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.file-upload-container input[type="file"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.file-upload-container input[type="file"]:hover {
+    border-color: var(--primary-color);
+}
+
+.file-upload-container input[type="file"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(163, 163, 253, 0.2);
+}
+
+.file-upload-preview {
+    margin-top: 1rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.file-upload-preview img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-normal);
+}
+
+.file-upload-preview img:hover {
+    transform: scale(1.02);
+}
+
+.file-help-text {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-style: italic;
 } 

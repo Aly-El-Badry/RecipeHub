@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils import timezone
+import cloudinary
+import cloudinary.uploader
+from django.core.exceptions import ValidationError
 
 class Report(models.Model):
     REPORT_TYPES = [
@@ -20,12 +23,7 @@ class Report(models.Model):
         verbose_name='Description of the Problem'
     )
     
-    screenshot = models.ImageField(
-        upload_to='report_screenshots/',
-        null=True,
-        blank=True,
-        verbose_name='Screenshot'
-    )
+    image_url = models.URLField(max_length=500, blank=True, null=True)
     
     email = models.EmailField(
         null=True,
