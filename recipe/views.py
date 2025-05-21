@@ -32,7 +32,6 @@ def viewRecipe(request, id):
 def addRecipe(request):
     if request.user.is_authenticated and request.user.account_type == 1:
         if request.method == 'POST':
-            
             form = RecipeForm(request.POST, request.FILES)
             if form.is_valid():
                 try:
@@ -55,7 +54,7 @@ def addRecipe(request):
             else:
                 messages.error(request, 'Please correct the errors below.')
         else:
-            form = RecipeForm(request.POST, request.FILES)
+            form = RecipeForm()  # Initialize empty form for GET request
         recipes = Recipe.objects.all()
         return render(request, "recipe/add_recipe.html", {'form': form, "count": recipes.count()+1})
     else:
