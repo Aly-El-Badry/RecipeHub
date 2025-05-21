@@ -7,6 +7,9 @@ from authorization.models import User
 from personalInfo.models import FavoriteRecipes
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+import cloudinary
+from django.core.exceptions import ValidationError
+
 
 # Create your views here.
 @login_required
@@ -27,18 +30,34 @@ def viewRecipe(request, id):
 
 @login_required
 def addRecipe(request):
-    if request.user.is_authenticated and request.user.account_type == 1 :
+    if request.user.is_authenticated and request.user.account_type == 1:
         if request.method == 'POST':
-            form = RecipeForm(request.POST)
+            
+            form = RecipeForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save()
-                messages.success(request, 'Recipe added successfully!')
-                return redirect('dashboard')
+                try:
+                    image = form.cleaned_data['imageMain']
+                    result = cloudinary.uploader.upload(image)
+                    image_url = result['secure_url']
+                    
+                    recipe = form.save(commit=False)
+                    recipe.image = image_url
+                    recipe.save()
+
+                    messages.success(request, 'Recipe added successfully!')
+                    return redirect('dashboard')
+                except ValidationError as e:
+                    messages.error(request, str(e))
+                    return render(request, "recipe/add_recipe.html", {'form': form})
+                except Exception as e:
+                    messages.error(request, f'Error saving recipe: {str(e)}')
+                    return render(request, "recipe/add_recipe.html", {'form': form})
+            else:
+                messages.error(request, 'Please correct the errors below.')
         else:
-            form = RecipeForm()
-        
+            form = RecipeForm(request.POST, request.FILES)
         recipes = Recipe.objects.all()
-        return render(request, "recipe/add_recipe.html", {'form': form, "count" : recipes.count()+1})
+        return render(request, "recipe/add_recipe.html", {'form': form, "count": recipes.count()+1})
     else:
         return redirect('dashboard')
 
@@ -80,21 +99,30 @@ def editRecipe(request, id):
                 return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
                 
             elif 'save' in request.POST:
-                # Update recipe data
-                recipe.name = request.POST.get('name')
-                recipe.course_type = request.POST.get('course_type')
-                recipe.time = request.POST.get('time')
-                recipe.food_type = request.POST.get('food_type')
-                recipe.image = request.POST.get('image')
-                
-                # Handle ingredients, quantities, and steps as line-separated text
-                recipe.ingredients = [ing.strip() for ing in request.POST.get('ingredients').split('\n') if ing.strip()]
-                recipe.quantity = [qty.strip() for qty in request.POST.get('quantity').split('\n') if qty.strip()]
-                recipe.steps = [step.strip() for step in request.POST.get('steps').split('\n') if step.strip()]
-                
-                recipe.save()
-                messages.success(request, 'Recipe updated successfully!')
-                return redirect('manageRecipe')
+                try:
+                    # Update recipe data
+                    recipe.name = request.POST.get('name')
+                    recipe.course_type = request.POST.get('course_type')
+                    recipe.time = request.POST.get('time')
+                    recipe.food_type = request.POST.get('food_type')
+                    
+                    # Handle image upload if a new image was provided
+                    if 'image' in request.FILES:
+                        image = request.FILES['image']
+                        result = cloudinary.uploader.upload(image)
+                        recipe.image = result['secure_url']
+                    
+                    # Handle ingredients, quantities, and steps as line-separated text
+                    recipe.ingredients = [ing.strip() for ing in request.POST.get('ingredients').split('\n') if ing.strip()]
+                    recipe.quantity = [qty.strip() for qty in request.POST.get('quantity').split('\n') if qty.strip()]
+                    recipe.steps = [step.strip() for step in request.POST.get('steps').split('\n') if step.strip()]
+                    
+                    recipe.save()
+                    messages.success(request, 'Recipe updated successfully!')
+                    return redirect('manageRecipe')
+                except Exception as e:
+                    messages.error(request, f'Error updating recipe: {str(e)}')
+                    return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
         
         return render(request, "recipe/edit_recipe.html", {"recipe": recipe})
     else:

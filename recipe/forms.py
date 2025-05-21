@@ -1,7 +1,7 @@
 from django import forms
 from .models import Recipe
 from django.core.exceptions import ValidationError
-import cloudinary
+
 
 class RecipeForm(forms.ModelForm):
     ingredients = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), 
@@ -11,12 +11,18 @@ class RecipeForm(forms.ModelForm):
     steps = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), 
                           help_text="Enter each step on a new line")
 
+    imageMain = forms.ImageField(required=True) 
+    
     class Meta:
         model = Recipe
-        fields = ['name', 'image', 'course_type', 'time', 'food_type', 'ingredients', 'quantity', 'steps']
+        fields = ['name', 'imageMain', 'course_type', 'time', 'food_type', 'ingredients', 'quantity', 'steps']
         widgets = {
             'time': forms.NumberInput(attrs={'min': 1}),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
 
     def clean_ingredients(self):
         ingredients = self.cleaned_data['ingredients']
@@ -29,19 +35,5 @@ class RecipeForm(forms.ModelForm):
     def clean_steps(self):
         steps = self.cleaned_data['steps']
         return [step.strip() for step in steps.split('\n') if step.strip()]
+
     
-    def clean_image(self):
-        image_url = self.cleaned_data.get('image')
-        if image_url and not image_url.startswith('https://res.cloudinary.com'):
-            try:
-                upload_result = cloudinary.uploader.upload(
-                    image_url,
-                    folder="recipe_app/",
-                    public_id=f"recipe_{self.cleaned_data.get('name', '').lower().replace(' ', '_')}",
-                    overwrite=True,
-                    resource_type="image"
-                )
-                return upload_result['secure_url']
-            except Exception as e:
-                raise ValidationError(f"Image upload failed: {str(e)}")
-        return image_url

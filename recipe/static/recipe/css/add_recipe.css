@@ -142,4 +142,44 @@ textarea {
     .cancel-btn {
         width: 100%;
     }
+}
+
+.file-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input:hover {
+    border-color: var(--primary-color);
+    background-color: #f8f9fa;
+}
+
+.file-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(163, 163, 253, 0.2);
+}
+
+.file-upload-preview {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload-preview img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.file-upload-preview img:hover {
+    transform: scale(1.02);
 } 

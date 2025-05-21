@@ -38,7 +38,7 @@
         <div class="container">
             <h1>Add New Recipe</h1>
             
-            <form method="POST" class="recipe-form">
+            <form method="POST" class="recipe-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 <div class="form-group">
@@ -50,10 +50,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="{{ form.image.id_for_label }}">Image URL:</label>
-                    {{ form.image }}
-                    {% if form.image.errors %}
-                    <div class="error">{{ form.image.errors }}</div>
+                    <label for="{{ form.imageMain.id_for_label }}">Image:</label>
+                    {{ form.imageMain }}
+                    {% if form.imageMain.errors %}
+                    <div class="error">{{ form.imageMain.errors }}</div>
                     {% endif %}
                 </div>
 

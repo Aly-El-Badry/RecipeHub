@@ -266,8 +266,14 @@
                 </div>
                 
                 <div>
-                    <label class="tags">Recipe Image URL:</label>
-                    <input class="inputLetters" type="url" name="image" value="{{ recipe.image }}" required>
+                    <label class="tags">Recipe Image:</label>
+                    {% if recipe.image %}
+                    <div class="current-image">
+                        <img src="{{ recipe.image }}" alt="Current recipe image" style="max-width: 300px; border-radius: 8px;">
+                    </div>
+                    {% endif %}
+                    <input class="input" type="file" name="image" accept="image/*">
+                    <small style="color: #666; display: block; margin-top: 5px;">Leave empty to keep the current image</small>
                 </div>
                 
                 <div class="button-group">

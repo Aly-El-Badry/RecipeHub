@@ -12,10 +12,8 @@ def add_report(request):
             form = ReportForm(request.POST, request.FILES)
             if form.is_valid():
                 try:
-                    # Create report instance but don't save yet
                     report = form.save(commit=False)
                     
-                    # Handle file upload if present and not empty
                     try:
                         image = form.cleaned_data['screenshot']
                         result = cloudinary.uploader.upload(image)
