@@ -12,8 +12,38 @@
             (function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments);};(js=d.createElement(s)),(fjs=d.getElementsByTagName(s)[0]);js.id=o;js.src=f;js.async=1;js.referrerPolicy = "origin";fjs.parentNode.insertBefore(js,fjs);})(window,document,"script","copilot","https://script.copilot.live/v1/copilot.min.js?tkn=cat-bmib7sbh");
             copilot("init",{});
         </script>
+        <style>
+            .loading-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 9999;
+                justify-content: center;
+                align-items: center;
+            }
+            .loading-spinner {
+                width: 50px;
+                height: 50px;
+                border: 5px solid #f3f3f3;
+                border-top: 5px solid #a3a3fd;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
     </head>
     <body>
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+        </div>
         <nav class="navbar">
             <div class="nav-container">
                 <a class="navbar-brand" href="{% url "home" %}">
@@ -123,8 +153,13 @@
             </div>
           </div>
           
-          <script src="{% static "personalInfo/js/profile_page.js" %}"></script>
-          <script src="{% static 'js/navbar.js' %}" defer></script>
+        <script src="{% static "personalInfo/js/profile_page.js" %}"></script>
+        <script src="{% static 'js/navbar.js' %}" defer></script>
+        <script>
+            document.getElementById('imageUploadForm').addEventListener('submit', function(e) {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+            });
+        </script>
     </body>
 </html>
 
