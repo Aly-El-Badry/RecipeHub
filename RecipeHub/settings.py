@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0-k_#+k1922^4ceje-b9&3juyaj3&4=dlw#t*r@h44(il1slmh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'https://recipehub-vcqd.onrender.com/']
 
 # Static settings
 STATIC_URL = '/static/'
@@ -60,6 +60,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://your-render-url.onrender.com',
+    'https://*.onrender.com',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'RecipeHub.urls'
 
